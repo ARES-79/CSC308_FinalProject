@@ -4,7 +4,7 @@ import java.awt.*;
 /**
  * Assignment 01
  * @author Andrew Estrada
- * @version 1.0
+ * @version 1.3
  * UMLApp Class - a UML application GUI framework
  */
 public class UMLApp extends JFrame {
@@ -29,6 +29,7 @@ public class UMLApp extends JFrame {
     public UMLApp() {
         super("My UML App");
         setLayout(new BorderLayout());
+        MainController mC = new MainController();
 
         //menu
         JMenuBar menuBar = new JMenuBar();
@@ -98,5 +99,16 @@ public class UMLApp extends JFrame {
         //south
         south = new JLabel("   Temp Label");
         add(south, BorderLayout.SOUTH);
+
+        //actionListeners
+        newB.addActionListener(mC);
+        save.addActionListener(mC);
+        load.addActionListener(mC);
+
+        update.addActionListener(mC);
+
+        association.addActionListener(mC);
+        inheritance.addActionListener(mC);
+        composition.addActionListener(mC);
     }
 }
