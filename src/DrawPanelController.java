@@ -28,8 +28,8 @@ public class DrawPanelController implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println(e.getX());
-        System.out.println(e.getY());
+        System.out.println("x: " + e.getX() +
+                               ", y: " + e.getY() );
         //Will have to include collision detection
         String input = showDialogueBox();
         System.out.println(input);
