@@ -33,11 +33,20 @@ public class DrawPanelController implements MouseListener, MouseMotionListener {
         //Will have to include collision detection
         String input = showDialogueBox();
         System.out.println(input);
+        if (input != null){
+            System.out.print("A class named \"" + input +
+                            "\" was created at (" + e.getX() +
+                            ", " + e.getY() + ").");
+        }else{
+            System.out.print("User clicked(" + e.getX() +
+                    ", " + e.getY() + "), " +
+                    "but no class was created.");
+        }
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
+        System.out.println("Dragging code");
     }
 
     @Override
