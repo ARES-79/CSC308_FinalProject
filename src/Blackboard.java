@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Blackboard extends MyObservable{
-    private List<Box> BoxList = new ArrayList<Box>();
+    private List<UMLComponent> BoxList = new ArrayList<>();
 
     private static Blackboard blackboard;
 
@@ -23,11 +23,11 @@ public class Blackboard extends MyObservable{
         return blackboard;
     }
 
-    public List<Box> getBoxList() {
+    public List<UMLComponent> getBoxList() {
         return BoxList;
     }
 
-    public void appendBoxList(Box box){
+    public void appendBoxList(UMLComponent box){
         BoxList.add(box);
     }
 
