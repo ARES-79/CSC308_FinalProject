@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
  * MainController Class - class that connects GUI with the model
  */
 public class MainController implements ActionListener {
-    /**
+    /**`
      * actionPerformed - implementation from ActionListener interface
      *      provides functionality for GUI components
      * @param e - ActionEvent notifying that a screen item has been selected
