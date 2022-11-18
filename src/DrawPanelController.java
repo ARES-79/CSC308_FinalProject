@@ -3,40 +3,27 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+/**
+ * Assignment 01
+ * @author Andrew Estrada
+ * @version 1.0
+ * DrawPanelController - class that connects the panel GUI with its model
+ */
 public class DrawPanelController implements MouseListener, MouseMotionListener {
-    /**
-     * showDialogueBox - create a dialogue box to prompt the user to enter a class name
-     * @return String input by the user or null if nothing was entered or the user clicked cancel
-     */
-    public String showDialogueBox(){
-        String s = (String) JOptionPane.showInputDialog(
-                null,
-                "What would you like to name your new class?\n"
-                        + "Name: ",
-                "Create a class",
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                null,
-                null);
 
-        //If a string was returned
-        if ((s != null) && (s.length() > 0)) {
-            return s;
-        }
-        return null;
-    }
+    private DrawPanelModel dpModel = new DrawPanelModel();
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
         System.out.println("x: " + e.getX() +
-                               ", y: " + e.getY() );
+                ", y: " + e.getY() );
         //Will have to include collision detection
-        String input = showDialogueBox();
+        String input = dpModel.showDialogueBox();
         System.out.println(input);
         if (input != null){
             System.out.print("A class named \"" + input +
-                            "\" was created at (" + e.getX() +
-                            ", " + e.getY() + ").");
+                    "\" was created at (" + e.getX() +
+                    ", " + e.getY() + ").");
         }else{
             System.out.print("User clicked(" + e.getX() +
                     ", " + e.getY() + "), " +
@@ -48,14 +35,13 @@ public class DrawPanelController implements MouseListener, MouseMotionListener {
     public void mouseDragged(MouseEvent e) {
         System.out.println("Dragging code");
     }
-
     @Override
-    public void mousePressed(MouseEvent e) {
+    public void mouseReleased(MouseEvent e) {
 
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mouseClicked(MouseEvent e) {
 
     }
 

@@ -2,6 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Observable;
 
+/**
+ * Assignment 01
+ * @author Andrew Estrada
+ * @version 1.0
+ * DrawPanel - section of the application for drawing Classes
+ */
 public class DrawPanel extends JPanel{ // implements Observer
 
     public DrawPanel(){
