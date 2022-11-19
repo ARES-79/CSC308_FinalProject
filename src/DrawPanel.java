@@ -1,36 +1,37 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.Stack;
+import java.util.Observable;
 
 /**
- * Final Project
- * @author Jamie Luna
+ * Assignment 01
+ * @author Andrew Estrada
  * @version 1.0
- * DrawPanel -
+ * DrawPanel - section of the application for drawing Classes
  */
-public class DrawPanel extends JPanel {
-    private final DrawPanelController drawPanelController;
-//    private Stack<Box> stack = new Stack<>();
+public class DrawPanel extends JPanel{ // implements Observer
 
-    public DrawPanel(DrawPanelController drawPanelController) {
-        super();
-        this.drawPanelController = drawPanelController;
-        this.addMouseListener(drawPanelController);
-        this.addMouseMotionListener(drawPanelController);
+    public DrawPanel(){
+        DrawPanelController dpc = new DrawPanelController();
+        addMouseListener(dpc);
+        addMouseMotionListener(dpc);
     }
 
+    /**
+     * paintComponent - overridden method to draw the shapes to the window
+     * @param g - Graphics object used by the parent to create what is shown on screen
+     */
+    @Override
     public void paintComponent(Graphics g){
-        //sets the background
-        g.setColor(getBackground());
-        g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor(getForeground());
+        super.paintComponent(g);
+        //will include drawing classes
+        //will include drawing connections
+    }
 
-        //test box for sizing
-        g.fillRect(100, 100, 125, 75);
-
-        for (Box b : drawPanelController.getStack()){
-            g.setColor(Color.YELLOW);
-            g.fillRect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
-        }
+    /**
+     * temporary version of the update method
+     * @param observable
+     */
+    public void update(Object observable) {
+        repaint();
     }
 }
