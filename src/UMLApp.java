@@ -30,6 +30,7 @@ public class UMLApp extends JFrame {
         super("My UML App");
         setLayout(new BorderLayout());
         MainController mC = new MainController();
+        DrawPanelController drawPanelController = new DrawPanelController();
 
         //menu
         JMenuBar menuBar = new JMenuBar();
@@ -66,9 +67,10 @@ public class UMLApp extends JFrame {
 
         //center
         //must be changed to a custom draw area panel
-        JPanel east = new JPanel();
+        DrawPanel east = new DrawPanel(drawPanelController);
         east.setBackground(Color.GRAY);
         add(east, BorderLayout.CENTER);
+
 
         //north
         JPanel northPanel = new JPanel();
