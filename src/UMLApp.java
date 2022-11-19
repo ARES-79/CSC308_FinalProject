@@ -70,8 +70,7 @@ public class UMLApp extends JFrame {
         add(leftCenter, BorderLayout.WEST);
 
         //center
-        //must be changed to a custom draw area panel
-        JPanel east = new JPanel();
+        DrawPanel east = new DrawPanel();
         east.setBackground(Color.GRAY);
         add(east, BorderLayout.CENTER);
 
