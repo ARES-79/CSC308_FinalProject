@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Assignment 01
@@ -9,7 +10,7 @@ import java.awt.*;
  */
 public class UMLApp extends JFrame {
 
-    private JTextArea textArea;
+    private CustomTextArea textArea;
     private JLabel south;
     /**
      * Main creates a new UMLApp window and allows it to be seen and closed properly.
@@ -57,7 +58,11 @@ public class UMLApp extends JFrame {
 
         //west
         JPanel leftCenter = new JPanel ();
-        textArea = new JTextArea (30,20);
+        textArea = new CustomTextArea (30,20);
+        ArrayList<BoxTempClass> boxes = new ArrayList<>();
+        boxes.add(new BoxTempClass("class1"));
+        boxes.add(new BoxTempClass("class2"));
+        textArea.parseClasses(boxes);
         JScrollPane scroll = new JScrollPane (textArea,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         leftCenter.add(scroll);
