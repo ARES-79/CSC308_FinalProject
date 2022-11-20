@@ -1,15 +1,27 @@
+import java.awt.*;
+
 /**
+ * Final Project
+ * @author Jamie Luna
+ * @version 1.0
  * Box variables-
  * String name, Int x, Int y, Int width, Int height
  */
-public class BoxTempClass {
+public class Box extends UMLComponent{
     private String name;
     private int x;
     private int y;
-    private int width;
-
-    public BoxTempClass(String name) {
+    private int width = 120;
+    private int height = 60;
+    public Box(String name, int x, int y) {
+        super(null);
         this.name = name;
+        this.x = x;
+        this.y = y;
+    }
+
+    public void paintBox(Graphics g){
+        g.fillRect(this.x + width/2, this.y + height/2, this.width, this.height);
     }
 
     public String getName() {
@@ -51,6 +63,4 @@ public class BoxTempClass {
     public void setHeight(int height) {
         this.height = height;
     }
-
-    private int height;
 }
