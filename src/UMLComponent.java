@@ -5,7 +5,7 @@ import java.awt.*;
  * @version 1.0
  * UMLComponent - parent class for the box decorator model
  */
-public abstract class UMLComponent{
+public abstract class UMLComponent implements java.io.Serializable{
     private String name;
     private int x;
     private int y;
