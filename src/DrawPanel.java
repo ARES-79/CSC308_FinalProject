@@ -8,7 +8,7 @@ import java.util.Observable;
  * @version 1.0
  * DrawPanel - section of the application for drawing Classes
  */
-public class DrawPanel extends JPanel{ // implements Observer
+public class DrawPanel extends JPanel implements MyObserver{
 
     public DrawPanel(){
         DrawPanelController dpc = new DrawPanelController();
@@ -23,15 +23,19 @@ public class DrawPanel extends JPanel{ // implements Observer
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
+        for(UMLComponent component : Blackboard.getBlackboard().getBoxList()){
+            component.getBox().paintBox(g);
+        }
         //will include drawing classes
         //will include drawing connections
     }
 
     /**
-     * temporary version of the update method
-     * @param observable
+     * update - Overridden method to update drawPanel
+     * @param ob- MyObservable object sending the update
      */
-    public void update(Object observable) {
+    @Override
+    public void update(MyObservable ob) {
         repaint();
     }
 }
