@@ -17,7 +17,6 @@ public class DrawPanelController implements MouseListener, MouseMotionListener {
     public void mousePressed(MouseEvent e) {
         System.out.println("x: " + e.getX() +
                 ", y: " + e.getY() );
-        //Will have to include collision detection
         if(!dpModel.isInExistingBox(e.getX(),e.getY())) {
             String input = dpModel.showDialogueBox();
             System.out.println(input);
@@ -37,11 +36,14 @@ public class DrawPanelController implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        System.out.println("Dragging code");
+        if(dpModel.isFirstBoxPressed()){
+            dpModel.moveBox(e.getX(),e.getY());
+        }
     }
+
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        dpModel.released();
     }
 
     @Override
