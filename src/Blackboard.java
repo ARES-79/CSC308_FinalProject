@@ -47,4 +47,9 @@ public class Blackboard extends MyObservable{
         System.out.println(connectionType + " connection chosen");
         this.connectionType = connectionType;
     }
+
+    public void reset(){
+        BoxList = new ArrayList<>();
+        updateData();
+    }
 }
