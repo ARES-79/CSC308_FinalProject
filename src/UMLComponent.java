@@ -1,5 +1,10 @@
 import java.awt.*;
-
+/**
+ * Assignment 01
+ * @author Andrew Estrada
+ * @version 1.0
+ * UMLComponent - parent class for the box decorator model
+ */
 public abstract class UMLComponent{
     private String name;
     private int x;
@@ -47,5 +52,16 @@ public abstract class UMLComponent{
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    /**
+     * checkCollision - checks if the mouse is pressed within the class
+     * @param x - x-coordinate of click
+     * @param y - y-coordinate of click
+     * @return true if the mouse is pressed within the class, false otherwise
+     */
+    public boolean checkCollision(int x, int y){
+        return this.x - width / 2 <= x && x <= this.x + width / 2 &&
+                this.y - height / 2 <= y && y <= this.y + height / 2;
     }
 }
