@@ -19,7 +19,7 @@ public class MainController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         System.out.println(e.getActionCommand());
         switch (e.getActionCommand()) {
-            case ("New") -> System.out.println("The user has chosen to create a NEW UML");
+            case ("New") -> Blackboard.getBlackboard().reset();
             case ("Save") -> System.out.println("The user has chosen to SAVE their UML");
             case ("Load") -> System.out.println("The user has chosen to LOAD an existing UML");
 
