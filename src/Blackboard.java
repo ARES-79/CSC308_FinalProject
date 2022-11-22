@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Blackboard extends MyObservable{
     private List<UMLComponent> BoxList = new ArrayList<>();
+    private ConnectionType connectionType = ConnectionType.ASSOCIATION;
 
     private static Blackboard blackboard;
 
@@ -36,5 +37,14 @@ public class Blackboard extends MyObservable{
      */
     public void updateData(){
         notifying();
+    }
+
+    public ConnectionType getConnectionType() {
+        return connectionType;
+    }
+
+    public void setConnectionType(ConnectionType connectionType) {
+        System.out.println(connectionType + " connection chosen");
+        this.connectionType = connectionType;
     }
 }

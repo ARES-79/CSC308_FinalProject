@@ -1,5 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  * Assignment 01
@@ -23,9 +25,9 @@ public class MainController implements ActionListener {
 
             case ("Update") -> System.out.println("The user has made changes that require an UPDATE");
 
-            case ("Association") -> System.out.println("ASSOCIATION connection chosen");
-            case ("Inheritance") -> System.out.println("INHERITANCE connection chosen");
-            case ("Composition") -> System.out.println("COMPOSITION connection chosen");
+            case ("Association") -> Blackboard.getBlackboard().setConnectionType(ConnectionType.ASSOCIATION);
+            case ("Inheritance") -> Blackboard.getBlackboard().setConnectionType(ConnectionType.INHERITANCE);
+            case ("Composition") -> Blackboard.getBlackboard().setConnectionType(ConnectionType.COMPOSITION);
         }
     }
 }

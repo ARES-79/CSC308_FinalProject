@@ -9,7 +9,7 @@ import javax.swing.*;
 public class DrawPanelModel {
 
     private boolean isFirstBoxPressed;
-    //private UMLComponent firstBoxPressed;
+    private UMLComponent firstBoxPressed;
     private int x1, y1;
 
     /**
@@ -39,18 +39,21 @@ public class DrawPanelModel {
      *          on the screen
      * @param x - x coordinate of mouse location
      * @param y - y coordinate of mouse location
-     * @return
+     * @return true if the click is withan an existing box, false otherwise
      */
     public boolean isInExistingBox(int x, int y){
         //iterate through list of UMLComponents in Blackboard
-        //if it is within one of the boxes
-            // call dealWithBox(box it is in)
-            // set x1 and y1 to x and y
-            // return true
-        //else
-            // set isFirstBoxPressed to false
-            // set firstBoxPressed to null
-            // return false
+        for (UMLComponent c: Blackboard.getBlackboard().getBoxList()){
+            if(c.checkCollision(x,y)){
+//                dealWithBox(c);
+                x1 = x;
+                y1 = y;
+                return true;
+            } else{
+                isFirstBoxPressed = false;
+                firstBoxPressed = null;
+            }
+        }
         return false;
     }
 
@@ -58,7 +61,7 @@ public class DrawPanelModel {
      * dealWithBox - either creates connection or sets which box was pressed
      * @param boxPressed - class object that was selected on the screen
      */
-    public void dealWithBox(){ //will take in a UMLComponent
+    public void dealWithBox(UMLComponent boxPressed){
         //if isFirstBoxPressedLabel is set
             // we want to make a connection
             // between the first box pressed and new box pressed
@@ -69,8 +72,6 @@ public class DrawPanelModel {
         //if this is the first box
             // set the isFirstBoxPressed to true
             // set the firstBoxPressed to the input UMLComponent
-
-
     }
 
     /**
