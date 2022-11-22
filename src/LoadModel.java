@@ -44,7 +44,7 @@ public class LoadModel {
         // Deserialization
         try
         {
-            FileInputStream file = new FileInputStream(filename+".ser");
+            FileInputStream file = new FileInputStream("projects/"+filename+".ser");
             ObjectInputStream in = new ObjectInputStream(file);
 
             BoxList = (List<UMLComponent>) in.readObject();
@@ -54,7 +54,6 @@ public class LoadModel {
 
             System.out.println("Project has been deserialized ");
             System.out.println("a = " + BoxList.get(0).getName());
-            System.out.println("a = " + BoxList.get(1).getName());
             Blackboard.getBlackboard().setBoxList(BoxList);
         }
 

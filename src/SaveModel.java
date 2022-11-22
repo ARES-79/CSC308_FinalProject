@@ -34,7 +34,7 @@ public class SaveModel {
     void serialize(String filename){
         try
         {
-            FileOutputStream file = new FileOutputStream(filename+".ser");
+            FileOutputStream file = new FileOutputStream("projects/"+filename+".ser");
             ObjectOutputStream out = new ObjectOutputStream(file);
 
             //for(UMLComponent component: Blackboard.getBlackboard().getBoxList()) {
