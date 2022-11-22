@@ -12,7 +12,6 @@ public class Connection {
     private Box destination;
     private typeOfConnection type;
 
-
     private enum typeOfConnection{
         INHERITANCE,
         ASSOCIATION,
