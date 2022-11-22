@@ -9,7 +9,7 @@ import javax.swing.*;
 public class DrawPanelModel {
 
     private boolean isFirstBoxPressed;
-    //private UMLComponent firstBoxPressed;
+    private UMLComponent firstBoxPressed;
     private int x1, y1;
 
     /**
