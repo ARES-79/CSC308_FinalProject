@@ -7,14 +7,14 @@ import java.awt.*;
  * Box variables-
  * String name, Int x, Int y, Int width, Int height
  */
-public class Box {
+public class Box extends UMLComponent{
     private String name;
     private int x;
     private int y;
     private int width = 120;
     private int height = 60;
-
     public Box(String name, int x, int y) {
+        super(null);
         this.name = name;
         this.x = x;
         this.y = y;
