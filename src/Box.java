@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.List;
 
 /**
  * Final Project
@@ -13,6 +14,8 @@ public class Box extends UMLComponent{
     private int y;
     private int width = 120;
     private int height = 60;
+    private List<Connection> connections;
+
     public Box(String name, int x, int y) {
         super(null);
         this.name = name;
@@ -52,15 +55,7 @@ public class Box extends UMLComponent{
         return width;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
     public int getHeight() {
         return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
     }
 }
