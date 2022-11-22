@@ -24,7 +24,7 @@ public class DrawPanel extends JPanel implements MyObserver{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         for(UMLComponent component : Blackboard.getBlackboard().getBoxList()){
-            component.getBox().paintBox(g);
+            component.paintBox(g);
         }
         //will include drawing classes
         //will include drawing connections

@@ -16,9 +16,10 @@ public class CustomTextArea extends JTextArea implements MyObserver {
 
     @Override
     public void update(MyObservable ob) {
-        List<Box> umlComponents = Blackboard.getBlackboard().getBoxList().stream().map(UMLComponent::getBox).collect(Collectors.toList());
-        this.setText("");
-        this.parseClasses(umlComponents);
+        //The getBox call of umlComponents causes an error
+//        List<Box> umlComponents = Blackboard.getBlackboard().getBoxList().stream().map(UMLComponent::getBox).collect(Collectors.toList());
+//        this.setText("");
+//        this.parseClasses(umlComponents);
 
     }
 }
