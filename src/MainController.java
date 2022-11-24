@@ -19,15 +19,15 @@ public class MainController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         System.out.println(e.getActionCommand());
         switch (e.getActionCommand()) {
-            case ("New") -> System.out.println("The user has chosen to create a NEW UML");
-            case ("Save") -> System.out.println("The user has chosen to SAVE their UML");
-            case ("Load") -> System.out.println("The user has chosen to LOAD an existing UML");
+            case ("New") -> Blackboard.getBlackboard().reset();
+            case ("Save") -> new SaveModel();
+            case ("Load") -> new LoadModel();
 
             case ("Update") -> System.out.println("The user has made changes that require an UPDATE");
 
-            case ("Association") -> System.out.println("ASSOCIATION connection chosen");
-            case ("Inheritance") -> System.out.println("INHERITANCE connection chosen");
-            case ("Composition") -> System.out.println("COMPOSITION connection chosen");
+            case ("Association") -> Blackboard.getBlackboard().setConnectionType(ConnectionType.ASSOCIATION);
+            case ("Inheritance") -> Blackboard.getBlackboard().setConnectionType(ConnectionType.INHERITANCE);
+            case ("Composition") -> Blackboard.getBlackboard().setConnectionType(ConnectionType.COMPOSITION);
         }
     }
 }

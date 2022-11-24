@@ -17,29 +17,33 @@ public class DrawPanelController implements MouseListener, MouseMotionListener {
     public void mousePressed(MouseEvent e) {
         System.out.println("x: " + e.getX() +
                 ", y: " + e.getY() );
-        //Will have to include collision detection
-        String input = dpModel.showDialogueBox();
-        System.out.println(input);
-        if (input != null){
-            System.out.print("A class named \"" + input +
-                    "\" was created at (" + e.getX() +
-                    ", " + e.getY() + ").");
-            Blackboard.getBlackboard().appendBoxList(new UMLComponent(new Box(input, e.getX(), e.getY())));
-            Blackboard.getBlackboard().updateData();
-        }else{
-            System.out.print("User clicked(" + e.getX() +
-                    ", " + e.getY() + "), " +
-                    "but no class was created.");
+        if(!dpModel.isInExistingBox(e.getX(),e.getY())) {
+            String input = dpModel.showDialogueBox();
+            System.out.println(input);
+            if (input != null) {
+                System.out.print("A class named \"" + input +
+                        "\" was created at (" + e.getX() +
+                        ", " + e.getY() + ").");
+                Blackboard.getBlackboard().appendBoxList(new Box(input, e.getX(), e.getY()));
+                Blackboard.getBlackboard().updateData();
+            } else {
+                System.out.print("User clicked(" + e.getX() +
+                        ", " + e.getY() + "), " +
+                        "but no class was created.");
+            }
         }
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        System.out.println("Dragging code");
+        if(dpModel.isFirstBoxPressed()){
+            dpModel.moveBox(e.getX(),e.getY());
+        }
     }
+
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        dpModel.released();
     }
 
     @Override

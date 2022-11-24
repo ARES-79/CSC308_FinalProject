@@ -9,8 +9,8 @@ import javax.swing.*;
 public class DrawPanelModel {
 
     private boolean isFirstBoxPressed;
-    //private UMLComponent firstBoxPressed;
-    private int x1, y1;
+    private UMLComponent firstBoxPressed;
+    private int x1, y1, baseX, baseY;
 
     /**
      * showDialogueBox - create a dialogue box to prompt the user to enter a class name
@@ -39,18 +39,22 @@ public class DrawPanelModel {
      *          on the screen
      * @param x - x coordinate of mouse location
      * @param y - y coordinate of mouse location
-     * @return
+     * @return true if the click is withan an existing box, false otherwise
      */
     public boolean isInExistingBox(int x, int y){
-        //iterate through list of UMLComponents in Blackboard
-        //if it is within one of the boxes
-            // call dealWithBox(box it is in)
-            // set x1 and y1 to x and y
-            // return true
-        //else
-            // set isFirstBoxPressed to false
-            // set firstBoxPressed to null
-            // return false
+        for (UMLComponent c: Blackboard.getBlackboard().getBoxList()){
+            if(c.checkCollision(x,y)){
+                dealWithBox(c);
+                x1 = x;
+                y1 = y;
+                baseX = c.getX();
+                baseY = c.getY();
+                return true;
+            } else{
+                isFirstBoxPressed = false;
+                firstBoxPressed = null;
+            }
+        }
         return false;
     }
 
@@ -58,19 +62,25 @@ public class DrawPanelModel {
      * dealWithBox - either creates connection or sets which box was pressed
      * @param boxPressed - class object that was selected on the screen
      */
-    public void dealWithBox(){ //will take in a UMLComponent
-        //if isFirstBoxPressedLabel is set
+    public void dealWithBox(UMLComponent boxPressed){
+        if(isFirstBoxPressed){
             // we want to make a connection
             // between the first box pressed and new box pressed
             // add the connection to the Blackboard
             // set isFirstBoxPressed to false
             // set firstBoxPressed to null
+        } else{
+            isFirstBoxPressed = true;
+            firstBoxPressed = boxPressed;
+        }
+    }
 
-        //if this is the first box
-            // set the isFirstBoxPressed to true
-            // set the firstBoxPressed to the input UMLComponent
-
-
+    /**
+     * isFirstBoxPressed - getter for isFirstBoxPressed
+     * @return true is a box has already been selected
+     */
+    public boolean isFirstBoxPressed() {
+        return isFirstBoxPressed;
     }
 
     /**
@@ -79,12 +89,9 @@ public class DrawPanelModel {
      * @param y - y coordinate of mouse on screen
      */
     public void moveBox(int x, int y){
-        // int baseX = firstUMLComponent.getX()
-        // int baseY = firstUMlComponent.getY()
-        // changedX = baseX + (x-x1)
-        // changedY = baseY + (y-x1)
-        // update firstUMLComponent coordinates
-        // repaint/update
+        firstBoxPressed.setX(baseX + (x-x1));
+        firstBoxPressed.setY(baseY + (y-y1));
+        Blackboard.getBlackboard().updateData();
     }
 
     /**
@@ -92,8 +99,8 @@ public class DrawPanelModel {
      *            just resets it so no ox is selected
      */
     public void released(){
-        // set isFirstBoxPressed to false
-        // set firstBoxPressed to null
+        isFirstBoxPressed = false;
+        firstBoxPressed = null;
     }
 
 }
