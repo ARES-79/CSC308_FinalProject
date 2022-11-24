@@ -8,7 +8,6 @@ import java.awt.*;
  * and the box containing the list is the origin, while the box in the list is the destination
  * the enum typeOfConnection shows what type should be drawn/used to connect the two boxes
  */
-
 public class Connection {
     private Box destination;
     private ConnectionType type;
