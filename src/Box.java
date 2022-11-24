@@ -14,6 +14,7 @@ public class Box extends UMLComponent{
         super.setY(y);
     }
 
+
     @Override
     public void paintBox(Graphics g){
         g.fillRect(super.getX() - super.getWidth()/2, super.getY() - super.getHeight()/2,
