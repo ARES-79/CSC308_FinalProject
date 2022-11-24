@@ -10,16 +10,15 @@ import java.awt.*;
  */
 public class Connection {
     private Box destination;
-    private typeOfConnection type;
+    private ConnectionType type;
 
+//    private enum typeOfConnection{
+//        INHERITANCE,
+//        ASSOCIATION,
+//        COMPOSITION
+//    }
 
-    private enum typeOfConnection{
-        INHERITANCE,
-        ASSOCIATION,
-        COMPOSITION
-    }
-
-    public Connection(Box b, typeOfConnection t){
+    public Connection(Box b, ConnectionType t){
         this.destination = b;
         this.type = t;
     }
@@ -28,7 +27,7 @@ public class Connection {
         return destination;
     }
 
-    public typeOfConnection getType() {
+    public ConnectionType getType() {
         return type;
     }
 
@@ -40,4 +39,3 @@ public class Connection {
         }
     }
 }
-
