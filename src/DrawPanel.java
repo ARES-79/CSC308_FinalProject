@@ -27,7 +27,7 @@ public class DrawPanel extends JPanel implements MyObserver{
             component.paintBox(g);
         }
         //will include drawing classes
-        //will include drawing connections
+        //        //will include drawing connections
     }
 
     /**

@@ -58,7 +58,7 @@ public class UMLApp extends JFrame {
 
         //west
         JPanel leftCenter = new JPanel ();
-        textArea = new CustomTextArea (30,20);
+        textArea = Blackboard.getBlackboard().getCustomTextArea();
         Blackboard.getBlackboard().addObserver(textArea);
         JScrollPane scroll = new JScrollPane (textArea,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
