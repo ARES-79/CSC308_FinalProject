@@ -6,6 +6,11 @@ public class Blackboard extends MyObservable{
     private List<UMLComponent> BoxList = new ArrayList<>();
     private ConnectionType connectionType = ConnectionType.ASSOCIATION;
     private List<String> savedProjects = new ArrayList<>();
+    private CustomTextArea customTextArea = new CustomTextArea(30, 20);
+
+    public CustomTextArea getCustomTextArea() {
+        return customTextArea;
+    }
 
     private static Blackboard blackboard;
 

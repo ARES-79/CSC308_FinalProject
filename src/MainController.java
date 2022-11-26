@@ -23,7 +23,10 @@ public class MainController implements ActionListener {
             case ("Save") -> new SaveModel();
             case ("Load") -> new LoadModel();
 
-            case ("Update") -> System.out.println("The user has made changes that require an UPDATE");
+            case ("Update") -> {
+                CustomTextArea textArea = Blackboard.getBlackboard().getCustomTextArea();
+                textArea.parseText();
+            }
 
             case ("Association") -> Blackboard.getBlackboard().setConnectionType(ConnectionType.ASSOCIATION);
             case ("Inheritance") -> Blackboard.getBlackboard().setConnectionType(ConnectionType.INHERITANCE);
