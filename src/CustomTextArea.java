@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CustomTextArea extends JTextArea implements MyObserver {
     public CustomTextArea(int x, int y) {
@@ -16,23 +17,26 @@ public class CustomTextArea extends JTextArea implements MyObserver {
 
     public void parseText() {
         String[] text = this.getText().split("class", -1);
-        ArrayList<String> classMethods = new ArrayList<>();
         for (String s : Arrays.copyOfRange(text, 1, text.length)) {
-            String[] splitClass = s.strip().split("\n");
-            String boxName = splitClass[0];
+            ArrayList<String> splitClass = (ArrayList<String>) Arrays.stream(s.strip()
+                            .replace("\n", "").split(" "))
+                    .collect(Collectors.toList());
+            System.out.println(s.strip().replace("\n", ""));
+            System.out.println(splitClass);
+            String boxName = splitClass.get(0);
             UMLComponent box = Blackboard.getBlackboard().getBoxList().stream().filter(b -> b.getName().equals(boxName))
                     .findFirst().orElse(new Box(boxName, 100, 100));
-            int i = 1;
-            while (i < splitClass.length - 1) {
-                System.out.println(splitClass[i] + " " + splitClass[i + 1]);
-                if (splitClass[i + 1].equals("(") && !splitClass[i].equals("method")) {
-                    classMethods.add(splitClass[i]);
-                }
+            int i = 0;
+            while (i < splitClass.size()) {
+//                System.out.println(splitClass[i]);
+//                if (splitClass[i + 1].equals("(") && !splitClass[i].equals("method")) {
+//                    classMethods.add(splitClass[i]);
+//                }
                 i++;
             }
-            for (String method : classMethods) {
-                System.out.println(method);
-            }
+//            for (String method : classMethods) {
+//                System.out.println(method);
+//            }
 
 
             if (!Blackboard.getBlackboard().getBoxList().contains(box)) {
