@@ -1,33 +1,44 @@
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class CustomTextArea extends JTextArea implements MyObserver {
-    public CustomTextArea(int x, int y){
+    public CustomTextArea(int x, int y) {
         super(x, y);
     }
 
-    private void parseClasses(List<UMLComponent> boxes){
-        for(UMLComponent box : boxes) {
+    private void parseClasses(List<UMLComponent> boxes) {
+        for (UMLComponent box : boxes) {
             this.append("class " + box.getName() + " {\n}\n");
         }
     }
 
-    public void parseText(){
+    public void parseText() {
         String[] text = this.getText().split("class", -1);
-        for(String s : Arrays.copyOfRange(text, 1, text.length )){
-            s = s.strip();
-            String boxName = s.split(" ",2)[0];
+        ArrayList<String> classMethods = new ArrayList<>();
+        for (String s : Arrays.copyOfRange(text, 1, text.length)) {
+            String[] splitClass = s.strip().split("\n");
+            String boxName = splitClass[0];
             UMLComponent box = Blackboard.getBlackboard().getBoxList().stream().filter(b -> b.getName().equals(boxName))
-                    .findFirst().orElse(null);
-            if(box != null){
-                System.out.println(box);
+                    .findFirst().orElse(new Box(boxName, 100, 100));
+            int i = 1;
+            while (i < splitClass.length - 1) {
+                System.out.println(splitClass[i] + " " + splitClass[i + 1]);
+                if (splitClass[i + 1].equals("(") && !splitClass[i].equals("method")) {
+                    classMethods.add(splitClass[i]);
+                }
+                i++;
             }
-            else{
-                Box newBox = new Box(boxName, 100, 100);
-                Blackboard.getBlackboard().getBoxList().add(newBox);
-                Blackboard.getBlackboard().notifying();
+            for (String method : classMethods) {
+                System.out.println(method);
             }
+
+
+            if (!Blackboard.getBlackboard().getBoxList().contains(box)) {
+                Blackboard.getBlackboard().appendBoxList(box);
+            }
+            Blackboard.getBlackboard().notifying();
         }
     }
 
