@@ -6,7 +6,7 @@ import java.util.List;
 public class Blackboard extends MyObservable{
     private List<UMLComponent> BoxList = new ArrayList<>();
     private ConnectionType connectionType = ConnectionType.ASSOCIATION;
-    private HashSet<String> savedProjects = new HashSet<>();
+    private HashSet<String> savedProjects = LoadModel.deserializeSavedProjects();
     private CustomTextArea customTextArea = new CustomTextArea(30, 20);
 
     public CustomTextArea getCustomTextArea() {

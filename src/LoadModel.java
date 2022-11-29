@@ -2,12 +2,42 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class LoadModel {
     LoadModel(){
         System.out.println("The user has chosen to LOAD an existing UML");
         deserialize(showDialogueBox());
+    }
+
+    public static HashSet<String> deserializeSavedProjects(){
+        HashSet<String> SavedList = new HashSet<>();
+
+        // Deserialization
+        try
+        {
+            FileInputStream file = new FileInputStream("list/SavedProjects.ser");
+            ObjectInputStream in = new ObjectInputStream(file);
+
+            SavedList = (HashSet<String>) in.readObject();
+
+            in.close();
+            file.close();
+        }
+
+        catch(IOException ex)
+        {
+            System.out.println("IOException is caught");
+            return SavedList;
+        }
+
+        catch(ClassNotFoundException ex)
+        {
+            System.out.println("ClassNotFoundException is caught");
+            return SavedList;
+        }
+        return SavedList;
     }
 
     /**
