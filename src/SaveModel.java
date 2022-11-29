@@ -49,12 +49,25 @@ public class SaveModel {
                 System.out.println("Project already exists");
                 JOptionPane.showMessageDialog(null,"Project already exists");
             }
-
         }
         catch(IOException ex)
         {
             System.out.println("IOException is caught");
             JOptionPane.showMessageDialog(null,"Error while Saving");
+        }
+        try{
+            FileOutputStream file1 = new FileOutputStream("list/SavedProjects.ser");
+            ObjectOutputStream out1 = new ObjectOutputStream(file1);
+
+            out1.writeObject(Blackboard.getBlackboard().getSavedProjects());
+            System.out.println("Saved Projects list has been updated");
+
+            out1.close();
+            file1.close();
+        }
+        catch(IOException ex)
+        {
+            System.out.println("IOException is caught");
         }
     }
 }
