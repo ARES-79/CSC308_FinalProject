@@ -39,22 +39,22 @@ public class DrawPanelModel {
      *          on the screen
      * @param x - x coordinate of mouse location
      * @param y - y coordinate of mouse location
-     * @return true if the click is withan an existing box, false otherwise
+     * @return true if the click is within an existing box, false otherwise
      */
     public boolean isInExistingBox(int x, int y){
         for (UMLComponent c: Blackboard.getBlackboard().getBoxList()){
-            if(c.checkCollision(x,y)){
-                dealWithBox(c);
+            if(c.checkCollision(x,y)) {
+                System.out.println("Collision found");
                 x1 = x;
                 y1 = y;
                 baseX = c.getX();
                 baseY = c.getY();
+                dealWithBox(c);
                 return true;
-            } else{
-                isFirstBoxPressed = false;
-                firstBoxPressed = null;
             }
         }
+        this.isFirstBoxPressed = false;
+        firstBoxPressed = null;
         return false;
     }
 
@@ -63,14 +63,16 @@ public class DrawPanelModel {
      * @param boxPressed - class object that was selected on the screen
      */
     public void dealWithBox(UMLComponent boxPressed){
-        if(isFirstBoxPressed){
+        System.out.println("Dealing with Box, isFirstBoxPressed: " + this.isFirstBoxPressed);
+        if(this.isFirstBoxPressed){
             System.out.println("Trying to make a connection.");
             firstBoxPressed.addConnection(boxPressed, Blackboard.getBlackboard().getConnectionType());
-            isFirstBoxPressed = false;
+            Blackboard.getBlackboard().updateData();
+            this.isFirstBoxPressed = false;
             firstBoxPressed = null;
         } else{
             System.out.println("Single box.");
-            isFirstBoxPressed = true;
+            this.isFirstBoxPressed = true;
             firstBoxPressed = boxPressed;
         }
     }
@@ -80,7 +82,7 @@ public class DrawPanelModel {
      * @return true is a box has already been selected
      */
     public boolean isFirstBoxPressed() {
-        return isFirstBoxPressed;
+        return this.isFirstBoxPressed;
     }
 
     /**
@@ -98,9 +100,18 @@ public class DrawPanelModel {
      * released - method to be called when the mouse is released after dragging
      *            just resets it so no ox is selected
      */
-    public void released(){
-        isFirstBoxPressed = false;
-        firstBoxPressed = null;
+    public void released(int finalX, int finalY){
+
+        System.out.println("before release isFirstBoxPressed: " + this.isFirstBoxPressed);
+        System.out.println("x diff: " + (finalX - x1) + ", y diff: " + (finalY - y1));
+        if(!(-15 < finalX - x1  &&
+                finalX - x1 < 15 &&
+            -15 < finalY - y1 &&
+                finalY - y1 < 15)) {
+            this.isFirstBoxPressed = false;
+            firstBoxPressed = null;
+        }
+        System.out.println("released, isFirstBoxPressed: " + this.isFirstBoxPressed);
     }
 
 }
