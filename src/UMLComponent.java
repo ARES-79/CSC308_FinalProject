@@ -58,7 +58,8 @@ public abstract class UMLComponent implements java.io.Serializable{
     }
 
     public void addConnection(UMLComponent destination, ConnectionType connectionType) {
-//        this.connections.add(new Connection(this, destination, connectionType));
+        this.connections.add(new Connection(this, destination, connectionType));
+        System.out.println("Connection from " + name + " to " + destination.getName());
     }
 
     public void setHeight(int height) {
