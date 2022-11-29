@@ -25,6 +25,10 @@ public class Box extends UMLComponent{
                 super.getWidth(), super.getHeight());
         g.setColor(Color.black);
         g.drawString(this.getName(), super.getX()-super.getName().length()*3, super.getY());
+
+        for(Connection c: super.getConnections()){
+            c.paintConnection(g);
+        }
     }
 
 }
