@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.util.ArrayList;
+
 /**
  * Assignment 01
  * @author Andrew Estrada
@@ -10,7 +12,8 @@ public abstract class UMLComponent implements java.io.Serializable{
     private int x;
     private int y;
     private int width = 120;
-    private int height = 60;
+    private int height = 30;
+    private ArrayList<Connection> connections = new ArrayList<Connection>();
 
     public abstract void paintBox(Graphics g);
 
@@ -48,6 +51,15 @@ public abstract class UMLComponent implements java.io.Serializable{
 
     public int getHeight() {
         return height;
+    }
+
+    public ArrayList<Connection> getConnections() {
+        return connections;
+    }
+
+    public void addConnection(UMLComponent destination, ConnectionType connectionType) {
+        this.connections.add(new Connection(this, destination, connectionType));
+        System.out.println("Connection from " + name + " to " + destination.getName());
     }
 
     public void setHeight(int height) {
