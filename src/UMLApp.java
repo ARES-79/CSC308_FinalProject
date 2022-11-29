@@ -69,7 +69,7 @@ public class UMLApp extends JFrame {
         //center
         DrawPanel east = new DrawPanel();
         Blackboard.getBlackboard().addObserver(east);
-        east.setBackground(Color.GRAY);
+        east.setBackground(Color.LIGHT_GRAY);
         add(east, BorderLayout.CENTER);
 
         //north
