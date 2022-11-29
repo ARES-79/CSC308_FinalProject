@@ -44,11 +44,28 @@ public class DrawPanelController implements MouseListener, MouseMotionListener {
     @Override
     public void mouseReleased(MouseEvent e) {
         dpModel.released();
+        System.out.println("Dragged and released.");
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        System.out.println("Click at x: " + e.getX() +
+                ", y: " + e.getY() );
+        if(!dpModel.isInExistingBox(e.getX(),e.getY())) {
+            String input = dpModel.showDialogueBox();
+            System.out.println(input);
+            if (input != null) {
+                System.out.print("A class named \"" + input +
+                        "\" was created at (" + e.getX() +
+                        ", " + e.getY() + ").");
+                Blackboard.getBlackboard().appendBoxList(new Box(input, e.getX(), e.getY()));
+                Blackboard.getBlackboard().updateData();
+            } else {
+                System.out.print("User clicked(" + e.getX() +
+                        ", " + e.getY() + "), " +
+                        "but no class was created.");
+            }
+        }
     }
 
     @Override
