@@ -37,15 +37,18 @@ public class SaveModel {
             FileOutputStream file = new FileOutputStream("projects/"+filename+".ser");
             ObjectOutputStream out = new ObjectOutputStream(file);
 
-            //for(UMLComponent component: Blackboard.getBlackboard().getBoxList()) {
-                out.writeObject(Blackboard.getBlackboard().getBoxList());
-            //}
+            out.writeObject(Blackboard.getBlackboard().getBoxList());
 
             out.close();
             file.close();
 
             System.out.println("Project has been serialized");
-            Blackboard.getBlackboard().appendSavedProjectsList(filename);
+            boolean retVal = Blackboard.getBlackboard().appendSavedProjectsList(filename);
+
+            if(!retVal){
+                System.out.println("Project already exists");
+                JOptionPane.showMessageDialog(null,"Project already exists");
+            }
 
         }
         catch(IOException ex)
