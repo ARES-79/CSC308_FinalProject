@@ -9,8 +9,8 @@ import java.awt.*;
  * the enum typeOfConnection shows what type should be drawn/used to connect the two boxes
  */
 public class Connection {
-    private Box destination;
-    private Box origin;
+    private UMLComponent destination;
+    private UMLComponent origin;
     private ConnectionType type;
 
 //    private enum typeOfConnection{
@@ -19,17 +19,17 @@ public class Connection {
 //        COMPOSITION
 //    }
 
-    public Connection(Box origin, Box dest, ConnectionType t){
+    public Connection(UMLComponent origin, UMLComponent dest, ConnectionType t){
         this.origin = origin;
         this.destination = dest;
         this.type = t;
     }
 
-    public Box getDestination() {
+    public UMLComponent getDestination() {
         return destination;
     }
 
-    public Box getOrigin() { return origin; }
+    public UMLComponent getOrigin() { return origin; }
 
     public ConnectionType getType() {
         return type;

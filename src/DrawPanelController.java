@@ -24,7 +24,13 @@ public class DrawPanelController implements MouseListener, MouseMotionListener {
                 System.out.print("A class named \"" + input +
                         "\" was created at (" + e.getX() +
                         ", " + e.getY() + ").");
-                Blackboard.getBlackboard().appendBoxList(new Box(input, e.getX(), e.getY()));
+                Box newBox = new Box(input, e.getX(), e.getY());
+                //Blackboard.getBlackboard().appendBoxList(newBox);
+
+                Decoration decBox = new Decoration();
+                decBox.setComponent(newBox);
+                Blackboard.getBlackboard().appendBoxList(decBox);
+
                 Blackboard.getBlackboard().updateData();
             } else {
                 System.out.print("User clicked(" + e.getX() +
@@ -43,7 +49,7 @@ public class DrawPanelController implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        dpModel.released();
+        dpModel.released(e.getX(),e.getY());
     }
 
     @Override
