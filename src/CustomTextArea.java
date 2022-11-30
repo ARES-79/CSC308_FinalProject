@@ -12,7 +12,23 @@ public class CustomTextArea extends JTextArea implements MyObserver {
 
     private void parseClasses(List<UMLComponent> boxes) {
         for (UMLComponent box : boxes) {
-            this.append("class " + box.getName() + " {\n}\n");
+            List<String> inheritenceCons = box.getConnections().stream()
+                    .filter(connection -> connection.getType().equals(ConnectionType.INHERITANCE))
+                    .map(connection -> connection.getDestination().getName())
+                    .collect(Collectors.toList());
+            List<String> extendCons = box.getConnections().stream()
+                    .filter(connection -> connection.getType().equals(ConnectionType.ASSOCIATION))
+                    .map(connection -> connection.getDestination().getName())
+                    .collect(Collectors.toList());
+            String text = "class " + box.getName();
+            if(inheritenceCons.size() > 0){
+                text += " implements " + String.join(" ", inheritenceCons);
+            }
+            if(extendCons.size() > 0){
+                text += " extends " + String.join(" ", extendCons);
+            }
+            text += " {\n}\n";
+            this.append(text);
         }
     }
 
@@ -31,10 +47,29 @@ public class CustomTextArea extends JTextArea implements MyObserver {
                     i = getConnections(ConnectionType.ASSOCIATION, splitClass, i, s, (Box) box);
                 } else if ((splitClass.get(i).equals("implements"))) {
                     i = getConnections(ConnectionType.INHERITANCE, splitClass, i, s, (Box) box);
+                } else {
+                    String currentWord = splitClass.get(i);
+                    int currentWordIndex = s.indexOf(currentWord);
+                    char lastChar = s.charAt(currentWordIndex + currentWord.length());
+                    if(lastChar == '\n'){
+                        System.out.println("This class have a variable " + currentWord);
+                    }
+                    else if(lastChar == '(' && !currentWord.equals("method")){
+                        System.out.println("This class has a method " + currentWord);
+                    }
+                    else {
+                        lastChar = s.charAt(currentWordIndex + currentWord.length() + 2);
+                        while(lastChar != '}'){
+                            i++;
+                            currentWord = splitClass.get(i);
+                            currentWordIndex = s.indexOf(currentWord);
+                            lastChar = s.charAt(currentWordIndex + currentWord.length() + 2);
+                            this.createConnection((Box) box, currentWord, ConnectionType.COMPOSITION);
+                        }
+                    }
                 }
                 i++;
             }
-
             if (!Blackboard.getBlackboard().getBoxList().contains(box)) {
                 Blackboard.getBlackboard().appendBoxList(box);
             }
@@ -64,18 +99,19 @@ public class CustomTextArea extends JTextArea implements MyObserver {
                 i--;
                 break;
             }
-            String finalCurrentWord = currentWord;
-            System.out.println(currentWord);
-            Box box2 = (Box) Blackboard.getBlackboard().getBoxList().stream().filter(b -> b.getName().equals(finalCurrentWord))
-                    .findFirst().orElse(null);
-            if (box2 == null) {
-                box2 = new Box(currentWord, 300, 300);
-                Blackboard.getBlackboard().getBoxList().add(box2);
-            }
-            Connection connection = new Connection(origin, box2, connectionType);
-            origin.getConnections().add(connection);
-
+            this.createConnection(origin, currentWord, connectionType);
         }
         return i;
     }
+    private void createConnection(Box origin, String currentWord, ConnectionType connectionType){
+        Box box2 = (Box) Blackboard.getBlackboard().getBoxList().stream().filter(b -> b.getName().equals(currentWord))
+                .findFirst().orElse(null);
+        if (box2 == null) {
+            box2 = new Box(currentWord, 300, 300);
+            Blackboard.getBlackboard().getBoxList().add(box2);
+        }
+        Connection connection = new Connection(origin, box2, connectionType);
+        origin.getConnections().add(connection);
+    }
 }
+
