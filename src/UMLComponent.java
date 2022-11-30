@@ -58,8 +58,8 @@ public abstract class UMLComponent implements java.io.Serializable{
     }
 
     public void addConnection(UMLComponent destination, ConnectionType connectionType) {
-        this.connections.add(new Connection(this, destination, connectionType));
-        System.out.println("Connection from " + name + " to " + destination.getName());
+        this.getConnections().add(new Connection(this, destination, connectionType));
+        System.out.println("Connection from " + this.getName() + " to " + destination.getName());
     }
 
     public void setHeight(int height) {
@@ -73,7 +73,7 @@ public abstract class UMLComponent implements java.io.Serializable{
      * @return true if the mouse is pressed within the class, false otherwise
      */
     public boolean checkCollision(int x, int y){
-        return this.x - width / 2 <= x && x <= this.x + width / 2 &&
-                this.y - height / 2 <= y && y <= this.y + height / 2;
+        return this.getX() - this.getWidth() / 2 <= x && x <= this.getX() + this.getWidth() / 2 &&
+                this.getY() - this.getHeight() / 2 <= y && y <= this.getY() + this.getHeight() / 2;
     }
 }
