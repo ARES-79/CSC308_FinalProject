@@ -64,19 +64,57 @@ public class Connection {
                 Polygon triangle = new Polygon(x_coords, y_coords, 3);
                 g.drawPolygon(triangle);
             }
-            //line, no arrow
+            //line, little arrow
             case ASSOCIATION -> {
                 System.out.println("Painting Association");
+
+                int[] x_coords;
+                int[] y_coords;
+                if (origin.getX() != destination.getX()){
+                    y_coords = new int[]{destination.getY() + 5, destination.getY(), destination.getY() - 5};
+                    if(origin.getX() <= destination.getX()){
+                        x_coords = new int[]{destination.getX(), destination.getX() + 10, destination.getX()};
+                    } else{x_coords = new int[]{destination.getX(), destination.getX() - 10, destination.getX()};}
+                } else {
+                    x_coords = new int[]{destination.getX() - 5, destination.getX(), destination.getX() + 5};
+                    if(origin.getY() > destination.getY()){
+                        y_coords = new int[]{destination.getY(), destination.getY() - 10, destination.getY()};
+                    } else{y_coords = new int[]{destination.getY(), destination.getY() + 10, destination.getY()};}
+                }
+
+                Polygon triangle = new Polygon(x_coords, y_coords, 3);
+                g.fillPolygon(triangle);
             }
-            //line with black diamond
+            //line with black diamond, little arrow
             case COMPOSITION -> {
                 System.out.println("Painting Composition");
-                //not very well tested, lmk if you find a bug
                 //diamond always goes on destination side
-                int[] x_coords = new int[]{destination.getX() - 15, destination.getX() - 5, destination.getX() + 5, destination.getX() - 5};
-                int[] y_coords = new int[]{destination.getY(), destination.getY() - 10, destination.getY(), destination.getY() + 10};
+
+//                int[] x_coords = new int[]{origin.getX() - 15, origin.getX() - 5, origin.getX() + 5, origin.getX() - 5};
+//                int[] y_coords = new int[]{origin.getY(), origin.getY() - 10, origin.getY(), origin.getY() + 10};
+
+                int[] x_coords = new int[]{origin.getX(), origin.getX() +10, origin.getX() + 20, origin.getX() +10};
+                int[] y_coords = new int[]{origin.getY(), origin.getY() +5, origin.getY(), origin.getY() + 25};
+
                 Polygon diamond = new Polygon(x_coords, y_coords, 4);
                 g.fillPolygon(diamond);
+
+                int[] x_coords1;
+                int[] y_coords1;
+                if (origin.getX() != destination.getX()){
+                    y_coords1 = new int[]{destination.getY() + 5, destination.getY(), destination.getY() - 5};
+                    if(origin.getX() <= destination.getX()){
+                        x_coords1 = new int[]{destination.getX(), destination.getX() + 10, destination.getX()};
+                    } else{x_coords1 = new int[]{destination.getX(), destination.getX() - 10, destination.getX()};}
+                } else {
+                    x_coords1 = new int[]{destination.getX() - 5, destination.getX(), destination.getX() + 5};
+                    if(origin.getY() > destination.getY()){
+                        y_coords1 = new int[]{destination.getY(), destination.getY() - 10, destination.getY()};
+                    } else{y_coords1 = new int[]{destination.getY(), destination.getY() + 10, destination.getY()};}
+                }
+
+                Polygon triangle = new Polygon(x_coords1, y_coords1, 3);
+                g.fillPolygon(triangle);
             }
         }
     }
