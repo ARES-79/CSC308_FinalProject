@@ -19,7 +19,7 @@ public class Connection {
 //        COMPOSITION
 //    }
 
-    public Connection(Box origin, Box dest, ConnectionType t){
+    public Connection(UMLComponent origin, UMLComponent dest, ConnectionType t){
         this.origin = origin;
         this.destination = dest;
         this.type = t;

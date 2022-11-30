@@ -2,12 +2,56 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
+/**
+ * 308 Final Project
+ * @author Mitashi Parikh
+ * @version 1.0
+ * LoadModel - class which handles the functionality for loading a previously saved state of the draw panel by deserializing an object file of the name entered by the user, if such a file exists
+ */
 public class LoadModel {
-    LoadModel(){
+
+    /**
+     * loadProject - Shows the dialog box to receive the name of the project that needs to be loaded and uses it to deserialize the file and restore the previous project if it exists.
+     */
+    public void loadProject(){
         System.out.println("The user has chosen to LOAD an existing UML");
         deserialize(showDialogueBox());
+    }
+
+    /**
+     * deserializeSavedProjects - Deserializes the list of projects that may have been stores in a previous session
+     * @return HashSet</String> which is the list of the names of the previously stored project states
+     */
+    public static HashSet<String> deserializeSavedProjects(){
+        HashSet<String> SavedList = new HashSet<>();
+
+        // Deserialization
+        try
+        {
+            FileInputStream file = new FileInputStream("list/SavedProjects.ser");
+            ObjectInputStream in = new ObjectInputStream(file);
+
+            SavedList = (HashSet<String>) in.readObject();
+
+            in.close();
+            file.close();
+        }
+
+        catch(IOException ex)
+        {
+            System.out.println("IOException is caught");
+            return SavedList;
+        }
+
+        catch(ClassNotFoundException ex)
+        {
+            System.out.println("ClassNotFoundException is caught");
+            return SavedList;
+        }
+        return SavedList;
     }
 
     /**
@@ -37,6 +81,10 @@ public class LoadModel {
         return null;
     }
 
+    /**
+     * deserialize - Deserializes the project state which has the name entered by the user and restores it to the DrawPanel, if a project of the entered name exisits
+     * @param filename String name of the project to be deserialized
+     */
     void deserialize(String filename){
         List<UMLComponent> BoxList = new ArrayList<>();
         UMLComponent component = null;

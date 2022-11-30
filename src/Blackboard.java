@@ -1,11 +1,17 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class Blackboard extends MyObservable{
     private List<UMLComponent> BoxList = new ArrayList<>();
     private ConnectionType connectionType = ConnectionType.ASSOCIATION;
-    private List<String> savedProjects = new ArrayList<>();
+    private HashSet<String> savedProjects = LoadModel.deserializeSavedProjects();
+    private CustomTextArea customTextArea = new CustomTextArea(30, 20);
+
+    public CustomTextArea getCustomTextArea() {
+        return customTextArea;
+    }
 
     private static Blackboard blackboard;
 
@@ -38,12 +44,12 @@ public class Blackboard extends MyObservable{
         updateData();
     }
 
-    public List<String> getSavedProjects() {
+    public HashSet<String> getSavedProjects() {
         return savedProjects;
     }
 
-    public void appendSavedProjectsList(String name){
-        savedProjects.add(name);
+    public boolean appendSavedProjectsList(String name){
+        return savedProjects.add(name);
     }
 
     /**

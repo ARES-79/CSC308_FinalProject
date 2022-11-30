@@ -58,7 +58,7 @@ public class UMLApp extends JFrame {
 
         //west
         JPanel leftCenter = new JPanel ();
-        textArea = new CustomTextArea (30,20);
+        textArea = Blackboard.getBlackboard().getCustomTextArea();
         Blackboard.getBlackboard().addObserver(textArea);
         JScrollPane scroll = new JScrollPane (textArea,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -69,7 +69,7 @@ public class UMLApp extends JFrame {
         //center
         DrawPanel east = new DrawPanel();
         Blackboard.getBlackboard().addObserver(east);
-        east.setBackground(Color.GRAY);
+        east.setBackground(Color.LIGHT_GRAY);
         add(east, BorderLayout.CENTER);
 
         //north

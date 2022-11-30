@@ -3,8 +3,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+/**
+ * 308 Final Project
+ * @author Mitashi Parikh
+ * @version 1.0
+ * SaveModel - class which handles the functionality for saving the current state of the draw panel into a Serialized object file
+ */
 public class SaveModel {
-    SaveModel(){
+
+    /**
+     * saveProject - Shows the dialog box to receive a name for the current state of the project and saves the project to a file as a serialized object
+     */
+    public void saveProject(){
         System.out.println("The user has chosen to SAVE their UML");
         serialize(showDialogueBox());
     }
@@ -31,27 +41,47 @@ public class SaveModel {
         return null;
     }
 
+    /**
+     * serialize - saves the current state of the project as a serialized object to a new file in the projects folder
+     * @param filename - String name of the project entered by the user
+     */
     void serialize(String filename){
         try
         {
             FileOutputStream file = new FileOutputStream("projects/"+filename+".ser");
             ObjectOutputStream out = new ObjectOutputStream(file);
 
-            //for(UMLComponent component: Blackboard.getBlackboard().getBoxList()) {
-                out.writeObject(Blackboard.getBlackboard().getBoxList());
-            //}
+            out.writeObject(Blackboard.getBlackboard().getBoxList());
 
             out.close();
             file.close();
 
             System.out.println("Project has been serialized");
-            Blackboard.getBlackboard().appendSavedProjectsList(filename);
+            boolean retVal = Blackboard.getBlackboard().appendSavedProjectsList(filename);
 
+            if(!retVal){
+                System.out.println("Project already exists");
+                JOptionPane.showMessageDialog(null,"Project already exists");
+            }
         }
         catch(IOException ex)
         {
             System.out.println("IOException is caught");
             JOptionPane.showMessageDialog(null,"Error while Saving");
+        }
+        try{
+            FileOutputStream file1 = new FileOutputStream("list/SavedProjects.ser");
+            ObjectOutputStream out1 = new ObjectOutputStream(file1);
+
+            out1.writeObject(Blackboard.getBlackboard().getSavedProjects());
+            System.out.println("Saved Projects list has been updated");
+
+            out1.close();
+            file1.close();
+        }
+        catch(IOException ex)
+        {
+            System.out.println("IOException is caught");
         }
     }
 }
