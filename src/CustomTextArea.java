@@ -28,27 +28,13 @@ public class CustomTextArea extends JTextArea implements MyObserver {
             int i = 1;
             while (i < splitClass.size()) {
                 if(splitClass.get(i).equals("extends")){
-                    i = getConnections("extends", splitClass, i, s, boxName);
+                    i = getConnections(ConnectionType.ASSOCIATION, splitClass, i, s, (Box) box);
                 }
                 else if((splitClass.get(i).equals("implements"))){
-                    i = getConnections("implements", splitClass, i, s, boxName);
+                    i = getConnections(ConnectionType.INHERITANCE, splitClass, i, s, (Box )box);
                 }
                 i++;
             }
-//            for (String method : classMethods) {
-//                System.out.println(method);
-//            }
-//            class test1 extends test2 {
-//                hello(){
-//                }
-//                method(){
-//                    dumby
-//                }
-//                aaa
-//                        bbb
-//            }
-
-
 
             if (!Blackboard.getBlackboard().getBoxList().contains(box)) {
                 Blackboard.getBlackboard().appendBoxList(box);
@@ -65,17 +51,31 @@ public class CustomTextArea extends JTextArea implements MyObserver {
 
     }
 
-    private int getConnections(String connectionType, ArrayList<String> splitClass, int i, String s, String boxName){
-        i++;
+    private int getConnections(ConnectionType connectionType, ArrayList<String> splitClass, int i, String s, Box origin){
         String currentWord = splitClass.get(i);
         int currentWordIndex = s.indexOf(currentWord);
         char lastChar = s.charAt(currentWordIndex + currentWord.length() + 1);
-        while(lastChar != '{' && !currentWord.equals("extends") && !currentWord.equals("implements")){
-            System.out.println(boxName + " " + connectionType + " " + currentWord);
+        String endKeyword = currentWord.equals("extends") ? "implements" : "extends";
+        while(lastChar != '{'){
             i++;
             currentWord = splitClass.get(i);
             currentWordIndex = s.indexOf(currentWord);
             lastChar = s.charAt(currentWordIndex + currentWord.length() + 1);
+            if(currentWord.equals(endKeyword)){
+                i--;
+                break;
+            }
+            String finalCurrentWord = currentWord;
+            System.out.println(currentWord);
+            Box box2 = (Box) Blackboard.getBlackboard().getBoxList().stream().filter(b -> b.getName().equals(finalCurrentWord))
+                    .findFirst().orElse(null);
+            if(box2 == null){
+                System.out.println("Error creating connection, box2 does not exist");
+            }
+            else{
+                Connection connection = new Connection(origin, box2, connectionType);
+                origin.getConnections().add(connection);
+            }
         }
         return i;
     }
