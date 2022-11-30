@@ -5,11 +5,15 @@ import java.util.Observable;
 /**
  * Assignment 01
  * @author Andrew Estrada
- * @version 1.0
+ * @version 1.0.1
  * DrawPanel - section of the application for drawing Classes
  */
 public class DrawPanel extends JPanel implements MyObserver{
 
+    /**
+     * DrawPanel constructor
+     *    creates a DrawPanelController and adds it as the MouseListener and MouseMotionListener
+     */
     public DrawPanel(){
         DrawPanelController dpc = new DrawPanelController();
         addMouseListener(dpc);
@@ -26,8 +30,6 @@ public class DrawPanel extends JPanel implements MyObserver{
         for(UMLComponent component : Blackboard.getBlackboard().getBoxList()){
             component.paintBox(g);
         }
-        //will include drawing classes
-        //        //will include drawing connections
     }
 
     /**
