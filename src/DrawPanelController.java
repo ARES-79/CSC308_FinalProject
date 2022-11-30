@@ -6,13 +6,19 @@ import java.awt.event.MouseMotionListener;
 /**
  * Assignment 01
  * @author Andrew Estrada
- * @version 1.0
+ * @version 1.3
  * DrawPanelController - class that connects the panel GUI with its model
  */
 public class DrawPanelController implements MouseListener, MouseMotionListener {
 
     private DrawPanelModel dpModel = new DrawPanelModel();
 
+    /**
+     * mousePressed - overridden method that gives the option to create a new class box
+     *      if the mouse is clicked where there is not a box
+     *      OR sends the information to be handled if there is a box
+     * @param e - MouseEvent object that contains data about the mouse within the panel
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         System.out.println("x: " + e.getX() +
@@ -40,6 +46,10 @@ public class DrawPanelController implements MouseListener, MouseMotionListener {
         }
     }
 
+    /**
+     * mouseDragged - overridden method that moves a box when it is selected and dragged
+     * @param e - MouseEvent object that contains data about the mouse within the panel
+     */
     @Override
     public void mouseDragged(MouseEvent e) {
         if(dpModel.isFirstBoxPressed()){
@@ -47,10 +57,18 @@ public class DrawPanelController implements MouseListener, MouseMotionListener {
         }
     }
 
+    /**
+     * mouseReleased - overridden method that sends information to the model
+     * @param e - MouseEvent object that contains data about the mouse within the panel
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
         dpModel.released(e.getX(),e.getY());
     }
+
+    /**
+     * Overridden methods not in use - not meant to do anything when that action is performed
+     */
 
     @Override
     public void mouseClicked(MouseEvent e) {
