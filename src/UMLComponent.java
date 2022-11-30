@@ -115,7 +115,7 @@ public abstract class UMLComponent implements java.io.Serializable{
      * @param connectionType - type of connection to be made
      */
     public void addConnection(UMLComponent destination, ConnectionType connectionType) {
-        this.connections.add(new Connection(this, destination, connectionType));
+        this.getConnections().add(new Connection(this, destination, connectionType));
         System.out.println("Connection from " + this.getName() + " to " + destination.getName());
     }
 
