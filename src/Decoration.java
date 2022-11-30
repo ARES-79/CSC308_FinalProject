@@ -17,7 +17,7 @@ public class Decoration extends UMLComponent{
      */
     public void setComponent(UMLComponent component){
         this.component = component;
-        this.setHeight(20);
+        super.setHeight(20);
     }
 
     /**
@@ -78,7 +78,7 @@ public class Decoration extends UMLComponent{
      * @return int height of the component
      */
     public int getHeight() {
-        return component.getHeight() + this.getHeight();
+        return component.getHeight() + super.getHeight();
     }
 
     /**
