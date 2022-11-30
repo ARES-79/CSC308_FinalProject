@@ -3,8 +3,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+/**
+ * 308 Final Project
+ * @author Mitashi Parikh
+ * @version 1.0
+ * SaveModel - class which handles the functionality for saving the current state of the draw panel into a Serialized object file
+ */
 public class SaveModel {
-    SaveModel(){
+
+    /**
+     * saveProject - Shows the dialog box to receive a name for the current state of the project and saves the project to a file as a serialized object
+     */
+    public void saveProject(){
         System.out.println("The user has chosen to SAVE their UML");
         serialize(showDialogueBox());
     }
@@ -31,6 +41,10 @@ public class SaveModel {
         return null;
     }
 
+    /**
+     * serialize - saves the current state of the project as a serialized object to a new file in the projects folder
+     * @param filename - String name of the project entered by the user
+     */
     void serialize(String filename){
         try
         {

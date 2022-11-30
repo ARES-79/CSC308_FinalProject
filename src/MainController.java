@@ -10,6 +10,9 @@ import java.awt.event.MouseListener;
  * MainController Class - class that connects GUI with the model
  */
 public class MainController implements ActionListener {
+    SaveModel saveModel = new SaveModel();
+    LoadModel loadModel = new LoadModel();
+
     /**`
      * actionPerformed - implementation from ActionListener interface
      *      provides functionality for GUI components
@@ -20,7 +23,7 @@ public class MainController implements ActionListener {
         System.out.println(e.getActionCommand());
         switch (e.getActionCommand()) {
             case ("New") -> Blackboard.getBlackboard().reset();
-            case ("Save") -> new SaveModel();
+            case ("Save") -> saveModel.saveProject();
             case ("Load") -> new LoadModel();
 
             case ("Update") -> {
