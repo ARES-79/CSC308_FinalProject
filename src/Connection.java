@@ -44,12 +44,13 @@ public class Connection {
             }
             case ASSOCIATION -> {
                 System.out.println("Painting Association");
-                drawAssociation(g);
+                List<Integer> coords = drawAssociation(g);
+                g.drawLine(coords.get(0), coords.get(1), coords.get(2), coords.get(3));
             }
-            //line with black diamond, little arrow
             case COMPOSITION -> {
                 System.out.println("Painting Composition");
-                drawComposition(g);
+                List<Integer> coords = drawComposition(g);
+                g.drawLine(coords.get(0), coords.get(1), coords.get(2), coords.get(3));
             }
         }
     }
@@ -139,7 +140,6 @@ public class Connection {
                 x_coords = new int[]{x2, x2 - 10, x2};
             }
         }
-        g.drawLine(x1, y1, x2, y2);
 
         Polygon triangle = new Polygon(x_coords, y_coords, 3);
         g.fillPolygon(triangle);
@@ -151,8 +151,8 @@ public class Connection {
      * draws line with filled in arrow and diamond
      * @param g
      */
-    private void drawComposition(Graphics g){
-        List<Integer> coords = drawAssociation(g);
+    private List<Integer> drawComposition(Graphics g){
+        ArrayList<Integer> coords = (ArrayList<Integer>) drawAssociation(g);
         int x1 = coords.get(0);
         int y1 = coords.get(1);
         int[] x_coords;
@@ -162,14 +162,25 @@ public class Connection {
                 destination.getX() <= origin.getX() + origin.getWidth()){
             x_coords = new int[]{x1, x1 - 10, x1, x1 + 10};
             y_coords = new int[]{y1, y1 - 10, y1 - 20, y1 - 10};
+            if (origin.getY() >= destination.getY()) { //dest above
+                coords.set(1, y1 - 20);
+            } else{
+                coords.set(1, y1 + 20);
+            }
         } else{ //right and left
             y_coords = new int[]{y1, y1 - 10, y1, y1 + 10};
             if(origin.getX() <= destination.getX()){ //dest to right
                 x_coords = new int[]{x1, x1 + 10, x1 + 20, x1 + 10};
-            } else{ x_coords = new int[]{x1, x1 - 10, x1 - 20, x1 - 10};}
+                coords.set(0, x1 + 20);
+            } else{
+                x_coords = new int[]{x1, x1 - 10, x1 - 20, x1 - 10};
+                coords.set(0, x1 - 20);
+            }
         }
 
         Polygon diamond = new Polygon(x_coords, y_coords, 4);
         g.fillPolygon(diamond);
+
+        return coords;
     }
 }
