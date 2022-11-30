@@ -20,7 +20,6 @@ public class MainController implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand());
         switch (e.getActionCommand()) {
             case ("New") -> Blackboard.getBlackboard().reset();
             case ("Save") -> saveModel.saveProject();

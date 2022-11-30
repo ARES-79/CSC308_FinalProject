@@ -15,55 +15,108 @@ public abstract class UMLComponent implements java.io.Serializable{
     private int height = 30;
     private ArrayList<Connection> connections = new ArrayList<Connection>();
 
+    /**
+     * paintBox - abstract method for drawing the UML component on the screen
+     * @param g - Graphics object used to create what is shown on screen
+     */
     public abstract void paintBox(Graphics g);
 
+    /**
+     * getName
+     * @return String - name value
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * setName
+     * @param name - Sting value to replace/set name value
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * getX
+     * @return int - current x value
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * setX
+     * @param x - int value to replace current x value
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     * getY
+     * @return int - current y value
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * setY
+     * @param y - int value to replace the current y
+     */
     public void setY(int y) {
         this.y = y;
     }
 
+    /**
+     * getWidth
+     * @return int - current width value
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     * setWidth
+     * @param width - int value to replace the current width
+     */
     public void setWidth(int width) {
         this.width = width;
     }
 
+    /**
+     * getHeight
+     * @return int - current height value
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     * getConnections
+     * @return ArrayList - list of connections that originate for this UML Component
+     */
     public ArrayList<Connection> getConnections() {
         return connections;
     }
 
-    public void addConnection(UMLComponent destination, ConnectionType connectionType) {
-        this.getConnections().add(new Connection(this, destination, connectionType));
-        System.out.println("Connection from " + this.getName() + " to " + destination.getName());
-    }
-
+    /**
+     * setHeight
+     * @param height - int value to replace the current height
+     */
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    /**
+     * addConnection - adds a connection to the connection list
+     * @param destination - UML component that the arrow will be pointing to
+     * @param connectionType - type of connection to be made
+     */
+    public void addConnection(UMLComponent destination, ConnectionType connectionType) {
+        this.connections.add(new Connection(this, destination, connectionType));
+        System.out.println("Connection from " + this.getName() + " to " + destination.getName());
     }
 
     /**

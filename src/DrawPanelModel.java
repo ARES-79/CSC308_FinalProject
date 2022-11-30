@@ -64,7 +64,7 @@ public class DrawPanelModel {
      */
     public void dealWithBox(UMLComponent boxPressed){
         System.out.println("Dealing with Box, isFirstBoxPressed: " + this.isFirstBoxPressed);
-        if(this.isFirstBoxPressed){
+        if(this.isFirstBoxPressed && firstBoxPressed != boxPressed){
             System.out.println("Trying to make a connection.");
             firstBoxPressed.addConnection(boxPressed, Blackboard.getBlackboard().getConnectionType());
             Blackboard.getBlackboard().updateData();
