@@ -1,4 +1,7 @@
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Final Project
@@ -12,12 +15,6 @@ public class Connection {
     private UMLComponent destination;
     private UMLComponent origin;
     private ConnectionType type;
-
-//    private enum typeOfConnection{
-//        INHERITANCE,
-//        ASSOCIATION,
-//        COMPOSITION
-//    }
 
     public Connection(UMLComponent origin, UMLComponent dest, ConnectionType t){
         this.origin = origin;
@@ -40,82 +37,139 @@ public class Connection {
         Graphics2D g2 = (Graphics2D) g;
         g2.setStroke(new BasicStroke(2));
 
-        g.drawLine(origin.getX(), origin.getY(), destination.getX(), destination.getY());
-
         switch (type){
-            //line with triangle arrow
             case INHERITANCE -> {
                 System.out.println("Painting Inheritance");
-                //arrow always drawn on destination side
-                int[] x_coords;
-                int[] y_coords;
-                if (origin.getX() != destination.getX()){
-                    y_coords = new int[]{destination.getY() + 10, destination.getY(), destination.getY() - 10};
-                    if(origin.getX() <= destination.getX()){
-                        x_coords = new int[]{destination.getX(), destination.getX() + 20, destination.getX()};
-                    } else{x_coords = new int[]{destination.getX(), destination.getX() - 20, destination.getX()};}
-                } else {
-                    x_coords = new int[]{destination.getX() - 10, destination.getX(), destination.getX() + 10};
-                    if(origin.getY() > destination.getY()){
-                        y_coords = new int[]{destination.getY(), destination.getY() - 20, destination.getY()};
-                    } else{y_coords = new int[]{destination.getY(), destination.getY() + 20, destination.getY()};}
-                }
-
-                Polygon triangle = new Polygon(x_coords, y_coords, 3);
-                g.drawPolygon(triangle);
+                drawInheritance(g);
             }
-            //line, little arrow
             case ASSOCIATION -> {
                 System.out.println("Painting Association");
-
-                int[] x_coords;
-                int[] y_coords;
-                if (origin.getX() != destination.getX()){
-                    y_coords = new int[]{destination.getY() + 5, destination.getY(), destination.getY() - 5};
-                    if(origin.getX() <= destination.getX()){
-                        x_coords = new int[]{destination.getX(), destination.getX() + 10, destination.getX()};
-                    } else{x_coords = new int[]{destination.getX(), destination.getX() - 10, destination.getX()};}
-                } else {
-                    x_coords = new int[]{destination.getX() - 5, destination.getX(), destination.getX() + 5};
-                    if(origin.getY() > destination.getY()){
-                        y_coords = new int[]{destination.getY(), destination.getY() - 10, destination.getY()};
-                    } else{y_coords = new int[]{destination.getY(), destination.getY() + 10, destination.getY()};}
-                }
-
-                Polygon triangle = new Polygon(x_coords, y_coords, 3);
-                g.fillPolygon(triangle);
+                drawAssociation(g);
             }
             //line with black diamond, little arrow
             case COMPOSITION -> {
                 System.out.println("Painting Composition");
-                //diamond always goes on destination side
-
-//                int[] x_coords = new int[]{origin.getX() - 15, origin.getX() - 5, origin.getX() + 5, origin.getX() - 5};
-//                int[] y_coords = new int[]{origin.getY(), origin.getY() - 10, origin.getY(), origin.getY() + 10};
-
-                int[] x_coords = new int[]{origin.getX(), origin.getX() +10, origin.getX() + 20, origin.getX() +10};
-                int[] y_coords = new int[]{origin.getY(), origin.getY() +5, origin.getY(), origin.getY() + 25};
-
-                Polygon diamond = new Polygon(x_coords, y_coords, 4);
-                g.fillPolygon(diamond);
-
-                int[] x_coords1;
-                int[] y_coords1;
-                if (origin.getX() != destination.getX()){
-                    y_coords1 = new int[]{destination.getY() + 5, destination.getY(), destination.getY() - 5};
-                    if(origin.getX() <= destination.getX()){
-                        x_coords1 = new int[]{destination.getX(), destination.getX() + 10, destination.getX()};
-                    } else{x_coords1 = new int[]{destination.getX(), destination.getX() - 10, destination.getX()};}
-                } else {
-                    x_coords1 = new int[]{destination.getX() - 5, destination.getX(), destination.getX() + 5};
-                    if(origin.getY() > destination.getY()){
-                        y_coords1 = new int[]{destination.getY(), destination.getY() - 10, destination.getY()};
-                    } else{y_coords1 = new int[]{destination.getY(), destination.getY() + 10, destination.getY()};}
-                }
-
-                Polygon triangle = new Polygon(x_coords1, y_coords1, 3);
-                g.fillPolygon(triangle);
+                drawComposition(g);
             }
         }
+    }
+
+    /**
+     * draws line w triangle arrow
+     * @param g
+     */
+    private void drawInheritance(Graphics g){
+        int x1, y1, x2, y2;
+        int[] x_coords;
+        int[] y_coords;
+
+        if (origin.getX() - origin.getWidth() <= destination.getX() &&
+                destination.getX() <= origin.getX() + origin.getWidth()) { //up and down
+            x1 = origin.getX();
+            x2 = destination.getX();
+            x_coords = new int[]{x2 - 10, x2, x2 + 10};
+
+            if(origin.getY() >= destination.getY()){ //dest above
+                y1 = origin.getY() - origin.getHeight()/2 + 10;
+                y2 = destination.getY() + destination.getHeight()/2 + 40; //HARDCODED VALUE
+                y_coords = new int[]{y2, y2 - 20, y2};
+            }else{
+                y1 = origin.getY() + origin.getHeight()/2;
+                y2 = destination.getY() - destination.getHeight()/2 - 10;
+                y_coords = new int[]{y2, y2 + 20, y2};
+            }
+        } else {
+            y1 = origin.getY();
+            y2 = destination.getY();
+            y_coords = new int[]{y2 + 10, y2, y2 - 10};
+
+            if(origin.getX() <= destination.getX()){
+                x1 = origin.getX() + origin.getWidth()/2;
+                x2 = destination.getX() - destination.getWidth()/2 - 20;
+                x_coords = new int[]{x2, x2 + 20, x2};
+            } else{
+                x1 = origin.getX() - origin.getWidth()/2;
+                x2 = destination.getX() + destination.getWidth()/2 + 20;
+                x_coords = new int[]{x2, x2 - 20, x2};
+            }
+        }
+
+        g.drawLine(x1, y1, x2, y2);
+
+        Polygon triangle = new Polygon(x_coords, y_coords, 3);
+        g.drawPolygon(triangle);
+    }
+
+    /**
+     * draws line with small arrow
+     * @param g
+     */
+    private List<Integer> drawAssociation(Graphics g){
+        int x1, y1, x2, y2;
+        int[] x_coords;
+        int[] y_coords;
+
+        if (origin.getX() - origin.getWidth() <= destination.getX() &&
+                destination.getX() <= origin.getX() + origin.getWidth()) { //up and down
+            x1 = origin.getX();
+            x2 = destination.getX();
+            x_coords = new int[]{x2 - 5, x2, x2 + 5};
+
+            if (origin.getY() >= destination.getY()) { //dest above
+                y1 = origin.getY() - origin.getHeight() / 2 + 10;
+                y2 = destination.getY() + destination.getHeight() / 2 + 30; //HARDCODED VALUE
+                y_coords = new int[]{y2, y2 - 10, y2};
+            } else {
+                y1 = origin.getY() + origin.getHeight() / 2;
+                y2 = destination.getY() - destination.getHeight() / 2;
+                y_coords = new int[]{y2, y2 + 10, y2};
+            }
+        } else {
+            y1 = origin.getY();
+            y2 = destination.getY();
+            y_coords = new int[]{y2 + 5, y2, y2 - 5};
+
+            if(origin.getX() <= destination.getX()){
+                x1 = origin.getX() + origin.getWidth()/2;
+                x2 = destination.getX() - destination.getWidth()/2 - 10;
+                x_coords = new int[]{x2, x2 + 10, x2};
+            } else{
+                x1 = origin.getX() - origin.getWidth()/2;
+                x2 = destination.getX() + destination.getWidth()/2 + 10;
+                x_coords = new int[]{x2, x2 - 10, x2};
+            }
+        }
+        g.drawLine(x1, y1, x2, y2);
+
+        Polygon triangle = new Polygon(x_coords, y_coords, 3);
+        g.fillPolygon(triangle);
+
+        return new ArrayList<Integer>(Arrays.asList(x1, y1, x2, y2));
+    }
+
+    /**
+     * draws line with filled in arrow and diamond
+     * @param g
+     */
+    private void drawComposition(Graphics g){
+        List<Integer> coords = drawAssociation(g);
+        int x1 = coords.get(0);
+        int y1 = coords.get(1);
+        int[] x_coords;
+        int[] y_coords;
+
+        if (origin.getX() - origin.getWidth() <= destination.getX() &&
+                destination.getX() <= origin.getX() + origin.getWidth()){
+            x_coords = new int[]{x1, x1 - 10, x1, x1 + 10};
+            y_coords = new int[]{y1, y1 - 10, y1 - 20, y1 - 10};
+        } else{ //right and left
+            y_coords = new int[]{y1, y1 - 10, y1, y1 + 10};
+            if(origin.getX() <= destination.getX()){ //dest to right
+                x_coords = new int[]{x1, x1 + 10, x1 + 20, x1 + 10};
+            } else{ x_coords = new int[]{x1, x1 - 10, x1 - 20, x1 - 10};}
+        }
+
+        Polygon diamond = new Polygon(x_coords, y_coords, 4);
+        g.fillPolygon(diamond);
     }
 }
