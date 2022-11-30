@@ -27,11 +27,10 @@ public class CustomTextArea extends JTextArea implements MyObserver {
                     .findFirst().orElse(new Box(boxName, 100, 100));
             int i = 1;
             while (i < splitClass.size()) {
-                if(splitClass.get(i).equals("extends")){
+                if (splitClass.get(i).equals("extends")) {
                     i = getConnections(ConnectionType.ASSOCIATION, splitClass, i, s, (Box) box);
-                }
-                else if((splitClass.get(i).equals("implements"))){
-                    i = getConnections(ConnectionType.INHERITANCE, splitClass, i, s, (Box )box);
+                } else if ((splitClass.get(i).equals("implements"))) {
+                    i = getConnections(ConnectionType.INHERITANCE, splitClass, i, s, (Box) box);
                 }
                 i++;
             }
@@ -51,17 +50,17 @@ public class CustomTextArea extends JTextArea implements MyObserver {
 
     }
 
-    private int getConnections(ConnectionType connectionType, ArrayList<String> splitClass, int i, String s, Box origin){
+    private int getConnections(ConnectionType connectionType, ArrayList<String> splitClass, int i, String s, Box origin) {
         String currentWord = splitClass.get(i);
         int currentWordIndex = s.indexOf(currentWord);
         char lastChar = s.charAt(currentWordIndex + currentWord.length() + 1);
         String endKeyword = currentWord.equals("extends") ? "implements" : "extends";
-        while(lastChar != '{'){
+        while (lastChar != '{') {
             i++;
             currentWord = splitClass.get(i);
             currentWordIndex = s.indexOf(currentWord);
             lastChar = s.charAt(currentWordIndex + currentWord.length() + 1);
-            if(currentWord.equals(endKeyword)){
+            if (currentWord.equals(endKeyword)) {
                 i--;
                 break;
             }
@@ -69,13 +68,13 @@ public class CustomTextArea extends JTextArea implements MyObserver {
             System.out.println(currentWord);
             Box box2 = (Box) Blackboard.getBlackboard().getBoxList().stream().filter(b -> b.getName().equals(finalCurrentWord))
                     .findFirst().orElse(null);
-            if(box2 == null){
-                System.out.println("Error creating connection, box2 does not exist");
+            if (box2 == null) {
+                box2 = new Box(currentWord, 300, 300);
+                Blackboard.getBlackboard().getBoxList().add(box2);
             }
-            else{
-                Connection connection = new Connection(origin, box2, connectionType);
-                origin.getConnections().add(connection);
-            }
+            Connection connection = new Connection(origin, box2, connectionType);
+            origin.getConnections().add(connection);
+
         }
         return i;
     }
