@@ -14,12 +14,30 @@ public abstract class UMLComponent implements java.io.Serializable{
     private int width = 120;
     private int height = 30;
     private ArrayList<Connection> connections = new ArrayList<Connection>();
+    private int varY;
+    private int methodY;
 
     /**
      * paintBox - abstract method for drawing the UML component on the screen
      * @param g - Graphics object used to create what is shown on screen
      */
     public abstract void paintBox(Graphics g);
+
+    public int getVarY() {
+        return varY;
+    }
+
+    public void setVarY(int varY) {
+        this.varY = varY;
+    }
+
+    public int getMethodY() {
+        return methodY;
+    }
+
+    public void setMethodY(int methodY) {
+        this.methodY = methodY;
+    }
 
     /**
      * getName

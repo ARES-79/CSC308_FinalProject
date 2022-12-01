@@ -10,7 +10,7 @@ public class DrawPanelModel {
 
     private boolean isFirstBoxPressed;
     private UMLComponent firstBoxPressed;
-    private int x1, y1, baseX, baseY;
+    private int x1, y1, baseX, baseY, baseVarY, baseMethodY;
 
     /**
      * showDialogueBox - create a dialogue box to prompt the user to enter a class name
@@ -49,6 +49,8 @@ public class DrawPanelModel {
                 y1 = y;
                 baseX = c.getX();
                 baseY = c.getY();
+                baseVarY = c.getVarY();
+                baseMethodY = c.getMethodY();
                 dealWithBox(c);
                 return true;
             }
@@ -93,6 +95,9 @@ public class DrawPanelModel {
     public void moveBox(int x, int y){
         firstBoxPressed.setX(baseX + (x-x1));
         firstBoxPressed.setY(baseY + (y-y1));
+
+        firstBoxPressed.setVarY(baseVarY + (y-y1));
+        firstBoxPressed.setMethodY(baseMethodY + (y-y1));
         Blackboard.getBlackboard().updateData();
     }
 
