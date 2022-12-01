@@ -14,8 +14,11 @@ public abstract class UMLComponent implements java.io.Serializable{
     private int width = 120;
     private int height = 30;
     private ArrayList<Connection> connections = new ArrayList<Connection>();
-    private int varY;
-    private int methodY;
+//    private int varY;
+//    private int methodY;
+    private int numVars = 0;
+    private int totalVars = 0;
+    private int numMethods = 0;
 
     /**
      * paintBox - abstract method for drawing the UML component on the screen
@@ -27,21 +30,45 @@ public abstract class UMLComponent implements java.io.Serializable{
         this.connections = connections;
     }
 
-    public int getVarY() {
-        return varY;
+    public int getNumVars() {
+        return numVars;
     }
 
-    public void setVarY(int varY) {
-        this.varY = varY;
+    public void setNumVars(int numVars) {
+        this.numVars = numVars;
     }
 
-    public int getMethodY() {
-        return methodY;
+    public int getTotalVars() {
+        return totalVars;
     }
 
-    public void setMethodY(int methodY) {
-        this.methodY = methodY;
+    public void setTotalVars(int totalVars) {
+        this.totalVars = totalVars;
     }
+
+    public int getNumMethods() {
+        return numMethods;
+    }
+
+    public void setNumMethods(int numMethods) {
+        this.numMethods = numMethods;
+    }
+
+    //    public int getVarY() {
+//        return varY;
+//    }
+//
+//    public void setVarY(int varY) {
+//        this.varY = varY;
+//    }
+//
+//    public int getMethodY() {
+//        return methodY;
+//    }
+//
+//    public void setMethodY(int methodY) {
+//        this.methodY = methodY;
+//    }
 
     /**
      * getName

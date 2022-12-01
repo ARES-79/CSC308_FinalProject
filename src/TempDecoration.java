@@ -7,7 +7,11 @@ public class TempDecoration extends UMLComponent{
     public void setComponent(UMLComponent component){
         this.component = component;
         super.setName(component.getName());
+        super.setX(component.getX());
+        super.setY(component.getY());
         super.setConnections(component.getConnections());
+        this.component.setHeight(component.getHeight() + decHeight);
+        super.setHeight(this.component.getHeight());
     }
 
     @Override
@@ -65,14 +69,21 @@ public class TempDecoration extends UMLComponent{
     }
 
     @Override
-    public void setVarY(int varY) {
-        super.setVarY(varY);
-        this.component.setVarY(varY);
+    public void setTotalVars(int totalVars){
+        super.setTotalVars(totalVars);
+        component.setTotalVars(totalVars);
     }
+//    @Override
+//    public void setVarY(int varY) {
+//        super.setVarY(varY);
+//        this.component.setVarY(varY);
+//    }
+//
+//    @Override
+//    public void setMethodY(int methodY){
+//        super.setMethodY(methodY);
+//        this.component.setMethodY(methodY);
+//    }
 
-    @Override
-    public void setMethodY(int methodY){
-        super.setMethodY(methodY);
-        this.component.setMethodY(methodY);
-    }
+
 }

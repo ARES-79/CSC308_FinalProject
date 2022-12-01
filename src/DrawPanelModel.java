@@ -49,8 +49,8 @@ public class DrawPanelModel {
                 y1 = y;
                 baseX = c.getX();
                 baseY = c.getY();
-                baseVarY = c.getVarY();
-                baseMethodY = c.getMethodY();
+//                baseVarY = c.getVarY();
+//                baseMethodY = c.getMethodY();
                 dealWithBox(c);
                 return true;
             }
@@ -97,8 +97,8 @@ public class DrawPanelModel {
         firstBoxPressed.setX(baseX + (x-x1));
         firstBoxPressed.setY(baseY + (y-y1));
 
-        firstBoxPressed.setVarY(baseVarY + (y-y1));
-        firstBoxPressed.setMethodY(baseMethodY + (y-y1));
+//        firstBoxPressed.setVarY(baseVarY + (y-y1));
+//        firstBoxPressed.setMethodY(baseMethodY + (y-y1));
         Blackboard.getBlackboard().updateData();
     }
 
