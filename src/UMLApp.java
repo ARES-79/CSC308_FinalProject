@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Assignment 01
- * @author Andrew Estrada
+ * @author Andrew Estrada, Jamie Luna
  * @version 1.3
  * UMLApp Class - a UML application GUI framework
  */
@@ -99,7 +99,8 @@ public class UMLApp extends JFrame {
         add(northPanel, BorderLayout.NORTH);
 
         //south
-        south = new JLabel("   Temp Label");
+        south = Blackboard.getBlackboard().getStatusBar();
+        Blackboard.getBlackboard().getStatusBar().setText("   Program Started");
         add(south, BorderLayout.SOUTH);
 
         //actionListeners
