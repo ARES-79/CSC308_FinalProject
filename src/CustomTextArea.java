@@ -12,31 +12,34 @@ public class CustomTextArea extends JTextArea implements MyObserver {
 
     private void parseClasses(List<UMLComponent> boxes) {
         for (UMLComponent box : boxes) {
-            List<String> inheritenceCons = box.getConnections().stream()
-                    .filter(connection -> connection.getType().equals(ConnectionType.INHERITANCE))
-                    .map(connection -> connection.getDestination().getName())
-                    .collect(Collectors.toList());
-            List<String> associationCons = box.getConnections().stream()
-                    .filter(connection -> connection.getType().equals(ConnectionType.ASSOCIATION))
-                    .map(connection -> connection.getDestination().getName())
-                    .collect(Collectors.toList());
-            List<String> compositionCons = box.getConnections().stream()
-                    .filter(connection -> connection.getType().equals(ConnectionType.COMPOSITION))
-                    .map(connection -> connection.getDestination().getName())
-                    .collect(Collectors.toList());
-            String text = "class " + box.getName();
-            if (inheritenceCons.size() > 0) {
-                text += " extends " + String.join(" ", inheritenceCons);
+            if (box instanceof Box) {
+
+                List<String> inheritenceCons = box.getConnections().stream()
+                        .filter(connection -> connection.getType().equals(ConnectionType.INHERITANCE))
+                        .map(connection -> connection.getDestination().getName())
+                        .collect(Collectors.toList());
+                List<String> associationCons = box.getConnections().stream()
+                        .filter(connection -> connection.getType().equals(ConnectionType.ASSOCIATION))
+                        .map(connection -> connection.getDestination().getName())
+                        .collect(Collectors.toList());
+                List<String> compositionCons = box.getConnections().stream()
+                        .filter(connection -> connection.getType().equals(ConnectionType.COMPOSITION))
+                        .map(connection -> connection.getDestination().getName())
+                        .collect(Collectors.toList());
+                String text = "class " + box.getName();
+                if (inheritenceCons.size() > 0) {
+                    text += " extends " + String.join(" ", inheritenceCons);
+                }
+                text += " {\n";
+                if (compositionCons.size() > 0) {
+                    text += " " + String.join("\n ", compositionCons) + "\n ";
+                }
+                if (associationCons.size() > 0) {
+                    text += " methods() {\n  " + String.join("\n  ", associationCons) + "\n }";
+                }
+                text += "\n}\n";
+                this.append(text);
             }
-            text += " {\n";
-            if(compositionCons.size() > 0){
-                text += " " + String.join("\n ", compositionCons) + "\n ";
-            }
-            if (associationCons.size() > 0) {
-                text += " methods() {\n  " + String.join("\n  ", associationCons) + "\n }";
-            }
-            text += "\n}\n";
-            this.append(text);
         }
     }
 
@@ -53,8 +56,7 @@ public class CustomTextArea extends JTextArea implements MyObserver {
             while (i < splitClass.size()) {
                 if (splitClass.get(i).equals("extends")) {
                     i = getConnections(ConnectionType.INHERITANCE, splitClass, i, s, box);
-                }
-                else {
+                } else {
                     String currentWord = splitClass.get(i);
                     int currentWordIndex = s.indexOf(currentWord);
                     char lastChar = s.charAt(currentWordIndex + currentWord.length());
@@ -63,15 +65,17 @@ public class CustomTextArea extends JTextArea implements MyObserver {
                         Box box2 = (Box) Blackboard.getBlackboard().getBoxList().stream().filter(b -> b.getName().equals(finalCurrentWord))
                                 .findFirst().orElse(null);
                         if (box2 != null) {
-                            if(box.getConnections().stream().filter(connection -> connection.getDestination().equals(box2) &&
-                                    connection.getType().equals(ConnectionType.COMPOSITION)).count() == 0){
+                            if (box.getConnections().stream().noneMatch(connection -> connection.getDestination().equals(box2) &&
+                                    connection.getType().equals(ConnectionType.COMPOSITION))) {
                                 Connection connection = new Connection(box, box2, ConnectionType.COMPOSITION);
                                 box.getConnections().add(connection);
                             }
                         } else {
                             System.out.println("This class have a variable " + currentWord);
+                            TempDecoration varDec = new TempVarDec(currentWord + "()", box);
+                            Blackboard.getBlackboard().getBoxList().add(varDec);
                         }
-                    } else if (lastChar == '(' && !currentWord.equals("method")) {
+                    } else if (lastChar == '(' && !currentWord.equals("methods")) {
                         System.out.println("This class has a method " + currentWord);
                     } else {
                         lastChar = s.charAt(currentWordIndex + currentWord.length() + 2);
@@ -80,7 +84,11 @@ public class CustomTextArea extends JTextArea implements MyObserver {
                             currentWord = splitClass.get(i);
                             currentWordIndex = s.indexOf(currentWord);
                             lastChar = s.charAt(currentWordIndex + currentWord.length() + 2);
-                            this.createConnection(box, currentWord, ConnectionType.COMPOSITION);
+                            String finalCurrentWord1 = currentWord;
+                            if (box.getConnections().stream().noneMatch(connection -> connection.getDestination().equals(finalCurrentWord1) &&
+                                    connection.getType().equals(ConnectionType.ASSOCIATION))) {
+                                this.createConnection(box, currentWord, ConnectionType.ASSOCIATION);
+                            }
                         }
                     }
                 }
@@ -123,8 +131,8 @@ public class CustomTextArea extends JTextArea implements MyObserver {
             Blackboard.getBlackboard().getBoxList().add(box2);
         }
         UMLComponent finalBox = box2;
-        if(origin.getConnections().stream().filter(connection -> connection.getDestination().equals(finalBox) &&
-                connection.getType().equals(connectionType)).collect(Collectors.toList()).size() == 0){
+        if (origin.getConnections().stream().filter(connection -> connection.getDestination().equals(finalBox) &&
+                connection.getType().equals(connectionType)).collect(Collectors.toList()).size() == 0) {
             Connection connection = new Connection(origin, box2, connectionType);
             origin.getConnections().add(connection);
         }
