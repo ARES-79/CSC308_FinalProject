@@ -23,6 +23,10 @@ public abstract class UMLComponent implements java.io.Serializable{
      */
     public abstract void paintBox(Graphics g);
 
+    public void setConnections(ArrayList<Connection> connections) {
+        this.connections = connections;
+    }
+
     public int getVarY() {
         return varY;
     }
