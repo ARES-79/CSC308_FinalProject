@@ -16,24 +16,47 @@ public class Connection {
     private UMLComponent origin;
     private ConnectionType type;
 
+    /**
+     * Connection constructor
+     *      creates a Connection which has an origin Box, destination Box, and a type
+     * @param origin the Box the connection starts at
+     * @param dest the Box the connection ends at
+     * @param t the Type of connection being made
+     */
     public Connection(UMLComponent origin, UMLComponent dest, ConnectionType t){
         this.origin = origin;
         this.destination = dest;
         this.type = t;
     }
 
+    /**
+     * getDestination - Getter method for the destination Box
+     * @return the destination UMLComponent (contains a Box)
+     */
     public UMLComponent getDestination() {
         return destination;
     }
 
+    /**
+     * getDestination - Getter method for the destination Box
+     * @return the destination UMLComponent (contains a Box)
+     */
     public UMLComponent getOrigin() { return origin; }
 
+    /**
+     * getType - Getter method for the type of the connection
+     * @return the type of the connection
+     */
     public ConnectionType getType() {
         return type;
     }
 
+    /**
+     * paintConnection - paints each type of connection based on the enum ConnectionType
+     * @param g the Graphics object to put things on the screen
+     */
     public void paintConnection(Graphics g){
-        //makes lines thicker (looks nicer)
+        //makes the lines thicker (looks nicer)
         Graphics2D g2 = (Graphics2D) g;
         g2.setStroke(new BasicStroke(2));
 
@@ -56,8 +79,9 @@ public class Connection {
     }
 
     /**
-     * draws line w triangle arrow
-     * @param g
+     * drawInheritance - draws a line between the origin and destination and a triangle pointing
+     *      toward the destination
+     * @param g the Graphics object to put things on the screen
      */
     private void drawInheritance(Graphics g){
         int x1, y1, x2, y2;
@@ -102,8 +126,10 @@ public class Connection {
     }
 
     /**
-     * draws line with small arrow
-     * @param g
+     * drawAssociation - finds the coordinates to draw a line between the origin
+     *      and destination and a pointed triangle pointing toward the destination
+     * @param g the Graphics object to put things on the screen
+     * @return the coordinates to draw the line between
      */
     private List<Integer> drawAssociation(Graphics g){
         int x1, y1, x2, y2;
@@ -148,8 +174,11 @@ public class Connection {
     }
 
     /**
-     * draws line with filled in arrow and diamond
-     * @param g
+     drawComposition - finds the coordinates to draw a line between the origin
+     *      and destination, paints a pointed triangle pointing toward the destination,
+     *      paints a diamond at the edge of the origin
+     * @param g the Graphics object to put things on the screen
+     * @return the coordinates to draw the line between
      */
     private List<Integer> drawComposition(Graphics g){
         ArrayList<Integer> coords = (ArrayList<Integer>) drawAssociation(g);
