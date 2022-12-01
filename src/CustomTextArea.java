@@ -16,18 +16,23 @@ public class CustomTextArea extends JTextArea implements MyObserver {
                     .filter(connection -> connection.getType().equals(ConnectionType.INHERITANCE))
                     .map(connection -> connection.getDestination().getName())
                     .collect(Collectors.toList());
-            List<String> extendCons = box.getConnections().stream()
+            List<String> associationCons = box.getConnections().stream()
                     .filter(connection -> connection.getType().equals(ConnectionType.ASSOCIATION))
                     .map(connection -> connection.getDestination().getName())
                     .collect(Collectors.toList());
+            List<String> compositionCons = box.getConnections().stream()
+                    .filter(connection -> connection.getType().equals(ConnectionType.COMPOSITION))
+                    .map(connection -> connection.getDestination().getName())
+                    .collect(Collectors.toList());
             String text = "class " + box.getName();
-            if(inheritenceCons.size() > 0){
-                text += " implements " + String.join(" ", inheritenceCons);
+            if (inheritenceCons.size() > 0) {
+                text += " extends " + String.join(" ", inheritenceCons);
             }
-            if(extendCons.size() > 0){
-                text += " extends " + String.join(" ", extendCons);
+            text += " {\n";
+            if (compositionCons.size() > 0) {
+                text += " methods() {\n  " + String.join("\n  ", compositionCons) + "\n }";
             }
-            text += " {\n}\n";
+            text += "\n}\n";
             this.append(text);
         }
     }
@@ -44,22 +49,26 @@ public class CustomTextArea extends JTextArea implements MyObserver {
             int i = 1;
             while (i < splitClass.size()) {
                 if (splitClass.get(i).equals("extends")) {
-                    i = getConnections(ConnectionType.ASSOCIATION, splitClass, i, s, (Box) box);
-                } else if ((splitClass.get(i).equals("implements"))) {
                     i = getConnections(ConnectionType.INHERITANCE, splitClass, i, s, (Box) box);
                 } else {
                     String currentWord = splitClass.get(i);
                     int currentWordIndex = s.indexOf(currentWord);
                     char lastChar = s.charAt(currentWordIndex + currentWord.length());
-                    if(lastChar == '\n'){
-                        System.out.println("This class have a variable " + currentWord);
-                    }
-                    else if(lastChar == '(' && !currentWord.equals("method")){
+                    if (lastChar == '\n') {
+                        String finalCurrentWord = currentWord;
+                        Box box2 = (Box) Blackboard.getBlackboard().getBoxList().stream().filter(b -> b.getName().equals(finalCurrentWord))
+                                .findFirst().orElse(null);
+                        if (box2 != null) {
+                            Connection connection = new Connection(box, box2, ConnectionType.COMPOSITION);
+                            box.getConnections().add(connection);
+                        } else {
+                            System.out.println("This class have a variable " + currentWord);
+                        }
+                    } else if (lastChar == '(' && !currentWord.equals("method")) {
                         System.out.println("This class has a method " + currentWord);
-                    }
-                    else {
+                    } else {
                         lastChar = s.charAt(currentWordIndex + currentWord.length() + 2);
-                        while(lastChar != '}'){
+                        while (lastChar != '}') {
                             i++;
                             currentWord = splitClass.get(i);
                             currentWordIndex = s.indexOf(currentWord);
@@ -89,21 +98,17 @@ public class CustomTextArea extends JTextArea implements MyObserver {
         String currentWord = splitClass.get(i);
         int currentWordIndex = s.indexOf(currentWord);
         char lastChar = s.charAt(currentWordIndex + currentWord.length() + 1);
-        String endKeyword = currentWord.equals("extends") ? "implements" : "extends";
         while (lastChar != '{') {
             i++;
             currentWord = splitClass.get(i);
             currentWordIndex = s.indexOf(currentWord);
             lastChar = s.charAt(currentWordIndex + currentWord.length() + 1);
-            if (currentWord.equals(endKeyword)) {
-                i--;
-                break;
-            }
             this.createConnection(origin, currentWord, connectionType);
         }
         return i;
     }
-    private void createConnection(Box origin, String currentWord, ConnectionType connectionType){
+
+    private void createConnection(Box origin, String currentWord, ConnectionType connectionType) {
         Box box2 = (Box) Blackboard.getBlackboard().getBoxList().stream().filter(b -> b.getName().equals(currentWord))
                 .findFirst().orElse(null);
         if (box2 == null) {
