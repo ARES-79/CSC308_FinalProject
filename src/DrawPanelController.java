@@ -31,11 +31,11 @@ public class DrawPanelController implements MouseListener, MouseMotionListener {
                         "\" was created at (" + e.getX() +
                         ", " + e.getY() + ").");
                 Box newBox = new Box(input, e.getX(), e.getY());
-                //Blackboard.getBlackboard().appendBoxList(newBox);
+                Blackboard.getBlackboard().appendBoxList(newBox);
 
-                Decoration decBox = new Decoration();
-                decBox.setComponent(newBox);
-                Blackboard.getBlackboard().appendBoxList(decBox);
+//                Decoration decBox = new Decoration();
+//                decBox.setComponent(newBox);
+//                Blackboard.getBlackboard().appendBoxList(decBox);
 
                 Blackboard.getBlackboard().updateData();
             } else {

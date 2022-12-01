@@ -23,7 +23,7 @@ public class MainController implements ActionListener {
         switch (e.getActionCommand()) {
             case ("New") -> Blackboard.getBlackboard().reset();
             case ("Save") -> saveModel.saveProject();
-            case ("Load") -> new LoadModel();
+            case ("Load") -> loadModel.loadProject();
 
             case ("Update") -> {
                 CustomTextArea textArea = Blackboard.getBlackboard().getCustomTextArea();
