@@ -143,6 +143,21 @@ public abstract class UMLComponent implements java.io.Serializable{
     }
 
     /**
+     * checkConnection
+     * @param destination - boolean
+     *      true if there is already a connection to the destination component
+     * @return
+     */
+    public boolean checkConnection(UMLComponent destination) {
+        for(Connection c: this.getConnections()){
+            if (c.getDestination() == destination){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * checkCollision - checks if the mouse is pressed within the class
      * @param x - x-coordinate of click
      * @param y - y-coordinate of click
