@@ -50,7 +50,6 @@ public class DrawPanelController implements MouseListener, MouseMotionListener {
                 //    decBox = new TempMethodDec( "method2", new TempMethodDec("method1", new TempVarDec("var1", newBox) ));
                 //}
                 //Blackboard.getBlackboard().appendBoxList(decBox);
-=======
                 Blackboard.getBlackboard().getStatusBar().setText("     A new class was created.");
 
 //                Decoration decBox = new Decoration();
