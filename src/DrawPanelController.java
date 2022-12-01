@@ -33,6 +33,8 @@ public class DrawPanelController implements MouseListener, MouseMotionListener {
                 Box newBox = new Box(input, e.getX(), e.getY());
                 Blackboard.getBlackboard().appendBoxList(newBox);
 
+                Blackboard.getBlackboard().getStatusBar().setText("     A new class was created.");
+
 //                Decoration decBox = new Decoration();
 //                decBox.setComponent(newBox);
 
@@ -43,6 +45,7 @@ public class DrawPanelController implements MouseListener, MouseMotionListener {
                 System.out.print("User clicked(" + e.getX() +
                         ", " + e.getY() + "), " +
                         "but no class was created.");
+                Blackboard.getBlackboard().getStatusBar().setText("     The user clicked the screen but no class was created.");
             }
         }
     }
