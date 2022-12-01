@@ -4,8 +4,8 @@ import java.util.ArrayList;
 /**
  * Assignment 01
  * @author Andrew Estrada
- * @version 1.0
- * UMLComponent - parent class for the box decorator model
+ * @version 2.0
+ * UMLComponent - abstract parent class for the box decorator model
  */
 public abstract class UMLComponent implements java.io.Serializable{
     private String name;
@@ -14,8 +14,6 @@ public abstract class UMLComponent implements java.io.Serializable{
     private int width = 120;
     private int height = 30;
     private ArrayList<Connection> connections = new ArrayList<Connection>();
-//    private int varY;
-//    private int methodY;
     private int numVars = 0;
     private int totalVars = 0;
     private int numMethods = 0;
@@ -26,49 +24,61 @@ public abstract class UMLComponent implements java.io.Serializable{
      */
     public abstract void paintBox(Graphics g);
 
+    /**
+     * setConnections - setter for connections variable
+     * @param connections - list of Connections to replace current value
+     */
     public void setConnections(ArrayList<Connection> connections) {
         this.connections = connections;
     }
 
+    /**
+     * getNumVars - getter for numVars value
+     * @return - int value of the numVars variable
+     */
     public int getNumVars() {
         return numVars;
     }
 
+    /**
+     * setNumVars - setter for numVars variable
+     * @param numVars - int value to replace current numVars value
+     */
     public void setNumVars(int numVars) {
         this.numVars = numVars;
     }
 
+    /**
+     * getTotalVars - getter for totalVars value
+     * @return - int value of the totalVars variable
+     */
     public int getTotalVars() {
         return totalVars;
     }
 
+    /**
+     * setTotalVars - setter for totalVars variable
+     * @param totalVars - int value to replace current totalVars value
+     */
     public void setTotalVars(int totalVars) {
         this.totalVars = totalVars;
     }
 
+    /**
+     * getNumVars - getter for numMethods value
+     * @return - int value of the numMethods variable
+     */
     public int getNumMethods() {
         return numMethods;
     }
 
+    /**
+     * setNumMethods - setter for numMethods variable
+     * @param numMethods - int value to replace current numMethods value
+     */
     public void setNumMethods(int numMethods) {
         this.numMethods = numMethods;
     }
-
-    //    public int getVarY() {
-//        return varY;
-//    }
-//
-//    public void setVarY(int varY) {
-//        this.varY = varY;
-//    }
-//
-//    public int getMethodY() {
-//        return methodY;
-//    }
-//
-//    public void setMethodY(int methodY) {
-//        this.methodY = methodY;
-//    }
 
     /**
      * getName
