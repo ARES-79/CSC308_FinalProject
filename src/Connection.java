@@ -62,16 +62,16 @@ public class Connection {
 
         switch (type){
             case INHERITANCE -> {
-                System.out.println("Painting Inheritance");
+                Blackboard.getBlackboard().getStatusBar().setText("     Inheritance connection drawn.");
                 drawInheritance(g);
             }
             case ASSOCIATION -> {
-                System.out.println("Painting Association");
+                Blackboard.getBlackboard().getStatusBar().setText("     Association connection drawn.");
                 List<Integer> coords = drawAssociation(g);
                 g.drawLine(coords.get(0), coords.get(1), coords.get(2), coords.get(3));
             }
             case COMPOSITION -> {
-                System.out.println("Painting Composition");
+                Blackboard.getBlackboard().getStatusBar().setText("     Composition connection drawn.");
                 List<Integer> coords = drawComposition(g);
                 g.drawLine(coords.get(0), coords.get(1), coords.get(2), coords.get(3));
             }

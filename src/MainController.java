@@ -5,7 +5,7 @@ import java.awt.event.MouseListener;
 
 /**
  * Assignment 01
- * @author Andrew Estrada
+ * @author Andrew Estrada, Jamie Luna
  * @version 1.0
  * MainController Class - class that connects GUI with the model
  */
@@ -21,13 +21,20 @@ public class MainController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-            case ("New") -> Blackboard.getBlackboard().reset();
-            case ("Save") -> saveModel.saveProject();
-            case ("Load") -> loadModel.loadProject();
+            case ("New") -> {
+                Blackboard.getBlackboard().reset();
+                Blackboard.getBlackboard().getStatusBar().setText("     New Project Created");}
+            case ("Save") -> {
+                saveModel.saveProject();
+                Blackboard.getBlackboard().getStatusBar().setText("     Project Saved");}
+            case ("Load") -> {
+                loadModel.loadProject();
+                Blackboard.getBlackboard().getStatusBar().setText("     Project Saved");}
 
             case ("Update") -> {
                 CustomTextArea textArea = Blackboard.getBlackboard().getCustomTextArea();
                 textArea.parseText();
+                Blackboard.getBlackboard().getStatusBar().setText("     Screen updated based on text written.");
             }
 
             case ("Association") -> Blackboard.getBlackboard().setConnectionType(ConnectionType.ASSOCIATION);

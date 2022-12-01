@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -8,6 +9,7 @@ public class Blackboard extends MyObservable{
     private ConnectionType connectionType = ConnectionType.ASSOCIATION;
     private HashSet<String> savedProjects = LoadModel.deserializeSavedProjects();
     private CustomTextArea customTextArea = new CustomTextArea(30, 20);
+    private JLabel statusBar = new JLabel();
 
     public CustomTextArea getCustomTextArea() {
         return customTextArea;
@@ -66,6 +68,14 @@ public class Blackboard extends MyObservable{
     public void setConnectionType(ConnectionType connectionType) {
         System.out.println(connectionType + " connection chosen");
         this.connectionType = connectionType;
+    }
+
+    public JLabel getStatusBar() {
+        return statusBar;
+    }
+
+    public void setStatusBar(JLabel statusBar) {
+        this.statusBar = statusBar;
     }
 
     public void reset(){
