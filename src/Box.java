@@ -12,8 +12,6 @@ public class Box extends UMLComponent{
         super.setName(name);
         super.setX(x);
         super.setY(y);
-        super.setVarY(y- this.getHeight()/2 + 15);
-        super.setMethodY(super.getVarY() + TempDecoration.decHeight + 5);
         if(name.length()*8 > getWidth()){
             super.setWidth(name.length()*8);
         }
