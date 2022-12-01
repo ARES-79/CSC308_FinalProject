@@ -31,7 +31,7 @@ public class LoadModel {
         // Deserialization
         try
         {
-            FileInputStream file = new FileInputStream("list/SavedProjects.ser");
+            FileInputStream file = new FileInputStream("src/SavedProjects.ser");
             ObjectInputStream in = new ObjectInputStream(file);
 
             SavedList = (HashSet<String>) in.readObject();
@@ -92,7 +92,7 @@ public class LoadModel {
         // Deserialization
         try
         {
-            FileInputStream file = new FileInputStream("projects/"+filename+".ser");
+            FileInputStream file = new FileInputStream(filename+".ser");
             ObjectInputStream in = new ObjectInputStream(file);
 
             BoxList = (List<UMLComponent>) in.readObject();

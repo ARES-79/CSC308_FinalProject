@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -48,7 +49,7 @@ public class SaveModel {
     void serialize(String filename){
         try
         {
-            FileOutputStream file = new FileOutputStream("projects/"+filename+".ser");
+            FileOutputStream file = new FileOutputStream(filename+".ser");
             ObjectOutputStream out = new ObjectOutputStream(file);
 
             out.writeObject(Blackboard.getBlackboard().getBoxList());
@@ -70,7 +71,7 @@ public class SaveModel {
             JOptionPane.showMessageDialog(null,"Error while Saving");
         }
         try{
-            FileOutputStream file1 = new FileOutputStream("list/SavedProjects.ser");
+            FileOutputStream file1 = new FileOutputStream("src/SavedProjects.ser");
             ObjectOutputStream out1 = new ObjectOutputStream(file1);
 
             out1.writeObject(Blackboard.getBlackboard().getSavedProjects());
