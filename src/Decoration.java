@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class Decoration extends UMLComponent{
     String text = "Decoration";
     protected UMLComponent component;
+    private final int decHeight = 15;
 
     /**
      * setComponent - Setter method which sets component

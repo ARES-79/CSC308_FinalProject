@@ -35,6 +35,7 @@ public class DrawPanelController implements MouseListener, MouseMotionListener {
 
 //                Decoration decBox = new Decoration();
 //                decBox.setComponent(newBox);
+
 //                Blackboard.getBlackboard().appendBoxList(decBox);
 
                 Blackboard.getBlackboard().updateData();
