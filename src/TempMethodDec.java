@@ -27,7 +27,7 @@ public class TempMethodDec extends TempDecoration {
     public TempMethodDec(String method, UMLComponent component) {
         this.methodName = method;
         this.methods = (ArrayList<String>) Arrays.stream(this.methodName.split("\n")).collect(Collectors.toList());
-
+        this.component = component;
         super.setComponent(component);
         super.setNumVars(component.getNumVars());
         super.setTotalVars(component.getTotalVars());
