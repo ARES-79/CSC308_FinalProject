@@ -95,12 +95,12 @@ public class Connection {
             x_coords = new int[]{x2 - 10, x2, x2 + 10};
 
             if(origin.getY() >= destination.getY()){ //dest above
-                y1 = origin.getY() - origin.getHeight()/2 + 10;
-                y2 = destination.getY() + destination.getHeight()/2 + 40; //HARDCODED VALUE
+                y1 = origin.getY() - origin.getHeight()/2 ;
+                y2 = destination.getY() + destination.getHeight()/2 + 20;
                 y_coords = new int[]{y2, y2 - 20, y2};
             }else{
                 y1 = origin.getY() + origin.getHeight()/2;
-                y2 = destination.getY() - destination.getHeight()/2 - 10;
+                y2 = destination.getY() - destination.getHeight()/2 - 20;
                 y_coords = new int[]{y2, y2 + 20, y2};
             }
         } else {
@@ -143,12 +143,12 @@ public class Connection {
             x_coords = new int[]{x2 - 5, x2, x2 + 5};
 
             if (origin.getY() >= destination.getY()) { //dest above
-                y1 = origin.getY() - origin.getHeight() / 2 + 10;
-                y2 = destination.getY() + destination.getHeight() / 2 + 30; //HARDCODED VALUE
+                y1 = origin.getY() - origin.getHeight() / 2 ;
+                y2 = destination.getY() + destination.getHeight() / 2 + 10;
                 y_coords = new int[]{y2, y2 - 10, y2};
             } else {
                 y1 = origin.getY() + origin.getHeight() / 2;
-                y2 = destination.getY() - destination.getHeight() / 2;
+                y2 = destination.getY() - destination.getHeight() / 2 - 10;
                 y_coords = new int[]{y2, y2 + 10, y2};
             }
         } else {
@@ -190,11 +190,12 @@ public class Connection {
         if (origin.getX() - origin.getWidth() <= destination.getX() &&
                 destination.getX() <= origin.getX() + origin.getWidth()){
             x_coords = new int[]{x1, x1 - 10, x1, x1 + 10};
-            y_coords = new int[]{y1, y1 - 10, y1 - 20, y1 - 10};
             if (origin.getY() >= destination.getY()) { //dest above
                 coords.set(1, y1 - 20);
+                y_coords = new int[]{y1, y1 - 10, y1 - 20, y1 - 10};
             } else{
                 coords.set(1, y1 + 20);
+                y_coords = new int[]{y1, y1 + 10, y1 + 20, y1 + 10};
             }
         } else{ //right and left
             y_coords = new int[]{y1, y1 - 10, y1, y1 + 10};
