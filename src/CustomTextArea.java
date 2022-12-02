@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +11,7 @@ public class CustomTextArea extends JTextArea implements MyObserver {
 
     private void parseClasses(List<UMLComponent> boxes) {
         for (UMLComponent box : boxes) {
+            String text = "";
             List<String> inheritenceCons = box.getConnections().stream()
                     .filter(connection -> connection.getType().equals(ConnectionType.INHERITANCE))
                     .map(connection -> connection.getDestination().getName())
@@ -24,16 +24,29 @@ public class CustomTextArea extends JTextArea implements MyObserver {
                     .filter(connection -> connection.getType().equals(ConnectionType.COMPOSITION))
                     .map(connection -> connection.getDestination().getName())
                     .collect(Collectors.toList());
-            String text = "class " + box.getName();
+            TempMethodDec tempMethodDec = (TempMethodDec) box;
+            List<String> variables = Arrays.stream(((TempVarDec) tempMethodDec.getComponent())
+                    .getVarName().split("\n")).collect(Collectors.toList());
+            List<String> methods = Arrays.stream(((TempMethodDec) box).getMethodName().split("\n"))
+                    .collect(Collectors.toList());
+            variables.remove(0);
+            methods.remove(0);
+            text = "class " + box.getName();
             if (inheritenceCons.size() > 0) {
                 text += " extends " + String.join(" ", inheritenceCons);
             }
             text += " {\n";
-            if(compositionCons.size() > 0){
-                text += " " + String.join("\n ", compositionCons) + "\n ";
+            if (compositionCons.size() > 0) {
+                text += " " + String.join("\n ", compositionCons) + "\n";
+            }
+            if (variables.size() > 0) {
+                text += " " + String.join("\n ", variables) + "\n";
             }
             if (associationCons.size() > 0) {
-                text += " methods() {\n  " + String.join("\n  ", associationCons) + "\n }";
+                text += " methods() {\n  " + String.join("\n  ", associationCons) + "\n }\n";
+            }
+            if (methods.size() > 0) {
+                text += " " + String.join("() {\n }\n ", methods) + "() {\n }";
             }
             text += "\n}\n";
             this.append(text);
@@ -48,31 +61,43 @@ public class CustomTextArea extends JTextArea implements MyObserver {
                     .collect(Collectors.toList());
             String boxName = splitClass.get(0);
             UMLComponent box = Blackboard.getBlackboard().getBoxList().stream().filter(b -> b.getName().equals(boxName))
-                    .findFirst().orElse(new Box(boxName, 100, 100));
+                    .findFirst().orElse(new TempMethodDec("", new TempVarDec("", new Box(boxName, 100, 100))));
             int i = 1;
             while (i < splitClass.size()) {
                 if (splitClass.get(i).equals("extends")) {
                     i = getConnections(ConnectionType.INHERITANCE, splitClass, i, s, box);
-                }
-                else {
+                } else {
                     String currentWord = splitClass.get(i);
                     int currentWordIndex = s.indexOf(currentWord);
                     char lastChar = s.charAt(currentWordIndex + currentWord.length());
                     if (lastChar == '\n') {
                         String finalCurrentWord = currentWord;
-                        Box box2 = (Box) Blackboard.getBlackboard().getBoxList().stream().filter(b -> b.getName().equals(finalCurrentWord))
+                        UMLComponent box2 = Blackboard.getBlackboard().getBoxList().stream().filter(b -> b.getName().equals(finalCurrentWord))
                                 .findFirst().orElse(null);
                         if (box2 != null) {
-                            if(box.getConnections().stream().filter(connection -> connection.getDestination().equals(box2) &&
-                                    connection.getType().equals(ConnectionType.COMPOSITION)).count() == 0){
+                            if (box.getConnections().stream().noneMatch(connection -> connection.getDestination().equals(box2) &&
+                                    connection.getType().equals(ConnectionType.COMPOSITION))) {
                                 Connection connection = new Connection(box, box2, ConnectionType.COMPOSITION);
                                 box.getConnections().add(connection);
                             }
                         } else {
                             System.out.println("This class have a variable " + currentWord);
+                            TempMethodDec tempMethodDec = (TempMethodDec) box;
+                            TempVarDec tempVarDec = (TempVarDec) tempMethodDec.getComponent();
+                            String finalCurrentWord2 = currentWord;
+                            if (Arrays.stream(tempVarDec.getVarName().split("\n"))
+                                    .noneMatch(str -> str.equals(finalCurrentWord2))) {
+                                tempVarDec.setVarName((tempVarDec.getVarName() + "\n" + currentWord));
+                            }
                         }
-                    } else if (lastChar == '(' && !currentWord.equals("method")) {
+                    } else if (lastChar == '(' && !currentWord.equals("methods")) {
                         System.out.println("This class has a method " + currentWord);
+                        TempMethodDec tempMethodDec = (TempMethodDec) box;
+                        String finalCurrentWord2 = currentWord;
+                        if (Arrays.stream(tempMethodDec.getMethodName().split("\n"))
+                                .noneMatch(str -> str.equals(finalCurrentWord2))) {
+                            tempMethodDec.setMethodName((tempMethodDec.getMethodName() + "\n" + currentWord));
+                        }
                     } else {
                         lastChar = s.charAt(currentWordIndex + currentWord.length() + 2);
                         while (lastChar != '}') {
@@ -80,7 +105,11 @@ public class CustomTextArea extends JTextArea implements MyObserver {
                             currentWord = splitClass.get(i);
                             currentWordIndex = s.indexOf(currentWord);
                             lastChar = s.charAt(currentWordIndex + currentWord.length() + 2);
-                            this.createConnection(box, currentWord, ConnectionType.COMPOSITION);
+                            String finalCurrentWord1 = currentWord;
+                            if (box.getConnections().stream().noneMatch(connection -> connection.getDestination().equals(finalCurrentWord1) &&
+                                    connection.getType().equals(ConnectionType.ASSOCIATION))) {
+                                this.createConnection(box, currentWord, ConnectionType.ASSOCIATION);
+                            }
                         }
                     }
                 }
@@ -95,10 +124,8 @@ public class CustomTextArea extends JTextArea implements MyObserver {
 
     @Override
     public void update(MyObservable ob) {
-        //The getBox call of umlComponents causes an error
         this.setText("");
         this.parseClasses(Blackboard.getBlackboard().getBoxList());
-
     }
 
     private int getConnections(ConnectionType connectionType, ArrayList<String> splitClass, int i, String s, UMLComponent origin) {
@@ -119,12 +146,12 @@ public class CustomTextArea extends JTextArea implements MyObserver {
         UMLComponent box2 = Blackboard.getBlackboard().getBoxList().stream().filter(b -> b.getName().equals(currentWord))
                 .findFirst().orElse(null);
         if (box2 == null) {
-            box2 = new Box(currentWord, 300, 300);
+            box2 = new TempMethodDec("", new TempVarDec("", new Box(currentWord, 300, 300)));
             Blackboard.getBlackboard().getBoxList().add(box2);
         }
         UMLComponent finalBox = box2;
-        if(origin.getConnections().stream().filter(connection -> connection.getDestination().equals(finalBox) &&
-                connection.getType().equals(connectionType)).collect(Collectors.toList()).size() == 0){
+        if (origin.getConnections().stream().filter(connection -> connection.getDestination().equals(finalBox) &&
+                connection.getType().equals(connectionType)).collect(Collectors.toList()).size() == 0) {
             Connection connection = new Connection(origin, box2, connectionType);
             origin.getConnections().add(connection);
         }

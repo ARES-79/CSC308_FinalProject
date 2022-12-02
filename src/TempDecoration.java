@@ -1,20 +1,10 @@
 import java.awt.*;
 
-/**
- * Assignment 01
- * @author Andrew Estrada
- * @version 2.1
- * Decoration - parent class for concrete decorations
- */
-public class TempDecoration extends UMLComponent{
+public class TempDecoration extends UMLComponent {
     protected UMLComponent component;
     public static final int decHeight = 25;
 
-    /**
-     * setComponent - standard part of the decorator pattern
-     * @param component - UMLComponent to be nested within the new decorator
-     */
-    public void setComponent(UMLComponent component){
+    public void setComponent(UMLComponent component) {
         this.component = component;
         super.setName(component.getName());
         super.setX(component.getX());
@@ -26,21 +16,24 @@ public class TempDecoration extends UMLComponent{
 
     /**
      * paintBox - overridden method to draw component to the screen
-     *      follows decorator pattern
+     * follows decorator pattern
+     *
      * @param g - Graphics object used to create what is shown on screen
      */
     @Override
     public void paintBox(Graphics g) {
-        if (component != null){
+        super.setNumVars(this.getNumVars());
+        if (component != null) {
             component.paintBox(g);
         }
-        for(Connection c: super.getConnections()){
+        for (Connection c : super.getConnections()) {
             c.paintConnection(g);
         }
     }
 
     /**
      * getHeight - getter method to get the height of the component
+     *
      * @return int height of the component
      */
     public int getHeight() {
@@ -48,15 +41,8 @@ public class TempDecoration extends UMLComponent{
     }
 
     /**
-     * setHeight - setter method for height
-     * @param height - int value to replace the current height
-     */
-    public void setHeight(int height){
-        component.setHeight(height);
-    }
-
-    /**
      * getX - getter method to get the x of the component
+     *
      * @return int x of the component
      */
     public int getX() {
@@ -65,6 +51,7 @@ public class TempDecoration extends UMLComponent{
 
     /**
      * getY - getter method to get the Y of the component
+     *
      * @return int y of the component
      */
     public int getY() {
@@ -73,6 +60,7 @@ public class TempDecoration extends UMLComponent{
 
     /**
      * setX - setter method to set the x of the component
+     *
      * @param x int x value to set to the x of the component
      */
     public void setX(int x) {
@@ -81,21 +69,30 @@ public class TempDecoration extends UMLComponent{
 
     /**
      * setY - setter method to set the y of the component
+     *
      * @param y int y value to set to the y of the component
      */
-    public void setY(int y){
+    public void setY(int y) {
         component.setY(y);
+    }
+
+    public void setHeight(int height) {
+        component.setHeight(height);
     }
 
     /**
      * setTotalVars - overridden setter method to not only update the
-     *      current UMLComponent but the nested one's as well
+     * current UMLComponent but the nested one's as well
+     *
      * @param totalVars - int value to replace current totalVars value
      */
     @Override
-    public void setTotalVars(int totalVars){
+    public void setTotalVars(int totalVars) {
         super.setTotalVars(totalVars);
         component.setTotalVars(totalVars);
+    }
+    public UMLComponent getComponent() {
+        return component;
     }
 
 }

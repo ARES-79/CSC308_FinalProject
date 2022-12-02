@@ -1,4 +1,7 @@
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * Assignment 01
@@ -9,8 +12,9 @@ import java.awt.*;
 public class TempVarDec extends TempDecoration{
 
     private String varName;
-    private int decWidth;
-
+    private final int decWidth;
+    private int decHeight;
+    private ArrayList<String> vars;
     /**
      * VariableDecorator Constructor
      *      transfers necessary info from the component with appropriate edits
@@ -19,11 +23,14 @@ public class TempVarDec extends TempDecoration{
      */
     public TempVarDec(String var, UMLComponent component){
         this.varName = var;
+        this.vars = new ArrayList<String>();
+
         super.setComponent(component);
         super.setNumVars(component.getNumVars() +1);
         super.setTotalVars(component.getTotalVars() +1);
         super.setNumMethods(component.getNumMethods());
         this.decWidth = component.getWidth()-5;
+        this.decHeight = TempDecoration.decHeight * this.vars.size();
     }
 
     /**
@@ -33,13 +40,30 @@ public class TempVarDec extends TempDecoration{
      */
     @Override
     public void paintBox(Graphics g){
-        super.paintBox(g);
+        this.vars = (ArrayList<String>) Arrays.stream(this.varName.split("\n")).collect(Collectors.toList());
+        this.vars.remove(0);
         int baseBoxX = component.getX();
+        this.decHeight = TempDecoration.decHeight * this.vars.size();
+        this.component.setNumVars(this.vars.size());
+        super.paintBox(g);
         g.setColor(Color.PINK);
         g.fillRect(baseBoxX - component.getWidth()/2+2,
-                super.getY() - super.getHeight()/2 + 25 + ((super.getNumVars()-1)* decHeight), decWidth, decHeight);
+                super.getY() - super.getHeight()/2 + 25, decWidth, decHeight);
         g.setColor(Color.black);
-        g.drawString(varName, baseBoxX- varName.length()*5, super.getY() - super.getHeight()/2 + 25 + ((super.getNumVars()-1)* decHeight)+ 15);
+        int baseHeight = 40;
+        for(String var : vars){
+            g.drawString(var, baseBoxX- var.length()*5, super.getY() - super.getHeight()/2 + baseHeight);
+            baseHeight += TempDecoration.decHeight;
+        }
+    }
+    public int getDecHeight() {
+        return decHeight;
+    }
+    public String getVarName() {
+        return varName;
+    }
 
+    public void setVarName(String varName) {
+        this.varName = varName;
     }
 }
