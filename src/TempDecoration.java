@@ -1,10 +1,6 @@
 import java.awt.*;
 
 public class TempDecoration extends UMLComponent {
-    public UMLComponent getComponent() {
-        return component;
-    }
-
     protected UMLComponent component;
     public static final int decHeight = 25;
 
@@ -18,6 +14,12 @@ public class TempDecoration extends UMLComponent {
         super.setHeight(this.component.getHeight());
     }
 
+    /**
+     * paintBox - overridden method to draw component to the screen
+     * follows decorator pattern
+     *
+     * @param g - Graphics object used to create what is shown on screen
+     */
     @Override
     public void paintBox(Graphics g) {
         super.setNumVars(this.getNumVars());
@@ -78,22 +80,19 @@ public class TempDecoration extends UMLComponent {
         component.setHeight(height);
     }
 
+    /**
+     * setTotalVars - overridden setter method to not only update the
+     * current UMLComponent but the nested one's as well
+     *
+     * @param totalVars - int value to replace current totalVars value
+     */
     @Override
     public void setTotalVars(int totalVars) {
         super.setTotalVars(totalVars);
         component.setTotalVars(totalVars);
     }
-//    @Override
-//    public void setVarY(int varY) {
-//        super.setVarY(varY);
-//        this.component.setVarY(varY);
-//    }
-//
-//    @Override
-//    public void setMethodY(int methodY){
-//        super.setMethodY(methodY);
-//        this.component.setMethodY(methodY);
-//    }
-
+    public UMLComponent getComponent() {
+        return component;
+    }
 
 }

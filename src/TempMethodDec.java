@@ -3,6 +3,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+/**
+ * Assignment 01
+ *
+ * @author Andrew Estrada
+ * @version 2.1
+ * MethodDecorator - concrete decoration for methods
+ */
 public class TempMethodDec extends TempDecoration {
     private String methodName;
     private UMLComponent component;
@@ -10,17 +17,14 @@ public class TempMethodDec extends TempDecoration {
     private int decHeight;
     private ArrayList<String> methods;
 
-    public UMLComponent getComponent() {
-        return component;
-    }
-
-    @Override
-    public void setComponent(UMLComponent component) {
-        this.component = component;
-    }
-
+    /**
+     * MethodDecorator constructor
+     * transfers necessary info from the component with appropriate edits
+     *
+     * @param method    - name of the method being added
+     * @param component - component to be decorated
+     */
     public TempMethodDec(String method, UMLComponent component) {
-        this.component = component;
         this.methodName = method;
         this.methods = (ArrayList<String>) Arrays.stream(this.methodName.split("\n")).collect(Collectors.toList());
 
@@ -28,12 +32,16 @@ public class TempMethodDec extends TempDecoration {
         super.setNumVars(component.getNumVars());
         super.setTotalVars(component.getTotalVars());
         super.setNumMethods(component.getNumMethods() + 1);
-//        super.setVarY(component.getVarY());
-//        super.setMethodY(component.getMethodY() + decHeight);
         this.decWidth = component.getWidth() - 5;
         this.decHeight = TempDecoration.decHeight * this.methods.size();
     }
 
+    /**
+     * paintBox - overridden method to also paint a pink box with a method name
+     * in the correct position
+     *
+     * @param g - Graphics object used to create what is shown on screen
+     */
     @Override
     public void paintBox(Graphics g) {
         this.methods = (ArrayList<String>) Arrays.stream(this.methodName.split("\n")).collect(Collectors.toList());
@@ -43,13 +51,7 @@ public class TempMethodDec extends TempDecoration {
         ((TempVarDec) this.component).getComponent().setNumMethods(this.methods.size());
         super.paintBox(g);
         super.paintBox(g);
-//        int baseBoxX = component.getX();
-//        int baseBoxY = component.getY();
-        //paint Var
         g.setColor(Color.PINK);
-//        g.fillRect(baseBoxX - component.getWidth()/2+2, super.getMethodY()-decHeight, decWidth, decHeight);
-//        g.setColor(Color.black);
-//        g.drawString(methodName, baseBoxX- methodName.length()*5, super.getMethodY() -decHeight+ 15);
         if (super.getNumVars() == 0) {
             g.fillRect(baseBoxX - component.getWidth() / 2 + 2,
                     super.getY() - super.getHeight() / 2 + 25 + 5,
@@ -76,5 +78,14 @@ public class TempMethodDec extends TempDecoration {
 
     public void setMethodName(String methodName) {
         this.methodName = methodName;
+    }
+
+    public UMLComponent getComponent() {
+        return component;
+    }
+
+    @Override
+    public void setComponent(UMLComponent component) {
+        this.component = component;
     }
 }

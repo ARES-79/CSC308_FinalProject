@@ -3,26 +3,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+/**
+ * Assignment 01
+ * @author Andrew Estrada
+ * @version 2.1
+ * VariableDecorator - concrete decoration for variables
+ */
 public class TempVarDec extends TempDecoration{
 
     private String varName;
-    private int decWidth;
-
-    public int getDecHeight() {
-        return decHeight;
-    }
-
+    private final int decWidth;
     private int decHeight;
     private ArrayList<String> vars;
-
-    public String getVarName() {
-        return varName;
-    }
-
-    public void setVarName(String varName) {
-        this.varName = varName;
-    }
-
+    /**
+     * VariableDecorator Constructor
+     *      transfers necessary info from the component with appropriate edits
+     * @param var - String name of the variable being added
+     * @param component - UMLComponent to be decorated
+     */
     public TempVarDec(String var, UMLComponent component){
         this.varName = var;
         this.vars = new ArrayList<String>();
@@ -30,14 +28,16 @@ public class TempVarDec extends TempDecoration{
         super.setComponent(component);
         super.setNumVars(component.getNumVars() +1);
         super.setTotalVars(component.getTotalVars() +1);
-//        component.setTotalVars(component.getNumVars() +1);
         super.setNumMethods(component.getNumMethods());
-//            super.setVarY(component.getVarY() + decHeight);
-//            super.setMethodY(component.getMethodY() + decHeight);
         this.decWidth = component.getWidth()-5;
         this.decHeight = TempDecoration.decHeight * this.vars.size();
     }
 
+    /**
+     * paintBox - overridden method to also paint a pink box with a variable name
+     *              in the correct position
+     * @param g - Graphics object used to create what is shown on screen
+     */
     @Override
     public void paintBox(Graphics g){
         this.vars = (ArrayList<String>) Arrays.stream(this.varName.split("\n")).collect(Collectors.toList());
@@ -46,15 +46,7 @@ public class TempVarDec extends TempDecoration{
         this.decHeight = TempDecoration.decHeight * this.vars.size();
         this.component.setNumVars(this.vars.size());
         super.paintBox(g);
-//        int baseBoxY = component.getY()- component.getHeight()/2;
-        //paint Var
         g.setColor(Color.PINK);
-//        g.fillRect(baseBoxX - component.getWidth()/2+2, super.getVarY()-decHeight, decWidth, decHeight);
-//        g.setColor(Color.black);
-//        g.drawString(varName, baseBoxX- varName.length()*5, super.getVarY()-decHeight+ 15);
-
-//        super.setVarY(y- this.getHeight()/2 + 15);
-//        super.setMethodY(super.getVarY() + TempDecoration.decHeight + 5);
         g.fillRect(baseBoxX - component.getWidth()/2+2,
                 super.getY() - super.getHeight()/2 + 25, decWidth, decHeight);
         g.setColor(Color.black);
@@ -63,5 +55,15 @@ public class TempVarDec extends TempDecoration{
             g.drawString(var, baseBoxX- var.length()*5, super.getY() - super.getHeight()/2 + baseHeight);
             baseHeight += TempDecoration.decHeight;
         }
+    }
+    public int getDecHeight() {
+        return decHeight;
+    }
+    public String getVarName() {
+        return varName;
+    }
+
+    public void setVarName(String varName) {
+        this.varName = varName;
     }
 }
