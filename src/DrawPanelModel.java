@@ -3,7 +3,7 @@ import javax.swing.*;
 /**
  * Assignment 01
  * @author Andrew Estrada
- * @version 0.0
+ * @version 1.3
  * DrawPanelModel - class that provides the logic for the DrawPanel
  */
 public class DrawPanelModel {
@@ -49,8 +49,6 @@ public class DrawPanelModel {
                 y1 = y;
                 baseX = c.getX();
                 baseY = c.getY();
-                baseVarY = c.getVarY();
-                baseMethodY = c.getMethodY();
                 dealWithBox(c);
                 return true;
             }
@@ -96,9 +94,6 @@ public class DrawPanelModel {
     public void moveBox(int x, int y){
         firstBoxPressed.setX(baseX + (x-x1));
         firstBoxPressed.setY(baseY + (y-y1));
-
-        firstBoxPressed.setVarY(baseVarY + (y-y1));
-        firstBoxPressed.setMethodY(baseMethodY + (y-y1));
         Blackboard.getBlackboard().updateData();
     }
 
