@@ -33,13 +33,24 @@ public class DrawPanelController implements MouseListener, MouseMotionListener {
                 Box newBox = new Box(input, e.getX(), e.getY());
                 Blackboard.getBlackboard().appendBoxList(newBox);
 
+                //UMLComponent decBox = newBox;
+                //if (input.equals("A")){
+                //    decBox = new TempVarDec("var1", newBox);
+                //}
+                //else if (input.equals("B")){
+                //    decBox = new TempMethodDec("method1", newBox);
+                //}
+                //else if (input.equals("C")){
+                //    decBox = new TempMethodDec("method1", new TempVarDec("var1", newBox) );
+                //}
+                //else if (input.equals("D")){
+                //    decBox = new TempVarDec( "var2", new TempMethodDec("method1", new TempVarDec("var1", newBox) ));
+                //}
+                //else if (input.equals("E")){
+                //    decBox = new TempMethodDec( "method2", new TempMethodDec("method1", new TempVarDec("var1", newBox) ));
+                //}
+                //Blackboard.getBlackboard().appendBoxList(decBox);
                 Blackboard.getBlackboard().getStatusBar().setText("     A new class was created.");
-
-//                Decoration decBox = new Decoration();
-//                decBox.setComponent(newBox);
-
-//                Blackboard.getBlackboard().appendBoxList(decBox);
-
                 Blackboard.getBlackboard().updateData();
             } else {
                 System.out.print("User clicked(" + e.getX() +

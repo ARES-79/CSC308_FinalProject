@@ -1,15 +1,34 @@
 import java.awt.*;
 
+/**
+ * Assignment 01
+ * @author Andrew Estrada
+ * @version 2.1
+ * Decoration - parent class for concrete decorations
+ */
 public class TempDecoration extends UMLComponent{
     protected UMLComponent component;
     public static final int decHeight = 25;
 
+    /**
+     * setComponent - standard part of the decorator pattern
+     * @param component - UMLComponent to be nested within the new decorator
+     */
     public void setComponent(UMLComponent component){
         this.component = component;
         super.setName(component.getName());
+        super.setX(component.getX());
+        super.setY(component.getY());
         super.setConnections(component.getConnections());
+        this.component.setHeight(component.getHeight() + decHeight);
+        super.setHeight(this.component.getHeight());
     }
 
+    /**
+     * paintBox - overridden method to draw component to the screen
+     *      follows decorator pattern
+     * @param g - Graphics object used to create what is shown on screen
+     */
     @Override
     public void paintBox(Graphics g) {
         if (component != null){
@@ -26,6 +45,14 @@ public class TempDecoration extends UMLComponent{
      */
     public int getHeight() {
         return component.getHeight();
+    }
+
+    /**
+     * setHeight - setter method for height
+     * @param height - int value to replace the current height
+     */
+    public void setHeight(int height){
+        component.setHeight(height);
     }
 
     /**
@@ -60,19 +87,15 @@ public class TempDecoration extends UMLComponent{
         component.setY(y);
     }
 
-    public void setHeight(int height){
-        component.setHeight(height);
+    /**
+     * setTotalVars - overridden setter method to not only update the
+     *      current UMLComponent but the nested one's as well
+     * @param totalVars - int value to replace current totalVars value
+     */
+    @Override
+    public void setTotalVars(int totalVars){
+        super.setTotalVars(totalVars);
+        component.setTotalVars(totalVars);
     }
 
-    @Override
-    public void setVarY(int varY) {
-        super.setVarY(varY);
-        this.component.setVarY(varY);
-    }
-
-    @Override
-    public void setMethodY(int methodY){
-        super.setMethodY(methodY);
-        this.component.setMethodY(methodY);
-    }
 }
