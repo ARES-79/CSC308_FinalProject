@@ -19,7 +19,7 @@ public class LoadModel {
     public void loadProject(){
         System.out.println("The user has chosen to LOAD an existing UML");
         String name = showDialogueBox();
-        if (name != null) {
+        if (name != null  && (name.length() > 0)) {
             deserialize(name);
         }
     }

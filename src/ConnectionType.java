@@ -1,3 +1,5 @@
+import java.io.Serializable;
+
 /**
  * Final Project
  * @author Jamie Luna, Andrew Estrada
@@ -6,7 +8,7 @@
  * drawn/used to connect two boxes
  */
 
-public enum ConnectionType {
+public enum ConnectionType implements Serializable {
     ASSOCIATION,
     INHERITANCE,
     COMPOSITION
