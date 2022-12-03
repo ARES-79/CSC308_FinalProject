@@ -70,7 +70,7 @@ public class SaveModel {
         }
         catch(IOException ex)
         {
-            System.out.println("IOException is caught");
+            System.out.println("IOException is caught" + ex);
             JOptionPane.showMessageDialog(null,"Error while Saving");
         }
         try{
