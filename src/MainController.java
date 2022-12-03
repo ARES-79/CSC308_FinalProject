@@ -29,7 +29,7 @@ public class MainController implements ActionListener {
                 Blackboard.getBlackboard().getStatusBar().setText("     Project Saved");}
             case ("Load") -> {
                 loadModel.loadProject();
-                Blackboard.getBlackboard().getStatusBar().setText("     Project Saved");}
+                Blackboard.getBlackboard().getStatusBar().setText("     Project Loaded");}
 
             case ("Update") -> {
                 CustomTextArea textArea = Blackboard.getBlackboard().getCustomTextArea();
