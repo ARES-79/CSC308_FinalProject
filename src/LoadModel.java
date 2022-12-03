@@ -19,7 +19,7 @@ public class LoadModel {
     public void loadProject(){
         System.out.println("The user has chosen to LOAD an existing UML");
         String name = showDialogueBox();
-        if (name != null) {
+        if (name != null  && (name.length() > 0)) {
             deserialize(name);
         }
     }
@@ -34,7 +34,7 @@ public class LoadModel {
         // Deserialization
         try
         {
-            FileInputStream file = new FileInputStream("src/SavedProjects.ser");
+            FileInputStream file = new FileInputStream("SavedProjects01234567890.ser");
             ObjectInputStream in = new ObjectInputStream(file);
 
             SavedList = (HashSet<String>) in.readObject();

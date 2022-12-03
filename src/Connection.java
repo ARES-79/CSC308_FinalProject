@@ -11,7 +11,7 @@ import java.util.List;
  * and the box containing the list is the origin, while the box in the list is the destination
  * the enum typeOfConnection shows what type should be drawn/used to connect the two boxes
  */
-public class Connection {
+public class Connection implements java.io.Serializable {
     private UMLComponent destination;
     private UMLComponent origin;
     private ConnectionType type;
@@ -62,16 +62,13 @@ public class Connection {
 
         switch (type){
             case INHERITANCE -> {
-                Blackboard.getBlackboard().getStatusBar().setText("     Inheritance connection drawn.");
                 drawInheritance(g);
             }
             case ASSOCIATION -> {
-                Blackboard.getBlackboard().getStatusBar().setText("     Association connection drawn.");
                 List<Integer> coords = drawAssociation(g);
                 g.drawLine(coords.get(0), coords.get(1), coords.get(2), coords.get(3));
             }
             case COMPOSITION -> {
-                Blackboard.getBlackboard().getStatusBar().setText("     Composition connection drawn.");
                 List<Integer> coords = drawComposition(g);
                 g.drawLine(coords.get(0), coords.get(1), coords.get(2), coords.get(3));
             }

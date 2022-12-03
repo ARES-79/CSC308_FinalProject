@@ -15,6 +15,7 @@ public class VarDec extends Decoration {
     private final int decWidth;
     private int decHeight;
     private ArrayList<String> vars;
+
     /**
      * VariableDecorator Constructor
      *      transfers necessary info from the component with appropriate edits
@@ -56,13 +57,30 @@ public class VarDec extends Decoration {
             baseHeight += Decoration.decHeight;
         }
     }
+
+    /**
+     * getDecHeight - getter method to get height of this decorator
+     *
+     * @return int decHeight which is the height of this decorator
+     */
     public int getDecHeight() {
         return decHeight;
     }
+
+    /**
+     * getVarName - getter method to get the name of the variable of this decorator
+     *
+     * @return String varNAme, which is the name of the variable
+     */
     public String getVarName() {
         return varName;
     }
 
+    /**
+     * setVarName - setter method to set varName to the string received as the parameter
+     *
+     * @param varName - String which will become the varNAme of this decorator
+     */
     public void setVarName(String varName) {
         this.varName = varName;
     }
