@@ -74,7 +74,7 @@ public class SaveModel {
             JOptionPane.showMessageDialog(null,"Error while Saving");
         }
         try{
-            FileOutputStream file1 = new FileOutputStream("src/SavedProjects.ser");
+            FileOutputStream file1 = new FileOutputStream("SavedProjects01234567890.ser");
             ObjectOutputStream out1 = new ObjectOutputStream(file1);
 
             out1.writeObject(Blackboard.getBlackboard().getSavedProjects());
@@ -85,7 +85,7 @@ public class SaveModel {
         }
         catch(IOException ex)
         {
-            System.out.println("IOException is caught");
+            System.out.println("IOException is caught (loading Project List)");
         }
     }
 }

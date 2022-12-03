@@ -34,7 +34,7 @@ public class LoadModel {
         // Deserialization
         try
         {
-            FileInputStream file = new FileInputStream("src/SavedProjects.ser");
+            FileInputStream file = new FileInputStream("SavedProjects01234567890.ser");
             ObjectInputStream in = new ObjectInputStream(file);
 
             SavedList = (HashSet<String>) in.readObject();
