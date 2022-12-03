@@ -5,7 +5,7 @@ import java.awt.event.MouseListener;
 
 /**
  * Assignment 01
- * @author Andrew Estrada, Jamie Luna
+ * @author Andrew Estrada, Jamie Luna, Mitashi Parikh
  * @version 1.0
  * MainController Class - class that connects GUI with the model
  */

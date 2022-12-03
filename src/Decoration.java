@@ -91,6 +91,10 @@ public class Decoration extends UMLComponent {
         component.setY(y);
     }
 
+    /**
+     * setHeight - setter method to change the height of the component
+     * @param height - int value to replace the current height of the component
+     */
     public void setHeight(int height) {
         component.setHeight(height);
     }
@@ -106,6 +110,11 @@ public class Decoration extends UMLComponent {
         super.setTotalVars(totalVars);
         component.setTotalVars(totalVars);
     }
+
+    /**
+     * getComponent - getter method to access the component this decorator is decorating
+     * @return UMLComponent object which is this decorator's component
+     */
     public UMLComponent getComponent() {
         return component;
     }
