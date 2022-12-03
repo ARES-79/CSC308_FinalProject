@@ -13,8 +13,8 @@ public class Box extends UMLComponent{
         super.setName(name);
         super.setX(x);
         super.setY(y);
-        if(name.length()*8 > getWidth()){
-            super.setWidth(name.length()*8);
+        if(name.length()*10 > getWidth()){
+            super.setWidth(name.length()*10);
         }
     }
 
@@ -31,7 +31,7 @@ public class Box extends UMLComponent{
         g.fillRect(super.getX() - super.getWidth()/2, super.getY() - super.getHeight()/2,
                 super.getWidth(), super.getHeight());
         g.setColor(Color.black);
-        g.drawString(this.getName(), super.getX()-super.getName().length()*3, super.getY() - super.getHeight()/2 + 20);
+        g.drawString(this.getName(), super.getX()-super.getName().length()*4, super.getY() - super.getHeight()/2 + 20);
 
         for(Connection c: super.getConnections()){
             c.paintConnection(g);
