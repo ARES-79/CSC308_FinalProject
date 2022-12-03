@@ -66,13 +66,11 @@ public class DrawPanelModel {
         System.out.println("Dealing with Box, isFirstBoxPressed: " + this.isFirstBoxPressed);
         if(this.isFirstBoxPressed && firstBoxPressed != boxPressed
                 && !firstBoxPressed.checkConnection(boxPressed)){
-            System.out.println("Trying to make a connection.");
             firstBoxPressed.addConnection(boxPressed, Blackboard.getBlackboard().getConnectionType());
             Blackboard.getBlackboard().updateData();
             this.isFirstBoxPressed = false;
             firstBoxPressed = null;
         } else{
-            System.out.println("Single box.");
             this.isFirstBoxPressed = true;
             firstBoxPressed = boxPressed;
         }
