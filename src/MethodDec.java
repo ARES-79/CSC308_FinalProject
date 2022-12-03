@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
  * @version 2.1
  * MethodDecorator - concrete decoration for methods
  */
-public class TempMethodDec extends TempDecoration {
+public class MethodDec extends Decoration {
     private String methodName;
     private UMLComponent component;
     private int decWidth;
@@ -24,7 +24,7 @@ public class TempMethodDec extends TempDecoration {
      * @param method    - name of the method being added
      * @param component - component to be decorated
      */
-    public TempMethodDec(String method, UMLComponent component) {
+    public MethodDec(String method, UMLComponent component) {
         this.methodName = method;
         this.methods = (ArrayList<String>) Arrays.stream(this.methodName.split("\n")).collect(Collectors.toList());
         this.component = component;
@@ -33,7 +33,7 @@ public class TempMethodDec extends TempDecoration {
         super.setTotalVars(component.getTotalVars());
         super.setNumMethods(component.getNumMethods() + 1);
         this.decWidth = component.getWidth() - 5;
-        this.decHeight = TempDecoration.decHeight * this.methods.size();
+        this.decHeight = Decoration.decHeight * this.methods.size();
     }
 
     /**
@@ -47,8 +47,8 @@ public class TempMethodDec extends TempDecoration {
         this.methods = (ArrayList<String>) Arrays.stream(this.methodName.split("\n")).collect(Collectors.toList());
         this.methods.remove(0);
         int baseBoxX = component.getX();
-        this.decHeight = TempDecoration.decHeight * this.methods.size();
-        ((TempVarDec) this.component).getComponent().setNumMethods(this.methods.size());
+        this.decHeight = Decoration.decHeight * this.methods.size();
+        ((VarDec) this.component).getComponent().setNumMethods(this.methods.size());
         super.paintBox(g);
         super.paintBox(g);
         g.setColor(Color.PINK);
@@ -60,14 +60,14 @@ public class TempMethodDec extends TempDecoration {
             g.drawString(methodName, baseBoxX - methodName.length() * 5, super.getY() - super.getHeight() / 2 + 25 + ((super.getNumMethods() - 1) * decHeight) + 5 + 15);
         } else {
             g.fillRect(baseBoxX - component.getWidth() / 2 + 2,
-                    super.getY() - super.getHeight() / 2 + 30 + ((TempVarDec) this.component).getDecHeight(),
+                    super.getY() - super.getHeight() / 2 + 30 + ((VarDec) this.component).getDecHeight(),
                     decWidth, decHeight);
             g.setColor(Color.black);
             int baseHeight = 45;
             for (String method : methods) {
                 g.drawString(method + "()", baseBoxX - method.length() * 5, super.getY() - super.getHeight() / 2 +
-                        ((TempVarDec) this.component).getDecHeight() + baseHeight);
-                baseHeight += TempDecoration.decHeight;
+                        ((VarDec) this.component).getDecHeight() + baseHeight);
+                baseHeight += Decoration.decHeight;
             }
         }
     }

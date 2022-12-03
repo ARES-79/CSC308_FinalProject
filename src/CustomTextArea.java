@@ -24,10 +24,10 @@ public class CustomTextArea extends JTextArea implements MyObserver {
                     .filter(connection -> connection.getType().equals(ConnectionType.COMPOSITION))
                     .map(connection -> connection.getDestination().getName())
                     .collect(Collectors.toList());
-            TempMethodDec tempMethodDec = (TempMethodDec) box;
-            List<String> variables = Arrays.stream(((TempVarDec) tempMethodDec.getComponent())
+            MethodDec tempMethodDec = (MethodDec) box;
+            List<String> variables = Arrays.stream(((VarDec) tempMethodDec.getComponent())
                     .getVarName().split("\n")).collect(Collectors.toList());
-            List<String> methods = Arrays.stream(((TempMethodDec) box).getMethodName().split("\n"))
+            List<String> methods = Arrays.stream(((MethodDec) box).getMethodName().split("\n"))
                     .collect(Collectors.toList());
             variables.remove(0);
             methods.remove(0);
@@ -61,7 +61,7 @@ public class CustomTextArea extends JTextArea implements MyObserver {
                     .collect(Collectors.toList());
             String boxName = splitClass.get(0);
             UMLComponent box = Blackboard.getBlackboard().getBoxList().stream().filter(b -> b.getName().equals(boxName))
-                    .findFirst().orElse(new TempMethodDec("", new TempVarDec("", new Box(boxName, 100, 100))));
+                    .findFirst().orElse(new MethodDec("", new VarDec("", new Box(boxName, 100, 100))));
             int i = 1;
             while (i < splitClass.size()) {
                 if (splitClass.get(i).equals("extends")) {
@@ -82,8 +82,8 @@ public class CustomTextArea extends JTextArea implements MyObserver {
                             }
                         } else {
                             System.out.println("This class have a variable " + currentWord);
-                            TempMethodDec tempMethodDec = (TempMethodDec) box;
-                            TempVarDec tempVarDec = (TempVarDec) tempMethodDec.getComponent();
+                            MethodDec tempMethodDec = (MethodDec) box;
+                            VarDec tempVarDec = (VarDec) tempMethodDec.getComponent();
                             String finalCurrentWord2 = currentWord;
                             if (Arrays.stream(tempVarDec.getVarName().split("\n"))
                                     .noneMatch(str -> str.equals(finalCurrentWord2))) {
@@ -92,7 +92,7 @@ public class CustomTextArea extends JTextArea implements MyObserver {
                         }
                     } else if (lastChar == '(' && !currentWord.equals("methods")) {
                         System.out.println("This class has a method " + currentWord);
-                        TempMethodDec tempMethodDec = (TempMethodDec) box;
+                        MethodDec tempMethodDec = (MethodDec) box;
                         String finalCurrentWord2 = currentWord;
                         if (Arrays.stream(tempMethodDec.getMethodName().split("\n"))
                                 .noneMatch(str -> str.equals(finalCurrentWord2))) {
@@ -146,7 +146,7 @@ public class CustomTextArea extends JTextArea implements MyObserver {
         UMLComponent box2 = Blackboard.getBlackboard().getBoxList().stream().filter(b -> b.getName().equals(currentWord))
                 .findFirst().orElse(null);
         if (box2 == null) {
-            box2 = new TempMethodDec("", new TempVarDec("", new Box(currentWord, 300, 300)));
+            box2 = new MethodDec("", new VarDec("", new Box(currentWord, 300, 300)));
             Blackboard.getBlackboard().getBoxList().add(box2);
         }
         UMLComponent finalBox = box2;

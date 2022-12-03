@@ -21,8 +21,8 @@ public class Box extends UMLComponent{
 
     @Override
     public void paintBox(Graphics g){
-        int tempAddedHeight = (super.getNumVars() + super.getNumMethods()) * TempDecoration.decHeight == 0 ? 0 :
-                (super.getNumVars() + super.getNumMethods()) * TempDecoration.decHeight;
+        int tempAddedHeight = (super.getNumVars() + super.getNumMethods()) * Decoration.decHeight == 0 ? 0 :
+                (super.getNumVars() + super.getNumMethods()) * Decoration.decHeight;
         if(tempAddedHeight != this.addedHeight){
             super.setHeight(super.getHeight() - this.addedHeight + tempAddedHeight);
             this.addedHeight = tempAddedHeight;
