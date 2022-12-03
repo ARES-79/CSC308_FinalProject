@@ -18,7 +18,10 @@ public class LoadModel {
      */
     public void loadProject(){
         System.out.println("The user has chosen to LOAD an existing UML");
-        deserialize(showDialogueBox());
+        String name = showDialogueBox();
+        if (name != null) {
+            deserialize(name);
+        }
     }
 
     /**
@@ -108,13 +111,13 @@ public class LoadModel {
         catch(IOException ex)
         {
             System.out.println("IOException is caught");
-            JOptionPane.showMessageDialog(null,"Error in Loading");
+            JOptionPane.showMessageDialog(null,"Error while Loading. Probably project doesn't exist.");
         }
 
         catch(ClassNotFoundException ex)
         {
             System.out.println("ClassNotFoundException is caught");
-            JOptionPane.showMessageDialog(null,"Error in Loading");
+            JOptionPane.showMessageDialog(null,"Error while Loading");
         }
     }
 }
