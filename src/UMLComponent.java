@@ -12,7 +12,7 @@ public abstract class UMLComponent implements java.io.Serializable{
     private int x;
     private int y;
     private int width = 120;
-    private int height = 30;
+    private int height = 25;
     private ArrayList<Connection> connections = new ArrayList<Connection>();
     private int numVars = 0;
     private int totalVars = 0;

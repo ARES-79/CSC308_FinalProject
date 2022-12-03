@@ -17,7 +17,10 @@ public class SaveModel {
      */
     public void saveProject(){
         System.out.println("The user has chosen to SAVE their UML");
-        serialize(showDialogueBox());
+        String name = showDialogueBox();
+        if (name != null) {
+            serialize(name);
+        }
     }
 
     /**

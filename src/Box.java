@@ -8,6 +8,7 @@ import java.awt.*;
  * String name, Int x, Int y, Int width, Int height
  */
 public class Box extends UMLComponent{
+    int addedHeight = 0;
     public Box(String name, int x, int y) {
         super.setName(name);
         super.setX(x);
@@ -20,6 +21,12 @@ public class Box extends UMLComponent{
 
     @Override
     public void paintBox(Graphics g){
+        int tempAddedHeight = (super.getNumVars() + super.getNumMethods()) * Decoration.decHeight == 0 ? 0 :
+                (super.getNumVars() + super.getNumMethods()) * Decoration.decHeight;
+        if(tempAddedHeight != this.addedHeight){
+            super.setHeight(super.getHeight() - this.addedHeight + tempAddedHeight);
+            this.addedHeight = tempAddedHeight;
+        }
         g.setColor(Color.YELLOW);
         g.fillRect(super.getX() - super.getWidth()/2, super.getY() - super.getHeight()/2,
                 super.getWidth(), super.getHeight());
