@@ -1,57 +1,48 @@
 import java.awt.*;
-import java.util.ArrayList;
 
-/**
- * 308 Final Project
- * @author Mitashi Parikh,
- * @version 1.0
- * Decoration - class which extends UMLComponent and follows the decorated pattern to add 'methods' variables to a Box
- */
-public class Decoration extends UMLComponent{
-    String text = "Decoration";
+public class Decoration extends UMLComponent {
     protected UMLComponent component;
-    private final int decHeight = 15;
+    public static final int decHeight = 25;
 
-    /**
-     * setComponent - Setter method which sets component
-     * @param component UMLComponent to be set
-     */
-    public void setComponent(UMLComponent component){
+    public void setComponent(UMLComponent component) {
         this.component = component;
-        super.setHeight(20);
+        super.setName(component.getName());
+        super.setX(component.getX());
+        super.setY(component.getY());
+        super.setConnections(component.getConnections());
+        this.component.setHeight(component.getHeight() + decHeight);
+        super.setHeight(this.component.getHeight());
     }
 
     /**
-     * paintComponent - overridden method to draw the decorations on the DrawPanel
-     * @param g - Graphics object used by the parent to create what is shown on screen
+     * paintBox - overridden method to draw component to the screen
+     * follows decorator pattern
+     *
+     * @param g - Graphics object used to create what is shown on screen
      */
     @Override
     public void paintBox(Graphics g) {
-        if (component != null){
+        super.setNumVars(this.getNumVars());
+        if (component != null) {
             component.paintBox(g);
-            if (component instanceof Box){
-                int baseBoxX = component.getX();
-                int baseBoxY = component.getY();
-                g.setColor(Color.YELLOW);
-                g.fillRect(baseBoxX - component.getWidth()/2, baseBoxY + component.getHeight()/2, component.getWidth(), component.getHeight());
-                g.setColor(Color.PINK);
-                g.fillRect(baseBoxX - component.getWidth()/2+2, baseBoxY + component.getHeight()/2+2, component.getWidth()-5, component.getHeight()-5);
-                g.setColor(Color.black);
-                g.drawString(text, baseBoxX- text.length()*5, baseBoxY + component.getHeight()+2);
-            }
+        }
+        for (Connection c : super.getConnections()) {
+            c.paintConnection(g);
         }
     }
 
     /**
-     * getName - getter method to get the Name of the component
-     * @return String name of the component
+     * getHeight - getter method to get the height of the component
+     *
+     * @return int height of the component
      */
-    public String getName() {
-        return component.getName();
+    public int getHeight() {
+        return component.getHeight();
     }
 
     /**
      * getX - getter method to get the x of the component
+     *
      * @return int x of the component
      */
     public int getX() {
@@ -60,6 +51,7 @@ public class Decoration extends UMLComponent{
 
     /**
      * getY - getter method to get the Y of the component
+     *
      * @return int y of the component
      */
     public int getY() {
@@ -67,31 +59,8 @@ public class Decoration extends UMLComponent{
     }
 
     /**
-     * getWidth - getter method to get the width of the component
-     * @return int width of the component
-     */
-    public int getWidth() {
-        return component.getWidth();
-    }
-
-    /**
-     * getHeight - getter method to get the height of the component
-     * @return int height of the component
-     */
-    public int getHeight() {
-        return component.getHeight() + super.getHeight();
-    }
-
-    /**
-     * getConnections - getter method to get the list of Connections of the component
-     * @return ArrayList</Connections> list of connections of the component
-     */
-    public ArrayList<Connection> getConnections() {
-        return component.getConnections();
-    }
-
-    /**
      * setX - setter method to set the x of the component
+     *
      * @param x int x value to set to the x of the component
      */
     public void setX(int x) {
@@ -100,25 +69,30 @@ public class Decoration extends UMLComponent{
 
     /**
      * setY - setter method to set the y of the component
+     *
      * @param y int y value to set to the y of the component
      */
-    public void setY(int y){
+    public void setY(int y) {
         component.setY(y);
     }
 
-    /**
-     * setName - setter method to set the name of the component
-     * @param name String name value to set to the name of the component
-     */
-    public void setName(String name) {
-        component.setName(name);
+    public void setHeight(int height) {
+        component.setHeight(height);
     }
 
     /**
-     * setWidth - setter method to set the width of the component
-     * @param width int width value to set to the width of the component
+     * setTotalVars - overridden setter method to not only update the
+     * current UMLComponent but the nested one's as well
+     *
+     * @param totalVars - int value to replace current totalVars value
      */
-    public void setWidth(int width) {
-        component.setWidth(width);
+    @Override
+    public void setTotalVars(int totalVars) {
+        super.setTotalVars(totalVars);
+        component.setTotalVars(totalVars);
     }
+    public UMLComponent getComponent() {
+        return component;
+    }
+
 }
