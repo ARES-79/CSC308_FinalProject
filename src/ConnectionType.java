@@ -2,7 +2,7 @@ import java.io.Serializable;
 
 /**
  * Final Project
- * @author Jamie Luna, Andrew Estrada
+ * @author Jamie Luna, Andrew Estrada, Mitashi Parikh
  * @version 1.0
  * ConnectionType - hold all possible types of connections that can be
  * drawn/used to connect two boxes

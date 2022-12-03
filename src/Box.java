@@ -2,7 +2,7 @@ import java.awt.*;
 
 /**
  * Final Project
- * @author Jamie Luna
+ * @author Jamie Luna, Mitashi Parikh
  * @version 1.0
  * Box variables-
  * String name, Int x, Int y, Int width, Int height

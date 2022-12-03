@@ -1,9 +1,24 @@
 import java.awt.*;
 
+/**
+ * Final Project
+ * @author Andrew Estrada, Mitashi Parikh
+ * @version 1.0
+ * Decoration - Main decorator class from which the different types of decorators inherit. It is a UMLComponent
+ * Decorator variables:
+ * A component of type UMLComponent which points to the UMLComponent inside a decorator
+ * A static final int, decHeight, which is the height of each decorator in number of pixels
+ */
 public class Decoration extends UMLComponent {
     protected UMLComponent component;
     public static final int decHeight = 25;
 
+    /**
+     * setComponent - setter method to set the component to the UMLComponent object recieved as the parameter.
+     * Also sets other variables related to this decorator to match the component
+     *
+     * @param component - UMLComponent object which will become the component inside the decorator
+     */
     public void setComponent(UMLComponent component) {
         this.component = component;
         super.setName(component.getName());
