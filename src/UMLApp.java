@@ -3,7 +3,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Assignment 01
+ * Final Project
  * @author Andrew Estrada, Jamie Luna
  * @version 1.3
  * UMLApp Class - a UML application GUI framework
