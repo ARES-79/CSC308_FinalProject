@@ -1,7 +1,7 @@
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 /**
  * Assignment 01
@@ -12,6 +12,12 @@ import java.awt.event.MouseListener;
 public class MainController implements ActionListener {
     SaveModel saveModel = new SaveModel();
     LoadModel loadModel = new LoadModel();
+    Component parentComponent;
+
+    public MainController(Component parentComponent){
+        this.parentComponent = parentComponent;
+    }
+
 
     /**`
      * actionPerformed - implementation from ActionListener interface
@@ -30,6 +36,13 @@ public class MainController implements ActionListener {
             case ("Load") -> {
                 loadModel.loadProject();
                 Blackboard.getBlackboard().getStatusBar().setText("     Project Loaded");}
+
+            case ("About") -> {
+                JOptionPane.showMessageDialog(parentComponent,
+                    "Authors: \n\t- Andrew Estrada \n\t- Jamie Luna \n\t- Archie Jones\n\t- Mitashi Parikh",
+                    "About",
+                    JOptionPane.INFORMATION_MESSAGE);
+            }
 
             case ("Update") -> {
                 CustomTextArea textArea = Blackboard.getBlackboard().getCustomTextArea();
