@@ -62,6 +62,9 @@ public class Menu extends JFrame implements ActionListener {
         //actionListeners
         about.addActionListener(this);
         code_to_UML.addActionListener(this);
+        code_to_Metrics.addActionListener(this);
+        UML_to_Code.addActionListener(this);
+        UML_to_Metrics.addActionListener(this);
     }
 
     /**
@@ -70,6 +73,7 @@ public class Menu extends JFrame implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println(e.getActionCommand());
         switch(e.getActionCommand()){
             case ("About") -> {
                 JOptionPane.showMessageDialog(this,
@@ -85,6 +89,16 @@ public class Menu extends JFrame implements ActionListener {
                 }
                 new TempAfterMenuPage(this);
             }
+            case ("Code --> Metrics") -> {
+                this.setVisible(false);
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                new TempAfterMenuPageV2(this);
+            }
+
         }
 
     }

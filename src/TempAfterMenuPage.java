@@ -15,10 +15,9 @@ public class TempAfterMenuPage {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run(){
-                final JFrame frame = new JFrame("Testing");
-                frame.setSize(800,600);
-//                frame.setLocation(parentWindow.getX(), parentWindow.getY());
+                final JFrame frame = new JFrame("Code --> UML");
                 frame.setBounds(parentWindow.getBounds());
+                frame.setVisible(true);
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
                 JPanel startPanel = new JPanel(new GridBagLayout());
@@ -36,7 +35,7 @@ public class TempAfterMenuPage {
 
                 startButton.addActionListener(e -> System.out.println("Student pressed submit."));
                 frame.add(startPanel);
-                frame.setVisible(true);
+
             }
 
         });
