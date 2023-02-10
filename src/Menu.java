@@ -26,7 +26,7 @@ public class Menu extends JFrame implements ActionListener {
      */
     public Menu() {
         super("My UML Tutor Menu");
-        setLayout(new BorderLayout());
+        setLayout(new GridLayout(5,1));
 
         //menu
         JMenuBar menuBar = new JMenuBar();
@@ -38,30 +38,30 @@ public class Menu extends JFrame implements ActionListener {
         menuBar.add(help);
         help.add(about);
 
-        //north
-        JLabel welcome = new JLabel("Welcome to the UML tutor. Please select your subject.");
+        //Welcome Message
+        JLabel welcome = new JLabel("Welcome to the UML tutor. Please select your subject.", SwingConstants.CENTER);
 
-        add(welcome, BorderLayout.NORTH);
+        add(welcome);
 
         //center
-        JPanel optionPanel = new JPanel();
-        optionPanel.setLayout(new GridLayout(4,1));
+//        JPanel optionPanel = new JPanel();
+//        optionPanel.setLayout(new GridLayout(4,1));
 
         JButton code_to_UML = new JButton("Code --> UML");
         JButton code_to_Metrics = new JButton("Code --> Metrics");
         JButton UML_to_Code = new JButton("UML --> Code");
         JButton UML_to_Metrics = new JButton("UML --> Metrics");
 
-        optionPanel.add(code_to_UML);
-        optionPanel.add(code_to_Metrics);
-        optionPanel.add(UML_to_Code);
-        optionPanel.add(UML_to_Metrics);
+        add(code_to_UML);
+        add(code_to_Metrics);
+        add(UML_to_Code);
+        add(UML_to_Metrics);
 
-        add(optionPanel, BorderLayout.CENTER);
+//        add(optionPanel, BorderLayout.CENTER);
 
         //actionListeners
         about.addActionListener(this);
-
+        code_to_UML.addActionListener(this);
     }
 
     /**
@@ -70,11 +70,24 @@ public class Menu extends JFrame implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("About")){
-            JOptionPane.showMessageDialog(this,
+        switch(e.getActionCommand()){
+            case ("About") -> {
+                JOptionPane.showMessageDialog(this,
                     "Authors: \n\t- Andrew Estrada \n\t- Jamie Luna \n\t- Archie Jones\n\t- Mitashi Parikh",
                     "About",
-                    JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.INFORMATION_MESSAGE);}
+            case ("Code --> UML") -> {
+                this.setVisible(false);
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                new TempAfterMenuPage(this);
+            }
         }
+
     }
+
+
 }
