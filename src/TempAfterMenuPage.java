@@ -3,6 +3,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Final Project
+ * @author Andrew Estrada
+ * @version 1.0
+ * First attempt at a window that can open when a button is pressed
+ */
 public class TempAfterMenuPage {
       //Unsure if main is needed
 //    public static void main(String[] args) {

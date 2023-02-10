@@ -3,6 +3,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Final Project
+ * @author Andrew Estrada
+ * @version 1.0
+ * Second attempt at a window that can open when a button is pressed
+ *      supposed to much easier to digest
+ */
 public class TempAfterMenuPageV2 extends JFrame implements ActionListener,  Runnable {
 
     Component parentWindow;
