@@ -30,12 +30,19 @@ public class Menu extends JFrame implements ActionListener {
 
         //menu
         JMenuBar menuBar = new JMenuBar();
+        JMenu file = new JMenu("File");
         JMenu help = new JMenu("Help");
+
+        JMenuItem progress = new JMenuItem("View Progress");
+        JMenuItem logOut = new JMenuItem("Log Out");
 
         JMenuItem about = new JMenuItem("About");
         setJMenuBar(menuBar);
 
+        menuBar.add(file);
         menuBar.add(help);
+        file.add(progress);
+        file.add(logOut);
         help.add(about);
 
         //Welcome Message
@@ -44,9 +51,6 @@ public class Menu extends JFrame implements ActionListener {
         add(welcome);
 
         //center
-//        JPanel optionPanel = new JPanel();
-//        optionPanel.setLayout(new GridLayout(4,1));
-
         JButton code_to_UML = new JButton("Code --> UML");
         JButton code_to_Metrics = new JButton("Code --> Metrics");
         JButton UML_to_Code = new JButton("UML --> Code");
@@ -60,6 +64,8 @@ public class Menu extends JFrame implements ActionListener {
 //        add(optionPanel, BorderLayout.CENTER);
 
         //actionListeners
+        progress.addActionListener(this);
+        logOut.addActionListener(this);
         about.addActionListener(this);
         code_to_UML.addActionListener(this);
         code_to_Metrics.addActionListener(this);
@@ -97,6 +103,10 @@ public class Menu extends JFrame implements ActionListener {
                     ex.printStackTrace();
                 }
                 new TempAfterMenuPageV2(this);
+            }
+            case ("Log Out") -> {
+                TempSignInWindow.main(null);
+                dispose();
             }
 
         }
