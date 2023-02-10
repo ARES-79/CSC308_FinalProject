@@ -10,8 +10,7 @@ import java.awt.event.ActionListener;
  * MainController Class - class that connects GUI with the model
  */
 public class MainController implements ActionListener {
-    SaveModel saveModel = new SaveModel();
-    LoadModel loadModel = new LoadModel();
+    FileHandler FH;
     Component parentComponent;
 
     public MainController(Component parentComponent){
@@ -31,10 +30,12 @@ public class MainController implements ActionListener {
                 Blackboard.getBlackboard().reset();
                 Blackboard.getBlackboard().getStatusBar().setText("     New Project Created");}
             case ("Save") -> {
-                saveModel.saveProject();
+                FH = new SaveModel();
+                FH.saveLoadProject();
                 Blackboard.getBlackboard().getStatusBar().setText("     Project Saved");}
             case ("Load") -> {
-                loadModel.loadProject();
+                FH = new LoadModel();
+                FH.saveLoadProject();
                 Blackboard.getBlackboard().getStatusBar().setText("     Project Loaded");}
 
             case ("About") -> {
