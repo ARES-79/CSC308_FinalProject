@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
  */
 public class TempSignInWindow extends JFrame implements ActionListener {
 
+    JTextField username;
+    JTextField password;
     /**
      * creates a new Sign in window and allows it to be seen and closed properly.
      */
@@ -23,7 +25,7 @@ public class TempSignInWindow extends JFrame implements ActionListener {
 
     public TempSignInWindow(){
         super("My UML Tutor Sign In");
-        setLayout(new GridLayout(7,1));
+        setLayout(new GridLayout(6,1));
 
         //menu
         JMenuBar menuBar = new JMenuBar();
@@ -42,25 +44,32 @@ public class TempSignInWindow extends JFrame implements ActionListener {
                 "Welcome to the UML tutor.\nPlease sign in or create an account.",
                     SwingConstants.CENTER);
         add(welcome);
-        JTextField username = new JTextField("Username");
-        JTextField password = new JTextField("Password");
-        add(username);
-        add(password);
 
+        JPanel userPassPanel = new JPanel();
+        userPassPanel.setLayout(new GridLayout(3,3));
+        username = new JTextField("Username");
+        password = new JTextField("Password");
         JButton submit = new JButton("Submit");
-        add(submit);
+        for (int i =0; i < 9; i++){
+            if(i == 1){userPassPanel.add(username);}
+            else if(i == 4){userPassPanel.add(password);}
+            else if(i == 7){userPassPanel.add(submit);}
+            else{userPassPanel.add(new JLabel(""));}
+        }
+        add(userPassPanel);
 
         JLabel createAccountPrompt = new JLabel("New? Create an account:", SwingConstants.CENTER);
         add(createAccountPrompt);
 
         JPanel createButtonPanel = new JPanel();
-        createButtonPanel.setLayout(new GridLayout(1,2));
+        createButtonPanel.setLayout(new GridLayout(2,4));
         JButton createStudent = new JButton("Create Student Account");
         JButton createInstructor = new JButton("Create Instructor Account");
-
-        createButtonPanel.add(createStudent);
-        createButtonPanel.add(createInstructor);
-
+        for(int i = 0; i < 8; i++){
+            if (i == 1){createButtonPanel.add(createStudent);}
+            else if (i == 2){createButtonPanel.add(createInstructor);}
+            else{createButtonPanel.add(new JLabel(""));}
+        }
         add(createButtonPanel);
 
         //action listeners
@@ -75,7 +84,7 @@ public class TempSignInWindow extends JFrame implements ActionListener {
         System.out.println(e.getActionCommand());
         switch (e.getActionCommand()){
             case("Submit") -> {
-                Menu.main(null);
+                Menu.main(new String[]{username.getText(), password.getText()});
                 dispose();
             }
         }

@@ -13,9 +13,12 @@ public class Menu extends JFrame implements ActionListener {
 
     /**
      * creates a new Menu window and allows it to be seen and closed properly.
+     * args[0] : username of user
+     * args[1] : password of user
      */
     public static void main(String[]args){
-        Menu menu = new Menu();
+        System.out.println("Username: " + args[0] + "    Password: " + args[1]);
+        Menu menu = new Menu(args[0]);
         menu.setSize(800,600);
         menu.setVisible(true);
         menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -24,9 +27,9 @@ public class Menu extends JFrame implements ActionListener {
     /**
      * Constructor
      */
-    public Menu() {
+    public Menu(String username) {
         super("My UML Tutor Menu");
-        setLayout(new GridLayout(5,1));
+        setLayout(new GridLayout(7,1));
 
         //menu
         JMenuBar menuBar = new JMenuBar();
@@ -45,9 +48,14 @@ public class Menu extends JFrame implements ActionListener {
         file.add(logOut);
         help.add(about);
 
-        //Welcome Message
-        JLabel welcome = new JLabel("Welcome to the UML tutor. Please select your subject.", SwingConstants.CENTER);
+        add(new JLabel(""));
 
+        JLabel welcome;
+        //Welcome Message
+        if (!(username == null)){welcome = new JLabel("Welcome, " + username +
+                ", to the UML tutor! Please select your subject.", SwingConstants.CENTER);
+        } else{welcome = new JLabel(
+                "Welcome to the UML tutor! Please select your subject.", SwingConstants.CENTER);}
         add(welcome);
 
         //center
@@ -60,8 +68,6 @@ public class Menu extends JFrame implements ActionListener {
         add(code_to_Metrics);
         add(UML_to_Code);
         add(UML_to_Metrics);
-
-//        add(optionPanel, BorderLayout.CENTER);
 
         //actionListeners
         progress.addActionListener(this);
