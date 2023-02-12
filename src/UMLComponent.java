@@ -174,7 +174,13 @@ public abstract class UMLComponent implements java.io.Serializable{
      * @param connectionType - type of connection to be made
      */
     public void addConnection(UMLComponent destination, ConnectionType connectionType) {
-        this.getConnections().add(new Connection(this, destination, connectionType));
+        if ( connectionType == ConnectionType.INHERITANCE){
+            this.getConnections().add(new Inheritance(this, destination, connectionType));
+        } else if (connectionType == ConnectionType.COMPOSITION){
+            this.getConnections().add(new Composition(this, destination, connectionType));
+        } else {
+            this.getConnections().add(new Association(this, destination, connectionType));
+        }
         Blackboard.getBlackboard().getStatusBar().setText("     " + connectionType + " connection created from " + this.getName() + " to " + destination.getName());
         Blackboard.getBlackboard().notifying();
     }

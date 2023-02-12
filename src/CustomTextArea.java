@@ -93,7 +93,7 @@ public class CustomTextArea extends JTextArea implements MyObserver {
                         if (box2 != null) {
                             if (box.getConnections().stream().noneMatch(connection -> connection.getDestination().equals(box2) &&
                                     connection.getType().equals(ConnectionType.COMPOSITION))) {
-                                Connection connection = new Connection(box, box2, ConnectionType.COMPOSITION);
+                                Connection connection = new Composition(box, box2, ConnectionType.COMPOSITION);
                                 box.getConnections().add(connection);
                             }
                         } else {
@@ -188,7 +188,14 @@ public class CustomTextArea extends JTextArea implements MyObserver {
         UMLComponent finalBox = box2;
         if (origin.getConnections().stream().filter(connection -> connection.getDestination().equals(finalBox) &&
                 connection.getType().equals(connectionType)).collect(Collectors.toList()).size() == 0) {
-            Connection connection = new Connection(origin, box2, connectionType);
+            Connection connection;
+            if (connectionType == ConnectionType.INHERITANCE){
+                connection = new Inheritance(origin, box2, connectionType);
+            } else if (connectionType == ConnectionType.COMPOSITION){
+                connection = new Composition(origin, box2, connectionType);
+            } else {
+                connection = new Association(origin, box2, connectionType);
+            }
             origin.getConnections().add(connection);
         }
     }
