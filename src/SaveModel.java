@@ -10,12 +10,12 @@ import java.io.ObjectOutputStream;
  * @version 1.0
  * SaveModel - class which handles the functionality for saving the current state of the draw panel into a Serialized object file
  */
-public class SaveModel {
+public class SaveModel implements FileHandler{
 
     /**
      * saveProject - Shows the dialog box to receive a name for the current state of the project and saves the project to a file as a serialized object
      */
-    public void saveProject(){
+    public void saveLoadProject(){
         System.out.println("The user has chosen to SAVE their UML");
         String name = showDialogueBox();
         if (name != null  && (name.length() > 0)) {

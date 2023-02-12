@@ -1,17 +1,22 @@
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 /**
  * Assignment 01
- * @author Andrew Estrada, Jamie Luna
+ * @author Andrew Estrada, Jamie Luna, Mitashi Parikh
  * @version 1.0
  * MainController Class - class that connects GUI with the model
  */
 public class MainController implements ActionListener {
-    SaveModel saveModel = new SaveModel();
-    LoadModel loadModel = new LoadModel();
+    FileHandler FH;
+    Component parentComponent;
+
+    public MainController(Component parentComponent){
+        this.parentComponent = parentComponent;
+    }
+
 
     /**`
      * actionPerformed - implementation from ActionListener interface
@@ -25,11 +30,20 @@ public class MainController implements ActionListener {
                 Blackboard.getBlackboard().reset();
                 Blackboard.getBlackboard().getStatusBar().setText("     New Project Created");}
             case ("Save") -> {
-                saveModel.saveProject();
+                FH = new SaveModel();
+                FH.saveLoadProject();
                 Blackboard.getBlackboard().getStatusBar().setText("     Project Saved");}
             case ("Load") -> {
-                loadModel.loadProject();
+                FH = new LoadModel();
+                FH.saveLoadProject();
                 Blackboard.getBlackboard().getStatusBar().setText("     Project Loaded");}
+
+            case ("About") -> {
+                JOptionPane.showMessageDialog(parentComponent,
+                    "Authors: \n\t- Andrew Estrada \n\t- Jamie Luna \n\t- Archie Jones\n\t- Mitashi Parikh",
+                    "About",
+                    JOptionPane.INFORMATION_MESSAGE);
+            }
 
             case ("Update") -> {
                 CustomTextArea textArea = Blackboard.getBlackboard().getCustomTextArea();

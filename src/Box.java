@@ -9,6 +9,13 @@ import java.awt.*;
  */
 public class Box extends UMLComponent{
     int addedHeight = 0;
+
+    /**
+     * Box constructor
+     * @param name - String name which will be the name of the new Box
+     * @param x - int x while will be the x co-ordinate of the new Box
+     * @param y - int y while will be the y co-ordinate of the new Box
+     */
     public Box(String name, int x, int y) {
         super.setName(name);
         super.setX(x);
@@ -19,6 +26,10 @@ public class Box extends UMLComponent{
     }
 
 
+    /**
+     * paintBox - overridden method to draw box to the screen
+     * @param g - Graphics object used to create what is shown on screen
+     */
     @Override
     public void paintBox(Graphics g){
         int tempAddedHeight = (super.getNumVars() + super.getNumMethods()) * Decoration.decHeight == 0 ? 0 :
@@ -38,6 +49,10 @@ public class Box extends UMLComponent{
         }
     }
 
+    /**
+     * setHeight - setter method to set the height of this box
+     * @param height - int value to replace the current height
+     */
     public void setHeight(int height){
         super.setHeight(height);
     }

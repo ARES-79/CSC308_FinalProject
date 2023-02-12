@@ -3,7 +3,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Assignment 01
+ * Final Project
  * @author Andrew Estrada, Jamie Luna
  * @version 1.3
  * UMLApp Class - a UML application GUI framework
@@ -30,7 +30,7 @@ public class UMLApp extends JFrame {
     public UMLApp() {
         super("My UML App");
         setLayout(new BorderLayout());
-        MainController mC = new MainController();
+        MainController mC = new MainController(this);
 
         //menu
         JMenuBar menuBar = new JMenuBar();
@@ -40,10 +40,7 @@ public class UMLApp extends JFrame {
         JMenuItem save = new JMenuItem("Save");
         JMenuItem load = new JMenuItem("Load");
 
-        JMenuItem name1 = new JMenuItem("Andrew Estrada");
-        JMenuItem name2 = new JMenuItem("Jamie Luna");
-        JMenuItem name3 = new JMenuItem("Mitashi Parikh");
-        JMenuItem name4 = new JMenuItem("Archie Jones");
+        JMenuItem about = new JMenuItem("About");
         setJMenuBar(menuBar);
 
         menuBar.add(file);
@@ -51,10 +48,7 @@ public class UMLApp extends JFrame {
         file.add(newB);
         file.add(save);
         file.add(load);
-        help.add(name1);
-        help.add(name2);
-        help.add(name3);
-        help.add(name4);
+        help.add(about);
 
         //west
         JPanel leftCenter = new JPanel ();
@@ -107,6 +101,8 @@ public class UMLApp extends JFrame {
         newB.addActionListener(mC);
         save.addActionListener(mC);
         load.addActionListener(mC);
+
+        about.addActionListener(mC);
 
         update.addActionListener(mC);
 

@@ -72,18 +72,34 @@ public class MethodDec extends Decoration {
         }
     }
 
+    /**
+     * getMethodName - getter method to access the methodName
+     * @return String methodName which is the name of the method
+     */
     public String getMethodName() {
         return methodName;
     }
 
+    /**
+     * setMethodName - setter method to set the methodName
+     * @param methodName - String methodName which will be the name of the method
+     */
     public void setMethodName(String methodName) {
         this.methodName = methodName;
     }
 
+    /**
+     * getComponent - getter method to access the component
+     * @return UMLComponent object which is the component this decorator is decorating
+     */
     public UMLComponent getComponent() {
         return component;
     }
 
+    /**
+     * setComponent - setter method to set the component
+     * @param component - UMLComponent object which will become the component inside the decorator
+     */
     @Override
     public void setComponent(UMLComponent component) {
         this.component = component;

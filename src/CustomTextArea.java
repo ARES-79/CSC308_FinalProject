@@ -4,11 +4,23 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Assignment 01
+ * @author Archie Jones
+ * @version 2.1
+ * CustomTextArea - parses the TextArea to retrieve data and use it to create UMLComponent on the DrawPanel.
+ * Also, parses the existing data in the Blackboard to update the TextArea.
+ * It is an Observer of the Blackboard
+ */
 public class CustomTextArea extends JTextArea implements MyObserver {
     public CustomTextArea(int x, int y) {
         super(x, y);
     }
 
+    /**
+     * parseClasses - method to update the text area when new classes are created in the DrawPanel
+     * @param boxes List<UMLComponent> the current list of boxes which will be parsed to extract data
+     */
     private void parseClasses(List<UMLComponent> boxes) {
         for (UMLComponent box : boxes) {
             String text = "";
@@ -53,6 +65,10 @@ public class CustomTextArea extends JTextArea implements MyObserver {
         }
     }
 
+    /**
+     * parseText - parses the updates in the TextAre(when the Update button is clicked) to retrieve the changes
+     * and makes corresponding changes to the data in the Blackboard
+     */
     public void parseText() {
         String[] text = this.getText().split("class", -1);
         for (String s : Arrays.copyOfRange(text, 1, text.length)) {
@@ -122,12 +138,26 @@ public class CustomTextArea extends JTextArea implements MyObserver {
         }
     }
 
+    /**
+     * update - overridden method which is called when the Blackboard has an update
+     * @param ob MyObervable to indicate which Observable object has called this update method
+     */
     @Override
     public void update(MyObservable ob) {
         this.setText("");
         this.parseClasses(Blackboard.getBlackboard().getBoxList());
     }
 
+    /**
+     * getConnections - method to parses the text concerning connection to extract the information required to make the connections
+     *                  and make the connection for the origin
+     * @param connectionType ConnectionType which indicated the type of connection current being parsed
+     * @param splitClass ArrayList<String> the text for each class split into a list of constituent words
+     * @param i int index of the current word being processed
+     * @param s String text for the class
+     * @param origin UMLComponent origin Box (or decorated box) from which the new connection will originate
+     * @return int i which is the index of the current word being processed
+     */
     private int getConnections(ConnectionType connectionType, ArrayList<String> splitClass, int i, String s, UMLComponent origin) {
         String currentWord = splitClass.get(i);
         int currentWordIndex = s.indexOf(currentWord);
@@ -142,6 +172,12 @@ public class CustomTextArea extends JTextArea implements MyObserver {
         return i;
     }
 
+    /**
+     * createConnections - method to create a new Connection and add it to the Origin box, is it doesn't already exist
+     * @param origin UMLComponent which is the where the connection will originate from
+     * @param currentWord String which might become the name of a new box, if needed
+     * @param connectionType ConnectionType of the connection to be created
+     */
     private void createConnection(UMLComponent origin, String currentWord, ConnectionType connectionType) {
         UMLComponent box2 = Blackboard.getBlackboard().getBoxList().stream().filter(b -> b.getName().equals(currentWord))
                 .findFirst().orElse(null);
