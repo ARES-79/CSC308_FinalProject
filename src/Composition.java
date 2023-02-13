@@ -82,7 +82,5 @@ public class Composition extends Connection{
         g.fillPolygon(triangle);
 
         g.drawLine(line_coords.get(0), line_coords.get(1), line_coords.get(2), line_coords.get(3));
-
-
     }
 }

@@ -62,15 +62,9 @@ public class Association extends Connection{
                 x_coords = new int[]{x2, x2 - 10, x2};
             }
         }
-
         Polygon triangle = new Polygon(x_coords, y_coords, 3);
         g.fillPolygon(triangle);
 
-
         g.drawLine(x1, y1, x2, y2);
-
-
-
-        //return new ArrayList<Integer>(Arrays.asList(x1, y1, x2, y2));
     }
 }
