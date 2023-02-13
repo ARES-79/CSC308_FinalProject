@@ -18,8 +18,7 @@ public class Composition extends Connection{
     @Override
     public void paintConnection(Graphics g) {
         int x1, y1, x2, y2;
-        int[] x_coords;
-        int[] y_coords;
+        int[] x_coords, y_coords, tri_x_coords, tri_y_coords;
         ArrayList<Integer> line_coords = new ArrayList<>(Arrays.asList(0,0,0,0));
 
         //makes the lines thicker (looks nicer)
@@ -33,6 +32,7 @@ public class Composition extends Connection{
             x_coords = new int[]{x1, x1 - 10, x1, x1 + 10};
             line_coords.set(0, x1);
             line_coords.set(2, x2);
+            tri_x_coords = new int[]{x2 - 5, x2, x2 + 5};
 
             if (this.getOrigin().getY() >= this.getDestination().getY()) { //dest above
                 y1 = this.getOrigin().getY() - this.getOrigin().getHeight() / 2 ;
@@ -40,6 +40,7 @@ public class Composition extends Connection{
                 y_coords = new int[]{y1, y1 - 10, y1 - 20, y1 - 10};
                 line_coords.set(1, y1 - 20);
                 line_coords.set(3, y2);
+                tri_y_coords = new int[]{y2, y2 - 10, y2};
 
             } else {
                 y1 = this.getOrigin().getY() + this.getOrigin().getHeight() / 2;
@@ -47,6 +48,7 @@ public class Composition extends Connection{
                 y_coords = new int[]{y1, y1 + 10, y1 + 20, y1 + 10};
                 line_coords.set(1, y1 + 20);
                 line_coords.set(3, y2);
+                tri_y_coords = new int[]{y2, y2 + 10, y2};
             }
         } else {
             y1 = this.getOrigin().getY();
@@ -54,6 +56,7 @@ public class Composition extends Connection{
             y_coords = new int[]{y1, y1 - 10, y1, y1 + 10};
             line_coords.set(1, y1);
             line_coords.set(3, y2);
+            tri_y_coords = new int[]{y2 + 5, y2, y2 - 5};
 
             if(this.getOrigin().getX() <= this.getDestination().getX()){
                 x1 = this.getOrigin().getX() + this.getOrigin().getWidth()/2;
@@ -61,18 +64,22 @@ public class Composition extends Connection{
                 x_coords = new int[]{x1, x1 + 10, x1 + 20, x1 + 10};
                 line_coords.set(0, x1 + 20);
                 line_coords.set(2, x2);
+                tri_x_coords = new int[]{x2, x2 + 10, x2};
             } else{
                 x1 = this.getOrigin().getX() - this.getOrigin().getWidth()/2;
                 x2 = this.getDestination().getX() + this.getDestination().getWidth()/2 + 10;
                 x_coords = new int[]{x1, x1 - 10, x1 - 20, x1 - 10};
                 line_coords.set(0, x1 - 20);
                 line_coords.set(2, x2);
+                tri_x_coords = new int[]{x2, x2 - 10, x2};
             }
         }
 
         Polygon diamond = new Polygon(x_coords, y_coords, 4);
         g.fillPolygon(diamond);
 
+        Polygon triangle = new Polygon(tri_x_coords, tri_y_coords, 3);
+        g.fillPolygon(triangle);
 
         g.drawLine(line_coords.get(0), line_coords.get(1), line_coords.get(2), line_coords.get(3));
 
