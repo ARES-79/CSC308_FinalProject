@@ -31,13 +31,12 @@ public class DrawPanelController implements MouseListener, MouseMotionListener {
                         ", " + e.getY() + ").");
                 UMLComponent newBox = new MethodDec("", new VarDec("", new Box(input, e.getX(), e.getY())));
                 Blackboard.getBlackboard().appendBoxList(newBox);
-                Blackboard.getBlackboard().getStatusBar().setText("     A new class was created.");
                 Blackboard.getBlackboard().updateData();
             } else {
                 System.out.print("User clicked(" + e.getX() +
                         ", " + e.getY() + "), " +
                         "but no class was created.");
-                Blackboard.getBlackboard().getStatusBar().setText("     The user clicked the screen but no class was created.");
+                Blackboard.getBlackboard().statusBarClickedNoClass();
             }
         }
     }
