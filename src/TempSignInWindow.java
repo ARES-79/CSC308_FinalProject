@@ -84,7 +84,7 @@ public class TempSignInWindow extends JFrame implements ActionListener {
         System.out.println(e.getActionCommand());
         switch (e.getActionCommand()){
             case("Submit") -> {
-                Menu.main(new String[]{username.getText(), password.getText()});
+                TutorApp.main(new String[]{username.getText(), password.getText()});
                 dispose();
             }
         }
