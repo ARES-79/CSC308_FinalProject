@@ -28,15 +28,15 @@ public class MainController implements ActionListener {
         switch (e.getActionCommand()) {
             case ("New") -> {
                 Blackboard.getBlackboard().reset();
-                Blackboard.getBlackboard().getStatusBar().setText("     New Project Created");}
+                Blackboard.getBlackboard().statusBarNewProject();}
             case ("Save") -> {
                 FH = new SaveModel();
                 FH.saveLoadProject();
-                Blackboard.getBlackboard().getStatusBar().setText("     Project Saved");}
+                Blackboard.getBlackboard().statusBarProjectSaved();}
             case ("Load") -> {
                 FH = new LoadModel();
                 FH.saveLoadProject();
-                Blackboard.getBlackboard().getStatusBar().setText("     Project Loaded");}
+                Blackboard.getBlackboard().statusBarProjectLoaded();}
 
             case ("About") -> {
                 JOptionPane.showMessageDialog(parentComponent,
@@ -48,7 +48,7 @@ public class MainController implements ActionListener {
             case ("Update") -> {
                 CustomTextArea textArea = Blackboard.getBlackboard().getCustomTextArea();
                 textArea.parseText();
-                Blackboard.getBlackboard().getStatusBar().setText("     Screen updated based on text written.");
+                Blackboard.getBlackboard().statusBarTextAreaUpdated();
             }
 
             case ("Association") -> Blackboard.getBlackboard().setConnectionType(ConnectionType.ASSOCIATION);

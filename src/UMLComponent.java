@@ -181,7 +181,7 @@ public abstract class UMLComponent implements java.io.Serializable{
         } else {
             this.getConnections().add(new Association(this, destination, connectionType));
         }
-        Blackboard.getBlackboard().getStatusBar().setText("     " + connectionType + " connection created from " + this.getName() + " to " + destination.getName());
+        Blackboard.getBlackboard().statusBarNewConnection(connectionType.name(), this.getName(), destination.getName());
         Blackboard.getBlackboard().notifying();
     }
 

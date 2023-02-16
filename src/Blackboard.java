@@ -16,6 +16,7 @@ public class Blackboard extends MyObservable{
     private HashSet<String> savedProjects = LoadModel.deserializeSavedProjects();
     private CustomTextArea customTextArea = new CustomTextArea(30, 20);
     private JLabel statusBar = new JLabel();
+    private String statusBarMessage;
 
     private static Blackboard blackboard;
 
@@ -49,6 +50,8 @@ public class Blackboard extends MyObservable{
      */
     public void appendBoxList(UMLComponent box){
         BoxList.add(box);
+        statusBarMessage = "     A new class was created.";
+        updateData();
     }
 
     /**
@@ -102,12 +105,39 @@ public class Blackboard extends MyObservable{
         this.connectionType = connectionType;
     }
 
-    /**
-     * getStatusBar -  setter method to access the statusBar and set its text
-     * @return JLabel object statusBar
-     */
-    public JLabel getStatusBar() {
-        return statusBar;
+    public String getStatusBarMessage() {
+        return statusBarMessage;
+    }
+
+    public void statusBarNewProject(){
+        statusBarMessage = "     New Project Created";
+        updateData();;
+    }
+
+    public void statusBarProjectSaved(){
+        statusBarMessage = "     Project Saved";
+        updateData();
+    }
+
+    public void statusBarProjectLoaded(){
+        statusBarMessage = "     Project Loaded";
+        updateData();
+    }
+
+    public void statusBarTextAreaUpdated(){
+        statusBarMessage = "     Screen updated based on text written.";
+        updateData();
+    }
+
+    public void statusBarNewConnection(String connectionType, String name, String destName){
+        statusBarMessage =
+                "     " + connectionType + " connection created from " + name + " to " + destName;
+        updateData();
+    }
+
+    public void statusBarClickedNoClass(){
+        statusBarMessage = "     The user clicked the screen but no class was created.";
+        updateData();
     }
 
     /**
