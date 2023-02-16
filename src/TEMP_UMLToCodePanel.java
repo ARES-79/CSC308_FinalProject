@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
  * Second attempt at a window that can open when a button is pressed
  *      supposed to much easier to digest
  */
-public class TempAfterMenuPageV3 extends JPanel implements ActionListener {
+public class TEMP_UMLToCodePanel extends JPanel implements ActionListener {
 
 //    @Override
 //    public void run() {
@@ -22,7 +22,7 @@ public class TempAfterMenuPageV3 extends JPanel implements ActionListener {
 
 
 
-    public TempAfterMenuPageV3(){
+    public TEMP_UMLToCodePanel(){
         super();
 
         setLayout(new GridLayout(1,3));

@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
  * Second attempt at a window that can open when a button is pressed
  *      supposed to much easier to digest
  */
-public class CodeToMetricsWindow extends JFrame implements ActionListener,  Runnable {
+public class TEMP_CodeToMetricsWindow extends JFrame implements ActionListener,  Runnable {
 
     Component parentWindow;
 
@@ -22,7 +22,7 @@ public class CodeToMetricsWindow extends JFrame implements ActionListener,  Runn
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public CodeToMetricsWindow(Component parentWindow){
+    public TEMP_CodeToMetricsWindow(Component parentWindow){
         super("Code --> Metrics");
         this.parentWindow = parentWindow;
         JPanel startPanel = new JPanel(new GridBagLayout());

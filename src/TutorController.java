@@ -30,7 +30,7 @@ public class TutorController implements ActionListener {
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
-                new CodeToUMLWindow(host);
+                new TEMP_CodeToUMLWindow(host);
             }
             case ("Code --> Metrics") -> {
                 host.setVisible(false);
@@ -39,12 +39,12 @@ public class TutorController implements ActionListener {
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
-                new CodeToMetricsWindow(host);
+                new TEMP_CodeToMetricsWindow(host);
             }
             case ("UML --> Code") ->{
                 host.alternativeFileMenu();
                 host.remove(host.getScreenPanel());
-                host.setScreenPanel(new TempAfterMenuPageV3());
+                host.setScreenPanel(new TEMP_UMLToCodePanel());
                 host.add(host.getScreenPanel());
                 host.revalidate();
                 host.repaint();
