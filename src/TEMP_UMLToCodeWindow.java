@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
  * Second attempt at a window that can open when a button is pressed
  *      supposed to much easier to digest
  */
-public class TEMP_CodeToUMLWindow extends JFrame implements ActionListener,  Runnable {
+public class TEMP_UMLToCodeWindow extends JFrame implements ActionListener,  Runnable {
 
     Component parentWindow;
 
@@ -22,8 +22,8 @@ public class TEMP_CodeToUMLWindow extends JFrame implements ActionListener,  Run
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public TEMP_CodeToUMLWindow(Component parentWindow){
-        super("Code --> UML");
+    public TEMP_UMLToCodeWindow(Component parentWindow){
+        super("UML --> Code");
         this.parentWindow = parentWindow;
         JPanel startPanel = new JPanel(new GridBagLayout());
         JButton testCloseButton = new JButton("Test Close");
