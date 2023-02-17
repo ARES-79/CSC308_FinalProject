@@ -87,46 +87,11 @@ public class CustomTextArea extends JTextArea implements MyObserver {
                     int currentWordIndex = s.indexOf(currentWord);
                     char lastChar = s.charAt(currentWordIndex + currentWord.length());
                     if (lastChar == '\n') {
-                        String finalCurrentWord = currentWord;
-                        UMLComponent box2 = Blackboard.getBlackboard().getBoxList().stream().filter(b -> b.getName().equals(finalCurrentWord))
-                                .findFirst().orElse(null);
-                        if (box2 != null) {
-                            if (box.getConnections().stream().noneMatch(connection -> connection.getDestination().equals(box2) &&
-                                    connection.getType().equals(ConnectionType.COMPOSITION))) {
-                                Connection connection = new Composition(box, box2, ConnectionType.COMPOSITION);
-                                box.getConnections().add(connection);
-                            }
-                        } else {
-                            System.out.println("This class have a variable " + currentWord);
-                            MethodDec tempMethodDec = (MethodDec) box;
-                            VarDec tempVarDec = (VarDec) tempMethodDec.getComponent();
-                            String finalCurrentWord2 = currentWord;
-                            if (Arrays.stream(tempVarDec.getVarName().split("\n"))
-                                    .noneMatch(str -> str.equals(finalCurrentWord2))) {
-                                tempVarDec.setVarName((tempVarDec.getVarName() + "\n" + currentWord));
-                            }
-                        }
+                        this.parseVariable(currentWord, box);
                     } else if (lastChar == '(' && !currentWord.equals("methods")) {
-                        System.out.println("This class has a method " + currentWord);
-                        MethodDec tempMethodDec = (MethodDec) box;
-                        String finalCurrentWord2 = currentWord;
-                        if (Arrays.stream(tempMethodDec.getMethodName().split("\n"))
-                                .noneMatch(str -> str.equals(finalCurrentWord2))) {
-                            tempMethodDec.setMethodName((tempMethodDec.getMethodName() + "\n" + currentWord));
-                        }
+                        this.parseMethod(currentWord, box);
                     } else {
-                        lastChar = s.charAt(currentWordIndex + currentWord.length() + 2);
-                        while (lastChar != '}') {
-                            i++;
-                            currentWord = splitClass.get(i);
-                            currentWordIndex = s.indexOf(currentWord);
-                            lastChar = s.charAt(currentWordIndex + currentWord.length() + 2);
-                            String finalCurrentWord1 = currentWord;
-                            if (box.getConnections().stream().noneMatch(connection -> connection.getDestination().equals(finalCurrentWord1) &&
-                                    connection.getType().equals(ConnectionType.ASSOCIATION))) {
-                                this.createConnection(box, currentWord, ConnectionType.ASSOCIATION);
-                            }
-                        }
+                        i = this.parseAssociation(currentWord, box, i, currentWordIndex, s, splitClass);
                     }
                 }
                 i++;
@@ -136,6 +101,54 @@ public class CustomTextArea extends JTextArea implements MyObserver {
             }
             Blackboard.getBlackboard().notifying();
         }
+    }
+
+    private void parseVariable(String currentWord, UMLComponent box){
+        String finalCurrentWord = currentWord;
+        UMLComponent box2 = Blackboard.getBlackboard().getBoxList().stream().filter(b -> b.getName().equals(finalCurrentWord))
+                .findFirst().orElse(null);
+        if (box2 != null) {
+            if (box.getConnections().stream().noneMatch(connection -> connection.getDestination().equals(box2) &&
+                    connection.getType().equals(ConnectionType.COMPOSITION))) {
+                Connection connection = new Composition(box, box2, ConnectionType.COMPOSITION);
+                box.getConnections().add(connection);
+            }
+        } else {
+            System.out.println("This class have a variable " + currentWord);
+            MethodDec tempMethodDec = (MethodDec) box;
+            VarDec tempVarDec = (VarDec) tempMethodDec.getComponent();
+            if (Arrays.stream(tempVarDec.getVarName().split("\n"))
+                    .noneMatch(str -> str.equals(currentWord))) {
+                tempVarDec.setVarName((tempVarDec.getVarName() + "\n" + currentWord));
+            }
+        }
+    }
+
+    private void parseMethod(String currentWord, UMLComponent box){
+        System.out.println("This class has a method " + currentWord);
+        MethodDec tempMethodDec = (MethodDec) box;
+        String finalCurrentWord2 = currentWord;
+        if (Arrays.stream(tempMethodDec.getMethodName().split("\n"))
+                .noneMatch(str -> str.equals(finalCurrentWord2))) {
+            tempMethodDec.setMethodName((tempMethodDec.getMethodName() + "\n" + currentWord));
+        }
+    }
+
+    private int parseAssociation(String currentWord, UMLComponent box, int i, int currentWordIndex, String s,
+                                 ArrayList<String> splitClass){
+        char lastChar = s.charAt(currentWordIndex + currentWord.length() + 2);
+        while (lastChar != '}') {
+            i++;
+            currentWord = splitClass.get(i);
+            currentWordIndex = s.indexOf(currentWord);
+            lastChar = s.charAt(currentWordIndex + currentWord.length() + 2);
+            String finalCurrentWord1 = currentWord;
+            if (box.getConnections().stream().noneMatch(connection -> connection.getDestination().equals(finalCurrentWord1) &&
+                    connection.getType().equals(ConnectionType.ASSOCIATION))) {
+                this.createConnection(box, currentWord, ConnectionType.ASSOCIATION);
+            }
+        }
+        return i;
     }
 
     /**
