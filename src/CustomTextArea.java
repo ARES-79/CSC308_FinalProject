@@ -77,7 +77,7 @@ public class CustomTextArea extends JTextArea implements MyObserver {
                     .collect(Collectors.toList());
             String boxName = splitClass.get(0);
             UMLComponent box = Blackboard.getBlackboard().getBoxList().stream().filter(b -> b.getName().equals(boxName))
-                    .findFirst().orElse(new MethodDec("", new VarDec("", new Box(boxName, 100, 100))));
+                    .findFirst().orElse(new MethodDec("", new VarDec("", new CustomBox(boxName, 100, 100))));
             int i = 1;
             while (i < splitClass.size()) {
                 if (splitClass.get(i).equals("extends")) {
@@ -182,7 +182,7 @@ public class CustomTextArea extends JTextArea implements MyObserver {
         UMLComponent box2 = Blackboard.getBlackboard().getBoxList().stream().filter(b -> b.getName().equals(currentWord))
                 .findFirst().orElse(null);
         if (box2 == null) {
-            box2 = new MethodDec("", new VarDec("", new Box(currentWord, 300, 300)));
+            box2 = new MethodDec("", new VarDec("", new CustomBox(currentWord, 300, 300)));
             Blackboard.getBlackboard().getBoxList().add(box2);
         }
         UMLComponent finalBox = box2;
