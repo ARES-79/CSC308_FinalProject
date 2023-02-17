@@ -7,7 +7,7 @@ import java.awt.*;
  * Box variables-
  * String name, Int x, Int y, Int width, Int height
  */
-public class Box extends UMLComponent{
+public class CustomBox extends UMLComponent{
     int addedHeight = 0;
 
     /**
@@ -16,7 +16,7 @@ public class Box extends UMLComponent{
      * @param x - int x while will be the x co-ordinate of the new Box
      * @param y - int y while will be the y co-ordinate of the new Box
      */
-    public Box(String name, int x, int y) {
+    public CustomBox(String name, int x, int y) {
         super.setName(name);
         super.setX(x);
         super.setY(y);

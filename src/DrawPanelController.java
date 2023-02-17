@@ -29,7 +29,7 @@ public class DrawPanelController implements MouseListener, MouseMotionListener {
                 System.out.print("A class named \"" + input +
                         "\" was created at (" + e.getX() +
                         ", " + e.getY() + ").");
-                UMLComponent newBox = new MethodDec("", new VarDec("", new Box(input, e.getX(), e.getY())));
+                UMLComponent newBox = new MethodDec("", new VarDec("", new CustomBox(input, e.getX(), e.getY())));
                 Blackboard.getBlackboard().appendBoxList(newBox);
                 Blackboard.getBlackboard().updateData();
             } else {

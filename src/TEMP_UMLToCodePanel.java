@@ -12,48 +12,85 @@ import java.awt.event.ActionListener;
  */
 public class TEMP_UMLToCodePanel extends JPanel implements ActionListener {
 
-//    @Override
-//    public void run() {
-////        EventQueue.invokeLater(this);
-//        this.setBounds(parentWindow.getBounds());
-//        this.setVisible(true);
-//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//    }
+    private final String TEMPTEXT = """
 
 
+
+                        <Text Code Here>\s
+                        
+                        ex:\s
+                        class A {
+                        }
+                        
+                        """;
 
     public TEMP_UMLToCodePanel(){
         super();
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        setLayout(new BorderLayout());
 
-        setLayout(new GridLayout(1,3));
-        JEditorPane codeProblem = new JEditorPane("type",
-                "Text Code Here \n" +
-                "ex: \n" +
-                "class A {\n" +
-                "}");
+        //west
+        JPanel leftCenter = new JPanel ();
+        leftCenter.setLayout(new BorderLayout());
+
+        JLabel codeLabel = new JLabel("Source Code:");
+        codeLabel.setSize(400,100);
+        leftCenter.add(codeLabel, BorderLayout.NORTH);
+
+        JTextArea codeProblem = new JTextArea(30,20);
+        codeProblem.setText(TEMPTEXT);
         codeProblem.setEditable(false);
-        JButton testCloseButton = new JButton("Test Close");
-        JButton startButton = new JButton("Submit");
+        JScrollPane scroll = new JScrollPane (codeProblem,
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        leftCenter.add(scroll, BorderLayout.CENTER);
+        leftCenter.setVisible (true);
 
-        this.add(codeProblem);
-        this.add(testCloseButton);
-        this.add(startButton);
+        add(leftCenter, BorderLayout.WEST);
 
-        startButton.addActionListener(this);
-        testCloseButton.addActionListener(this);
+        //center
+        // TODO: Connect this to the blackboard and a CustomTextArea
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new BorderLayout());
+
+        DrawPanel east = new DrawPanel();
+        east.setBackground(Color.LIGHT_GRAY);
+        centerPanel.add(east, BorderLayout.CENTER);
+
+        JToolBar selectionToolBar = new JToolBar();
+        JRadioButton association = new JRadioButton("Association");
+        JRadioButton inheritance = new JRadioButton("Inheritance");
+        JRadioButton composition = new JRadioButton("Composition");
+        association.setSelected(true);
+        ButtonGroup group = new ButtonGroup();
+        group.add(association);
+        group.add(inheritance);
+        group.add(composition);
+
+        JButton nextQuestion = new JButton("Next");
+        nextQuestion.setContentAreaFilled(false);
+        JButton requestHint = new JButton("?");
+        requestHint.setContentAreaFilled(false);
+
+        selectionToolBar.add(association);
+        selectionToolBar.add(inheritance);
+        selectionToolBar.add(composition);
+        selectionToolBar.add(Box.createHorizontalGlue());
+        selectionToolBar.add(nextQuestion);
+        selectionToolBar.add(requestHint);
+
+        centerPanel.add(selectionToolBar, BorderLayout.NORTH);
+
+        add(centerPanel, BorderLayout.CENTER);
+
+        //possibly add a status bar
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        switch (e.getActionCommand()){
-            case ("Submit") -> {
-                System.out.println("Submit was pressed.");
-            }
-            case ("Test Close") -> {
-                //
-            }
 
-        }
+//        switch (e.getActionCommand()){
+//            case (){}
+//        }
     }
 
 }
