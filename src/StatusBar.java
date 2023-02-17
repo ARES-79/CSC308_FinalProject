@@ -5,7 +5,7 @@ public class StatusBar extends JLabel implements MyObserver{
     private JLabel statusBar;
 
     public StatusBar(){
-        statusBar = new JLabel("    Program started");
+        super("    Program started");
         //ideally should have:
         //setLayout();
         //add(statusBar);
@@ -13,7 +13,8 @@ public class StatusBar extends JLabel implements MyObserver{
 
     @Override
     public void update(MyObservable ob) {
-        statusBar.setText("     " + Blackboard.getBlackboard().getStatusBarMessage());
-        statusBar.revalidate();
+        setText("     " + Blackboard.getBlackboard().getStatusBarMessage());
+        revalidate();
+        repaint();
     }
 }

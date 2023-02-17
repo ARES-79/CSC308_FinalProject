@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class UMLApp extends JFrame {
 
     private CustomTextArea textArea;
-    private JLabel south = new StatusBar();
+    private StatusBar south = new StatusBar();
     /**
      * Main creates a new UMLApp window and allows it to be seen and closed properly.
      */
@@ -92,9 +92,7 @@ public class UMLApp extends JFrame {
         northPanel.add(composition);
         add(northPanel, BorderLayout.NORTH);
 
-        //south
-        //south = Blackboard.getBlackboard().getStatusBar();
-        //Blackboard.getBlackboard().getStatusBar().setText("   Program Started");
+        Blackboard.getBlackboard().addObserver(south);
         add(south, BorderLayout.SOUTH);
 
         //actionListeners
