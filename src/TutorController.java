@@ -24,13 +24,12 @@ public class TutorController implements ActionListener {
                         "About",
                         JOptionPane.INFORMATION_MESSAGE);}
             case ("Code --> UML") -> {
-                host.setVisible(false);
-                try {
-                    Thread.sleep(300);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-                new TEMP_CodeToUMLWindow(host);
+                host.alternativeFileMenu();
+                host.remove(host.getScreenPanel());
+                host.setScreenPanel(new TEMP_CodeToUMLPanel());
+                host.add(host.getScreenPanel());
+                host.revalidate();
+                host.repaint();
             }
             case ("Code --> Metrics") -> {
                 host.setVisible(false);
@@ -42,12 +41,13 @@ public class TutorController implements ActionListener {
                 new TEMP_CodeToMetricsWindow(host);
             }
             case ("UML --> Code") ->{
-                host.alternativeFileMenu();
-                host.remove(host.getScreenPanel());
-                host.setScreenPanel(new TEMP_UMLToCodePanel());
-                host.add(host.getScreenPanel());
-                host.revalidate();
-                host.repaint();
+                host.setVisible(false);
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                new TEMP_UMLToCodeWindow(host);
             }
             case ("View Progress") -> {
                 //

@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
  * Second attempt at a window that can open when a button is pressed
  *      supposed to much easier to digest
  */
-public class TEMP_UMLToCodePanel extends JPanel implements ActionListener {
+public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
 
     private final String TEMPTEXT = """
 
@@ -24,7 +24,7 @@ public class TEMP_UMLToCodePanel extends JPanel implements ActionListener {
                         
                         """;
 
-    public TEMP_UMLToCodePanel(){
+    public TEMP_CodeToUMLPanel(){
         super();
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setLayout(new BorderLayout());
@@ -54,6 +54,7 @@ public class TEMP_UMLToCodePanel extends JPanel implements ActionListener {
 
         DrawPanel east = new DrawPanel();
         east.setBackground(Color.LIGHT_GRAY);
+        Blackboard.getBlackboard().addObserver(east);
         centerPanel.add(east, BorderLayout.CENTER);
 
         JToolBar selectionToolBar = new JToolBar();
