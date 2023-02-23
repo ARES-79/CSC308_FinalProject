@@ -28,7 +28,19 @@ class User {
         return lastName;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
     private int generateUserId(){
         return 1;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 }

@@ -17,6 +17,7 @@ public class Blackboard extends MyObservable{
     private CustomTextArea customTextArea = new CustomTextArea(30, 20);
     private JLabel statusBar = new JLabel();
     private String statusBarMessage;
+    private List<User> teachers = new ArrayList<>();
 
     private static Blackboard blackboard;
 
