@@ -62,32 +62,6 @@ public class TutorApp extends JFrame {
 
         revalidate();
         repaint();
-//        if (menuBar != null){
-//            remove(menuBar);
-//            menuBar.removeAll();
-//        } else {
-//            menuBar = new JMenuBar();
-//        }
-//        JMenu file = new JMenu("File");
-//        JMenu help = new JMenu("Help");
-//
-//        JMenuItem progress = new JMenuItem("View Progress");
-//        JMenuItem logOut = new JMenuItem("Log Out");
-//        JMenuItem about = new JMenuItem("About");
-//        setJMenuBar(menuBar);
-//
-//        menuBar.add(file);
-//        menuBar.add(help);
-//        file.add(progress);
-//        file.add(logOut);
-//        help.add(about);
-//
-//        progress.addActionListener(this);
-//        logOut.addActionListener(this);
-//        about.addActionListener(this);
-//
-//        revalidate();
-//        repaint();
     }
 
     /**
@@ -114,36 +88,6 @@ public class TutorApp extends JFrame {
 
         revalidate();
         repaint();
-
-//        if (menuBar != null){
-//            remove(menuBar);
-//            menuBar.removeAll();
-//        } else {
-//            menuBar = new JMenuBar();
-//        }
-//        JMenu file = new JMenu("File");
-//        JMenu help = new JMenu("Help");
-//
-//        JMenuItem progress = new JMenuItem("View Progress");
-//        JMenuItem backToMenu = new JMenuItem("Back To Menu");
-//        JMenuItem logOut = new JMenuItem("Log Out");
-//        JMenuItem about = new JMenuItem("About");
-//        setJMenuBar(menuBar);
-//
-//        menuBar.add(file);
-//        menuBar.add(help);
-//        file.add(progress);
-//        file.add(backToMenu);
-//        file.add(logOut);
-//        help.add(about);
-//
-//        progress.addActionListener(this);
-//        backToMenu.addActionListener(this);
-//        logOut.addActionListener(this);
-//        about.addActionListener(this);
-//
-//        revalidate();
-//        repaint();
     }
 
     /**
