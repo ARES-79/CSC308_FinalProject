@@ -4,7 +4,7 @@ public abstract class SignInPanel extends JPanel {
 
     TempSignInWindow host;
     JTextField username;
-    JPasswordField password;
+    JTextField password;
 
     /**
      * checks that the username given is for a valid user

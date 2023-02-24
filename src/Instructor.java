@@ -31,9 +31,19 @@ public class Instructor extends User{
      * @param firstName first name of the instructor
      * @param lastName last name of the instructor
      */
-    public Instructor(String username, String password, String firstName, String lastName) {
+    public Instructor(String username, String password, String firstName, String lastName, String classCode) {
         super(username, password, firstName, lastName);
-        classCode = generateClassCode();
+        if (classCode == null) {
+            this.classCode = generateClassCode();
+        }else{this.classCode = classCode;}
+    }
+
+    @Override
+    public String toString(){
+        return "Username: " + getUsername() + "    UserId: " + super.getUserId() +
+                "\nFirst Name: " + getFirstName() +
+                "\nLast Name: " + getLastName() +
+                "\nClass Code: " + getClassCode();
     }
 
     /**

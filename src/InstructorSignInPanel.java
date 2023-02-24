@@ -107,6 +107,13 @@ public class InstructorSignInPanel extends SignInPanel implements ActionListener
                 host.revalidate();
                 host.repaint();
             }
+            case ("Create Instructor Account") ->{
+                host.remove(host.getScreenPanel());
+                host.setScreenPanel(new CreateInstructorAccountPanel(host));
+                host.add(host.getScreenPanel());
+                host.revalidate();
+                host.repaint();
+            }
         }
     }
 }
