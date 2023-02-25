@@ -14,7 +14,7 @@ public class Blackboard extends MyObservable{
     private List<UMLComponent> BoxList = new ArrayList<>();
     private ConnectionType connectionType = ConnectionType.ASSOCIATION;
     private HashSet<String> savedProjects = LoadModel.deserializeSavedProjects();
-    private CustomTextArea customTextArea = new CustomTextArea(30, 20);
+//    private CustomTextArea customTextArea = new CustomTextArea(30, 20);
     private JLabel statusBar = new JLabel();
     private String statusBarMessage;
     private List<User> teachers = new ArrayList<>();
@@ -85,9 +85,9 @@ public class Blackboard extends MyObservable{
      * getCustomTextArea - getter method to access the customTextArea object
      * @return CustomTextArea object, customTextArea
      */
-    public CustomTextArea getCustomTextArea() {
-        return customTextArea;
-    }
+//    public CustomTextArea getCustomTextArea() {
+//        return customTextArea;
+//    }
 
     /**
      * getConnectionType - getter method to access the currently selected connectionType

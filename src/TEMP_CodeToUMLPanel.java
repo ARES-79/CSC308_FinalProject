@@ -16,9 +16,8 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
 
 
 
-                        <Text Code Here>\s
-                        
-                        ex:\s
+
+
                         class A {
                         }
                         

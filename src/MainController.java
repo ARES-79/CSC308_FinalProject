@@ -12,11 +12,18 @@ import java.awt.event.ActionListener;
 public class MainController implements ActionListener {
     FileHandler FH;
     Component parentComponent;
+    CustomTextArea textArea;
 
-    public MainController(Component parentComponent){
+    /**
+     * constructor
+     *
+     * @param parentComponent host frame of the controller
+     * @param textArea Custom Text Area for the controller
+     */
+    public MainController(Component parentComponent, CustomTextArea textArea){
         this.parentComponent = parentComponent;
+        this.textArea = textArea;
     }
-
 
     /**`
      * actionPerformed - implementation from ActionListener interface
@@ -46,7 +53,7 @@ public class MainController implements ActionListener {
             }
 
             case ("Update") -> {
-                CustomTextArea textArea = Blackboard.getBlackboard().getCustomTextArea();
+//                CustomTextArea textArea = parentComponent.getTextArea();
                 textArea.parseText();
                 Blackboard.getBlackboard().statusBarTextAreaUpdated();
             }
