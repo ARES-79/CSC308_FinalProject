@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * Final Project
@@ -12,6 +11,11 @@ public class UMLApp extends JFrame {
 
     private CustomTextArea textArea;
     private StatusBar south = new StatusBar();
+
+    public CustomTextArea getTextArea() {
+        return textArea;
+    }
+
     /**
      * Main creates a new UMLApp window and allows it to be seen and closed properly.
      */
@@ -30,7 +34,6 @@ public class UMLApp extends JFrame {
     public UMLApp() {
         super("My UML App");
         setLayout(new BorderLayout());
-        MainController mC = new MainController(this);
 
         //menu
         JMenuBar menuBar = new JMenuBar();
@@ -52,7 +55,9 @@ public class UMLApp extends JFrame {
 
         //west
         JPanel leftCenter = new JPanel ();
-        textArea = Blackboard.getBlackboard().getCustomTextArea();
+//        textArea = Blackboard.getBlackboard().getCustomTextArea();
+        textArea = new CustomTextArea(30,20);
+        MainController mC = new MainController(this, textArea);
         Blackboard.getBlackboard().addObserver(textArea);
         JScrollPane scroll = new JScrollPane (textArea,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
