@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Mitashi Parikh
@@ -6,6 +8,7 @@ import java.util.HashMap;
 public class Student extends User{
     private int classCode;
     private double overallProficiency;
+    private List<Integer> completedQuestions = new ArrayList<>();
     private HashMap<String,Double> subjectProficiency = new HashMap<>();;
 
     Student(String username, String password, String firstName, String lastName, int classCode) {
