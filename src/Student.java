@@ -16,7 +16,6 @@ public class Student extends User{
         subjectProficiency.put("CodeUML", 0.0);
         subjectProficiency.put("CodetoMetrics", 0.0);
         subjectProficiency.put("UMLtoMetrics", 0.0);
-
     }
 
     public int getClassCode() {

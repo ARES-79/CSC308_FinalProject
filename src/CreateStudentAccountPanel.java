@@ -87,6 +87,8 @@ public class CreateStudentAccountPanel extends SignInPanel implements ActionList
                 if(isUserNameValid(username.getText()) && isClassCodeValid(classCode.getText())){
                     Student test = new Student(username.getText(), password.getText(),
                             firstName.getText(), lastName.getText(), Integer.parseInt(classCode.getText()));
+                    Blackboard.getBlackboard().setCurrentUser(test);
+                    Blackboard.getBlackboard().appendStudent(test);
                     System.out.println(test);
                 }
                 else{
