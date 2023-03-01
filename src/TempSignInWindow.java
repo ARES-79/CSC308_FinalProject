@@ -99,7 +99,11 @@ public class TempSignInWindow extends JFrame implements ActionListener {
                 repaint();
             }
             case  ("Student") -> {
-                //blank
+                remove(this.getScreenPanel());
+                this.setScreenPanel(new StudentSignInPanel(this));
+                add(this.getScreenPanel());
+                revalidate();
+                repaint();
             }
         }
     }

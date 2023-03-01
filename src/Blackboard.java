@@ -18,6 +18,8 @@ public class Blackboard extends MyObservable{
     private JLabel statusBar = new JLabel();
     private String statusBarMessage;
     private List<User> teachers = new ArrayList<>();
+    private List<User> students = new ArrayList<>();
+    private User currentUser;
 
     private static Blackboard blackboard;
 
@@ -108,6 +110,14 @@ public class Blackboard extends MyObservable{
 
     public String getStatusBarMessage() {
         return statusBarMessage;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public void appendStudent(Student s){
+        students.add(s);
     }
 
     public void statusBarNewProject(){
