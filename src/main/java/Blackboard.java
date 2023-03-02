@@ -20,7 +20,7 @@ public class Blackboard extends MyObservable {
     private List<User> teachers = new ArrayList<>();
     private List<User> students = new ArrayList<>();
     private User currentUser;
-    private String currentSubject;
+    private SubjectType currentSubject;
 
     private DatabaseController databaseController = new DatabaseController();
 
@@ -123,11 +123,11 @@ public class Blackboard extends MyObservable {
         students.add(s);
     }
 
-    public String getCurrentSubject() {
+    public SubjectType getCurrentSubject() {
         return currentSubject;
     }
 
-    public void setCurrentSubject(String currentSubject) {
+    public void setCurrentSubject(SubjectType currentSubject) {
         this.currentSubject = currentSubject;
     }
 
