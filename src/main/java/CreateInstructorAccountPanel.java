@@ -1,3 +1,4 @@
+import javax.persistence.EntityExistsException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -81,7 +82,15 @@ public class CreateInstructorAccountPanel extends SignInPanel implements ActionL
                 //TODO: implement putting the data into the database
                 Instructor test = new Instructor(username.getText(), password.getText(),
                             firstName.getText(), lastName.getText(), null);
-                System.out.println(test);
+                try {
+                    Blackboard.getBlackboard().getDatabaseController().saveInstructor(test);
+                }
+                catch (EntityExistsException exception){
+                    JOptionPane.showMessageDialog(this,
+                            "An instructor with that username already exists",
+                            "User Already Exists",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
 

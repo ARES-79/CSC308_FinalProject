@@ -4,7 +4,9 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.Query;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 public class DatabaseController {
@@ -20,7 +22,7 @@ public class DatabaseController {
             this.session.beginTransaction();
         } catch (Exception e) {
             System.out.println(e);
-            throw(e);
+            throw (e);
         }
     }
 
@@ -31,23 +33,27 @@ public class DatabaseController {
         try {
             query.setParameter("username", username);
             return (Student) query.getSingleResult();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
+
     public Instructor getInstructorByUsername(String username) {
-        System.out.println(username);
         String hql = "FROM Instructor I WHERE I.username =:username";
         Query query = session.createQuery(hql);
         try {
             query.setParameter("username", username);
             return (Instructor) query.getSingleResult();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             return null;
         }
+    }
+
+    public void saveInstructor(Instructor instructor) throws SQLIntegrityConstraintViolationException {
+        this.session.persist(instructor);
+        this.session.getTransaction().commit();
+
     }
 
     public void shutDown() {
