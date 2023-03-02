@@ -1,3 +1,6 @@
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,6 +10,8 @@ import java.awt.*;
  * @version 1.0.1
  * DrawPanel - section of the application for drawing Classes
  */
+@Setter
+@Getter
 public class DrawPanel extends JPanel implements MyObserver {
 
     /**

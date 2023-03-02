@@ -1,3 +1,6 @@
+import lombok.Getter;
+import lombok.Setter;
+
 import java.awt.*;
 
 /**
@@ -7,8 +10,10 @@ import java.awt.*;
  * Box variables-
  * String name, Int x, Int y, Int width, Int height
  */
+@Getter
+@Setter
 public class CustomBox extends UMLComponent {
-    int addedHeight = 0;
+    private int addedHeight = 0;
 
     /**
      * Box constructor
@@ -49,12 +54,5 @@ public class CustomBox extends UMLComponent {
         }
     }
 
-    /**
-     * setHeight - setter method to set the height of this box
-     * @param height - int value to replace the current height
-     */
-    public void setHeight(int height){
-        super.setHeight(height);
-    }
 
 }

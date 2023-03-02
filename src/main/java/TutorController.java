@@ -2,9 +2,10 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 public class TutorController implements ActionListener {
 
-    TutorApp host;
+    private TutorApp host;
 
     public TutorController(TutorApp host){
         this.host = host;

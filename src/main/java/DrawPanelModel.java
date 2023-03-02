@@ -1,3 +1,6 @@
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.swing.*;
 
 /**
@@ -6,6 +9,8 @@ import javax.swing.*;
  * @version 1.3
  * DrawPanelModel - class that provides the logic for the DrawPanel
  */
+@Getter
+@Setter
 public class DrawPanelModel {
 
     private boolean isFirstBoxPressed;
@@ -90,6 +95,7 @@ public class DrawPanelModel {
      * @param y - y coordinate of mouse on screen
      */
     public void moveBox(int x, int y){
+
         firstBoxPressed.setX(baseX + (x-x1));
         firstBoxPressed.setY(baseY + (y-y1));
         Blackboard.getBlackboard().updateData();

@@ -1,3 +1,6 @@
+import lombok.Getter;
+import lombok.Setter;
+
 import java.awt.*;
 
 /**
@@ -9,6 +12,9 @@ import java.awt.*;
  * A component of type UMLComponent which points to the UMLComponent inside a decorator
  * A static final int, decHeight, which is the height of each decorator in number of pixels
  */
+
+@Getter
+@Setter
 public class Decoration extends UMLComponent {
     protected UMLComponent component;
     public static final int decHeight = 25;
@@ -90,15 +96,6 @@ public class Decoration extends UMLComponent {
     public void setY(int y) {
         component.setY(y);
     }
-
-    /**
-     * setHeight - setter method to change the height of the component
-     * @param height - int value to replace the current height of the component
-     */
-    public void setHeight(int height) {
-        component.setHeight(height);
-    }
-
     /**
      * setTotalVars - overridden setter method to not only update the
      * current UMLComponent but the nested one's as well
@@ -109,14 +106,6 @@ public class Decoration extends UMLComponent {
     public void setTotalVars(int totalVars) {
         super.setTotalVars(totalVars);
         component.setTotalVars(totalVars);
-    }
-
-    /**
-     * getComponent - getter method to access the component this decorator is decorating
-     * @return UMLComponent object which is this decorator's component
-     */
-    public UMLComponent getComponent() {
-        return component;
     }
 
 }

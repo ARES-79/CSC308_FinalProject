@@ -1,3 +1,6 @@
+import lombok.Getter;
+import lombok.Setter;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -7,6 +10,8 @@ import java.util.ArrayList;
  * @version 2.0
  * UMLComponent - abstract parent class for the box decorator model
  */
+@Getter
+@Setter
 public abstract class UMLComponent implements java.io.Serializable{
     private String name;
     private int x;
@@ -23,150 +28,6 @@ public abstract class UMLComponent implements java.io.Serializable{
      * @param g - Graphics object used to create what is shown on screen
      */
     public abstract void paintBox(Graphics g);
-
-    /**
-     * setConnections - setter for connections variable
-     * @param connections - list of Connections to replace current value
-     */
-    public void setConnections(ArrayList<Connection> connections) {
-        this.connections = connections;
-    }
-
-    /**
-     * getNumVars - getter for numVars value
-     * @return - int value of the numVars variable
-     */
-    public int getNumVars() {
-        return numVars;
-    }
-
-    /**
-     * setNumVars - setter for numVars variable
-     * @param numVars - int value to replace current numVars value
-     */
-    public void setNumVars(int numVars) {
-        this.numVars = numVars;
-    }
-
-    /**
-     * getTotalVars - getter for totalVars value
-     * @return - int value of the totalVars variable
-     */
-    public int getTotalVars() {
-        return totalVars;
-    }
-
-    /**
-     * setTotalVars - setter for totalVars variable
-     * @param totalVars - int value to replace current totalVars value
-     */
-    public void setTotalVars(int totalVars) {
-        this.totalVars = totalVars;
-    }
-
-    /**
-     * getNumVars - getter for numMethods value
-     * @return - int value of the numMethods variable
-     */
-    public int getNumMethods() {
-        return numMethods;
-    }
-
-    /**
-     * setNumMethods - setter for numMethods variable
-     * @param numMethods - int value to replace current numMethods value
-     */
-    public void setNumMethods(int numMethods) {
-        this.numMethods = numMethods;
-    }
-
-    /**
-     * getName
-     * @return String - name value
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * setName
-     * @param name - Sting value to replace/set name value
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * getX
-     * @return int - current x value
-     */
-    public int getX() {
-        return x;
-    }
-
-    /**
-     * setX
-     * @param x - int value to replace current x value
-     */
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    /**
-     * getY
-     * @return int - current y value
-     */
-    public int getY() {
-        return y;
-    }
-
-    /**
-     * setY
-     * @param y - int value to replace the current y
-     */
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    /**
-     * getWidth
-     * @return int - current width value
-     */
-    public int getWidth() {
-        return width;
-    }
-
-    /**
-     * setWidth
-     * @param width - int value to replace the current width
-     */
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    /**
-     * getHeight
-     * @return int - current height value
-     */
-    public int getHeight() {
-        return height;
-    }
-
-    /**
-     * getConnections
-     * @return ArrayList - list of connections that originate for this UML Component
-     */
-    public ArrayList<Connection> getConnections() {
-        return connections;
-    }
-
-    /**
-     * setHeight
-     * @param height - int value to replace the current height
-     */
-    public void setHeight(int height) {
-        this.height = height;
-    }
 
     /**
      * addConnection - adds a connection to the connection list

@@ -1,5 +1,10 @@
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
+@Getter
+@Setter
 public class Question {
     private int id;
     private String text;
@@ -13,26 +18,6 @@ public class Question {
         this.answer = answer;
         this.hints = hints;
         this.difficulty = difficulty;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public List<Hint> getHints() {
-        return hints;
-    }
-
-    public double getDifficulty() {
-        return difficulty;
     }
 
     boolean checkAnswer(String studentAnswer){

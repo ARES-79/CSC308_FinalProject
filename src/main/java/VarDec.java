@@ -1,3 +1,6 @@
+import lombok.Getter;
+import lombok.Setter;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,6 +12,7 @@ import java.util.stream.Collectors;
  * @version 2.1
  * VariableDecorator - concrete decoration for variables
  */
+
 public class VarDec extends Decoration {
 
     private String varName;

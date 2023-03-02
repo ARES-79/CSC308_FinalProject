@@ -1,3 +1,6 @@
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,10 +12,12 @@ import java.awt.event.ActionListener;
  * @version 1.0
  * MainController Class - class that connects GUI with the model
  */
+@Getter
+@Setter
 public class MainController implements ActionListener {
-    FileHandler FH;
-    Component parentComponent;
-    CustomTextArea textArea;
+    private FileHandler FH;
+    private Component parentComponent;
+    private CustomTextArea textArea;
 
     /**
      * constructor

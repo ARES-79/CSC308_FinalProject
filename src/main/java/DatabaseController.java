@@ -1,19 +1,20 @@
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.exception.ConstraintViolationException;
 
-import javax.persistence.EntityExistsException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.List;
 
+
+@Getter
+@Setter
 public class DatabaseController {
-    SessionFactory sessionFactory;
-    Session session;
+    private SessionFactory sessionFactory;
+    private Session session;
 
     public void setUp() {
         // configures settings from hibernate.cfg.xml

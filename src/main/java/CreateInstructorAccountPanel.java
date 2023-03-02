@@ -1,3 +1,5 @@
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.exception.ConstraintViolationException;
 
 import javax.persistence.EntityExistsException;
@@ -8,10 +10,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLIntegrityConstraintViolationException;
 
+@Getter
+@Setter
 public class CreateInstructorAccountPanel extends SignInPanel implements ActionListener {
 
-    JTextField firstName;
-    JTextField lastName;
+    private JTextField firstName;
+    private JTextField lastName;
 
     public CreateInstructorAccountPanel(TempSignInWindow host){
         super();

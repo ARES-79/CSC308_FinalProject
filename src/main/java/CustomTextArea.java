@@ -1,3 +1,6 @@
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +15,8 @@ import java.util.stream.Collectors;
  * Also, parses the existing data in the Blackboard to update the TextArea.
  * It is an Observer of the Blackboard
  */
+@Getter
+@Setter
 public class CustomTextArea extends JTextArea implements MyObserver {
     public CustomTextArea(int x, int y) {
         super(x, y);

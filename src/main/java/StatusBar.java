@@ -1,5 +1,10 @@
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.swing.*;
 
+@Getter
+@Setter
 public class StatusBar extends JLabel implements MyObserver {
     private JLabel statusBar;
 

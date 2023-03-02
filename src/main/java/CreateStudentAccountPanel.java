@@ -1,14 +1,19 @@
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.PersistenceException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@Getter
+@Setter
 public class CreateStudentAccountPanel extends SignInPanel implements ActionListener {
 
-    JTextField firstName;
-    JTextField lastName;
-    JTextField classCode;
+    private JTextField firstName;
+    private JTextField lastName;
+    private JTextField classCode;
 
     public CreateStudentAccountPanel(TempSignInWindow host) {
         super();

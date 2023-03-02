@@ -1,3 +1,6 @@
+import lombok.Getter;
+import lombok.Setter;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -8,6 +11,8 @@ import java.awt.event.MouseMotionListener;
  * @version 1.3
  * DrawPanelController - class that connects the panel GUI with its model
  */
+@Setter
+@Getter
 public class DrawPanelController implements MouseListener, MouseMotionListener {
 
     private DrawPanelModel dpModel = new DrawPanelModel();

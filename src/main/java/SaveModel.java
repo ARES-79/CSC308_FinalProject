@@ -1,3 +1,6 @@
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.swing.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,6 +12,8 @@ import java.io.ObjectOutputStream;
  * @version 1.0
  * SaveModel - class which handles the functionality for saving the current state of the draw panel into a Serialized object file
  */
+@Getter
+@Setter
 public class SaveModel implements FileHandler {
 
     /**

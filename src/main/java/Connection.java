@@ -1,3 +1,6 @@
+import lombok.Getter;
+import lombok.Setter;
+
 import java.awt.*;
 
 /**
@@ -8,6 +11,8 @@ import java.awt.*;
  * and the box containing the list is the origin, while the box in the list is the destination
  * the enum typeOfConnection shows what type should be drawn/used to connect the two boxes
  */
+@Getter
+@Setter
 public abstract class Connection implements java.io.Serializable {
     private UMLComponent destination;
     private UMLComponent origin;
@@ -24,28 +29,6 @@ public abstract class Connection implements java.io.Serializable {
         this.origin = origin;
         this.destination = dest;
         this.type = t;
-    }
-
-    /**
-     * getDestination - Getter method for the destination Box
-     * @return the destination UMLComponent (contains a Box)
-     */
-    public UMLComponent getDestination() {
-        return destination;
-    }
-
-    /**
-     * getDestination - Getter method for the destination Box
-     * @return the destination UMLComponent (contains a Box)
-     */
-    public UMLComponent getOrigin() { return origin; }
-
-    /**
-     * getType - Getter method for the type of the connection
-     * @return the type of the connection
-     */
-    public ConnectionType getType() {
-        return type;
     }
 
     /**

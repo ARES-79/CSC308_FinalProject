@@ -1,3 +1,6 @@
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +11,8 @@ import java.util.List;
  */
 @Entity
 @Table(name = "Students")
+@Getter
+@Setter
 public class Student extends User{
     @Column(name = "classCode")
     private String classCode;
@@ -30,9 +35,5 @@ public class Student extends User{
 
     public Student(){
         super();
-    }
-
-    public String getClassCode() {
-        return classCode;
     }
 }

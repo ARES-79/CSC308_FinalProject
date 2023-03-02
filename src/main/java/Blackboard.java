@@ -1,3 +1,6 @@
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,6 +13,8 @@ import java.util.List;
  * Blackboard - central location for the data which needs to be accessed by several data requesters.
  * It is a singleton class and is also observable
  */
+@Getter
+@Setter
 public class Blackboard extends MyObservable {
     private List<UMLComponent> BoxList = new ArrayList<>();
     private ConnectionType connectionType = ConnectionType.ASSOCIATION;
@@ -42,14 +47,6 @@ public class Blackboard extends MyObservable {
     }
 
     /**
-     * getBoxList - getter method to access BoxList, which is the list of boxes in the current project state
-     * @return List</UMLComponent> BoxList which has the list of boxes in the current state of the project
-     */
-    public List<UMLComponent> getBoxList() {
-        return BoxList;
-    }
-
-    /**
      * appendBoxList - method to allow to append a new Box(or Decorated Box) to the BoxList
      * @param box - UMLComponent to be appended to the BoxList
      */
@@ -58,24 +55,6 @@ public class Blackboard extends MyObservable {
         statusBarMessage = "     A new class was created.";
         updateData();
     }
-
-    /**
-     * setBoxList - setter method to set the boxList when loaded from a deserialized object
-     * @param boxList - List<UMLComponents> which is the BoxList loaded from a serialized file
-     */
-    public void setBoxList(List<UMLComponent> boxList) {
-        BoxList = boxList;
-        updateData();
-    }
-
-    /**
-     * getSavedProjects - getter methods to access the hash set of previously saved projects
-     * @return HashSet<String> which is the hash set of previously saved projects
-     */
-    public HashSet<String> getSavedProjects() {
-        return savedProjects;
-    }
-
     /**
      * appendSavedProjectsList - method to allow to add a new project name to the list of savedProjects
      * @param name - String name which will be the name of the added project
@@ -85,38 +64,6 @@ public class Blackboard extends MyObservable {
         return savedProjects.add(name);
     }
 
-    /**
-     * getCustomTextArea - getter method to access the customTextArea object
-     * @return CustomTextArea object, customTextArea
-     */
-//    public CustomTextArea getCustomTextArea() {
-//        return customTextArea;
-//    }
-
-    /**
-     * getConnectionType - getter method to access the currently selected connectionType
-     * @return ConnectionType object, connectionType
-     */
-    public ConnectionType getConnectionType() {
-        return connectionType;
-    }
-
-    /**
-     * setConnectionType - setter method to set the current connectionType when it is changed by the user
-     * @param connectionType - ConnectionType enum which is the new connection type set by the user
-     */
-    public void setConnectionType(ConnectionType connectionType) {
-        System.out.println(connectionType + " connection chosen");
-        this.connectionType = connectionType;
-    }
-
-    public String getStatusBarMessage() {
-        return statusBarMessage;
-    }
-
-    public void setCurrentUser(User currentUser) {
-        this.currentUser = currentUser;
-    }
 
     public void appendStudent(Student s){
         students.add(s);
@@ -170,7 +117,4 @@ public class Blackboard extends MyObservable {
         return databaseController;
     }
 
-    public void setDatabaseController(DatabaseController databaseController) {
-        this.databaseController = databaseController;
-    }
 }

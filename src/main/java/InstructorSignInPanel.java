@@ -1,10 +1,15 @@
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@Getter
+@Setter
 public class InstructorSignInPanel extends SignInPanel implements ActionListener {
-    JPasswordField password;
+    private JPasswordField password;
 
     public InstructorSignInPanel(TempSignInWindow host){
         super();
