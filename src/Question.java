@@ -8,6 +8,7 @@ public class Question {
     double difficulty;
 
     public Question(int id, String text, String answer, List<Hint> hints, double difficulty){
+        this.id = id;
         this.text = text;
         this.answer = answer;
         this.hints = hints;
