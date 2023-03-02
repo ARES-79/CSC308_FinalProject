@@ -32,9 +32,8 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
         JPanel leftCenter = new JPanel ();
         leftCenter.setLayout(new BorderLayout());
 
-        JLabel codeLabel = new JLabel("Source Code:");
-        codeLabel.setSize(400,100);
-        leftCenter.add(codeLabel, BorderLayout.NORTH);
+        JLabel instructionLabel = new JLabel("Translate the code below to UML:");
+        leftCenter.add(instructionLabel, BorderLayout.NORTH);
 
         JTextArea codeProblem = new JTextArea(30,20);
         codeProblem.setText(TEMPTEXT);
