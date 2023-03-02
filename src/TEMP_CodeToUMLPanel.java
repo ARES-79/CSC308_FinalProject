@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * Final Project
@@ -69,6 +70,8 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
         nextQuestion.setContentAreaFilled(false);
         JButton requestHint = new JButton("?");
         requestHint.setContentAreaFilled(false);
+        requestHint.addActionListener(this);
+        nextQuestion.addActionListener(this);
 
         selectionToolBar.add(association);
         selectionToolBar.add(inheritance);
@@ -86,10 +89,36 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println(e.getActionCommand());
+        switch (e.getActionCommand()) {
+            case ("Next") -> {
+//                Hint hint1 = new Hint("hint1");
+//                Hint hint2 = new Hint("hint2");
+//                Hint hint3 = new Hint("hint3");
+//                ArrayList<Hint> hints = new ArrayList<>();
+//                hints.add(hint1);
+//                hints.add(hint2);
+//                hints.add(hint3);
+//                Question question = new Question("Does this work?", "Maybe", hints, 1);
+//                JLabel testQ = new JLabel(question.getText());
+//                System.out.println(question.getText());
+            }
+            case ("?") -> {
+//                Hint hint1 = new Hint("hint1");
+//                Hint hint2 = new Hint("hint2");
+//                Hint hint3 = new Hint("hint3");
+//                ArrayList<Hint> hints = new ArrayList<>();
+//                hints.add(hint1);
+//                hints.add(hint2);
+//                hints.add(hint3);
+//                Question question = new Question("Does this work?", "Maybe", hints, 1);
 
-//        switch (e.getActionCommand()){
-//            case (){}
-//        }
+            }
+        }
+    }
+
+    void addQuestionToScreen(Question question){
+
     }
 
 }
