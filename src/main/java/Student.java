@@ -23,7 +23,7 @@ public class Student extends User{
         this.classCode = classCode;
         overallProficiency = 0;
         subjectProficiency.put("UMLtoCode", 0.0);
-        subjectProficiency.put("CodeUML", 0.0);
+        subjectProficiency.put("CodetoUML", 0.0);
         subjectProficiency.put("CodetoMetrics", 0.0);
         subjectProficiency.put("UMLtoMetrics", 0.0);
     }
@@ -34,5 +34,15 @@ public class Student extends User{
 
     public String getClassCode() {
         return classCode;
+    }
+
+    public void updateProficiency(){
+        String subject = Blackboard.getBlackboard().getCurrentSubject();
+        subjectProficiency.put(subject, subjectProficiency.get(subject)+1);
+        int total = 0;
+        for(String key: subjectProficiency.keySet()){
+            total += subjectProficiency.get(key);
+        }
+        overallProficiency = total/subjectProficiency.size();
     }
 }
