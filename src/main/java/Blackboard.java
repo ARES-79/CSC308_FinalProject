@@ -25,6 +25,7 @@ public class Blackboard extends MyObservable {
     private List<User> teachers = new ArrayList<>();
     private List<User> students = new ArrayList<>();
     private User currentUser;
+    private SubjectType currentSubject;
 
     private DatabaseController databaseController = new DatabaseController();
 
@@ -67,6 +68,14 @@ public class Blackboard extends MyObservable {
 
     public void appendStudent(Student s){
         students.add(s);
+    }
+
+    public SubjectType getCurrentSubject() {
+        return currentSubject;
+    }
+
+    public void setCurrentSubject(SubjectType currentSubject) {
+        this.currentSubject = currentSubject;
     }
 
     public void statusBarNewProject(){
