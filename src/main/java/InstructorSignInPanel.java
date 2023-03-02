@@ -3,9 +3,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class StudentSignInPanel extends SignInPanel implements ActionListener {
+public class InstructorSignInPanel extends SignInPanel implements ActionListener {
+    JPasswordField password;
 
-    public StudentSignInPanel(TempSignInWindow host){
+    public InstructorSignInPanel(TempSignInWindow host){
         super();
 
         this.host = host;
@@ -49,7 +50,7 @@ public class StudentSignInPanel extends SignInPanel implements ActionListener {
 
         JPanel createButtonPanel = new JPanel();
         createButtonPanel.setLayout(new GridLayout(2,3));
-        JButton createInstructor = new JButton("Create Student Account");
+        JButton createInstructor = new JButton("Create Instructor Account");
         for(int i = 0; i < 6; i++){
             if (i == 1){createButtonPanel.add(createInstructor);}
             else{createButtonPanel.add(new JLabel(""));}
@@ -79,26 +80,25 @@ public class StudentSignInPanel extends SignInPanel implements ActionListener {
         System.out.println(e.getActionCommand());
         switch (e.getActionCommand()){
             case("Submit") -> {
-                //TODO: implement login check
-//                char[] input = password.getPassword();
-//                if (isPasswordCorrect(input)) {
-//                    JOptionPane.showMessageDialog(this,
-//                            "Success! You typed the right password.");
-//                } else {
-//                    JOptionPane.showMessageDialog(this,
-//                            "Invalid password. Try again.",
-//                            "Error Message",
-//                            JOptionPane.ERROR_MESSAGE);
-//                }
-//
-//                //Zero out the possible password, for security.
-//                Arrays.fill(input, '0');
-//
-//                password.selectAll();
+                Instructor instructor = Blackboard.getBlackboard().getDatabaseController().getInstructorByUsername(username.getText());
+                System.out.println(instructor);
+                String input = String.valueOf(password.getPassword());
+                if (instructor != null && input.equals(instructor.getPassword())) {
+                    JOptionPane.showMessageDialog(this,
+                            "Please be patient while be finish up the instructor page",
+                            "Work In Progress",
+                            JOptionPane.WARNING_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "Invalid password. Try again.",
+                            "Error Message",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
 
                 //TODO: call the main of the instructor app instead of the student app
-                TutorApp.main(new String[]{username.getText(), password.getText()});
-                host.dispose();
+//                TutorApp.main(new String[]{username.getText(), password.getText()});
+//                host.dispose();
             }
             case ("Back") -> {
                 host.remove(host.getScreenPanel());
@@ -107,9 +107,9 @@ public class StudentSignInPanel extends SignInPanel implements ActionListener {
                 host.revalidate();
                 host.repaint();
             }
-            case ("Create Student Account") ->{
+            case ("Create Instructor Account") ->{
                 host.remove(host.getScreenPanel());
-                host.setScreenPanel(new CreateStudentAccountPanel(host));
+                host.setScreenPanel(new CreateInstructorAccountPanel(host));
                 host.add(host.getScreenPanel());
                 host.revalidate();
                 host.repaint();

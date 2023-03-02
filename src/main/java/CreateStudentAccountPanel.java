@@ -3,12 +3,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CreateInstructorAccountPanel extends SignInPanel implements ActionListener {
+public class CreateStudentAccountPanel extends SignInPanel implements ActionListener {
 
     JTextField firstName;
     JTextField lastName;
+    JTextField classCode;
 
-    public CreateInstructorAccountPanel(TempSignInWindow host){
+    public CreateStudentAccountPanel(TempSignInWindow host){
         super();
 
         this.host = host;
@@ -30,24 +31,26 @@ public class CreateInstructorAccountPanel extends SignInPanel implements ActionL
         add(welcome);
 
         JPanel userInfoPanel = new JPanel();
-        userInfoPanel.setLayout(new GridLayout(5,4));
+        userInfoPanel.setLayout(new GridLayout(6,4));
 
         JLabel firstNamePrompt = new JLabel("First Name: ", SwingConstants.CENTER);
         JLabel lastNamePrompt = new JLabel("Last Name: ", SwingConstants.CENTER);
         JLabel userNamePrompt = new JLabel("Username: ", SwingConstants.CENTER);
         JLabel passwordPrompt= new JLabel("Password: ", SwingConstants.CENTER);
+        JLabel classCodePrompt= new JLabel("Class Code: ", SwingConstants.CENTER);
 
         firstName = new JTextField("FirstName");
         lastName = new JTextField("LastName");
         username = new JTextField("Username");
         password = new JTextField("Password");
+        classCode = new JTextField("Class Code");
         password.setActionCommand("Submit");
         password.setVisible(true);
         password.addActionListener(this);
 
         JButton submit = new JButton("Submit");
 
-        for (int i =0; i < 20; i++){
+        for (int i =0; i < 24; i++){
             if(i == 1){userInfoPanel.add(firstNamePrompt);}
             else if (i == 2){userInfoPanel.add(firstName);}
             else if (i == 5){userInfoPanel.add(lastNamePrompt);}
@@ -56,7 +59,9 @@ public class CreateInstructorAccountPanel extends SignInPanel implements ActionL
             else if(i == 10){userInfoPanel.add(username);}
             else if(i == 13){userInfoPanel.add(passwordPrompt);}
             else if(i == 14){userInfoPanel.add(password);}
-            else if(i == 18){userInfoPanel.add(submit);}
+            else if(i == 17){userInfoPanel.add(classCodePrompt);}
+            else if(i == 18){userInfoPanel.add(classCode);}
+            else if(i == 22){userInfoPanel.add(submit);}
             else{userInfoPanel.add(new JLabel(""));}
         }
         add(userInfoPanel);
@@ -72,16 +77,24 @@ public class CreateInstructorAccountPanel extends SignInPanel implements ActionL
         switch(e.getActionCommand()){
             case ("Back") ->{
                 host.remove(host.getScreenPanel());
-                host.setScreenPanel(new InstructorSignInPanel(host));
+                host.setScreenPanel(new StudentSignInPanel(host));
                 host.add(host.getScreenPanel());
                 host.revalidate();
                 host.repaint();
             }
             case ("Submit") ->{
                 //TODO: implement putting the data into the database
-                Instructor test = new Instructor(username.getText(), password.getText(),
-                            firstName.getText(), lastName.getText(), null);
-                System.out.println(test);
+                if(isUserNameValid(username.getText()) && isClassCodeValid(classCode.getText())){
+                    Student test = new Student(username.getText(), password.getText(),
+                            firstName.getText(), lastName.getText(), classCode.getText());
+                    Blackboard.getBlackboard().setCurrentUser(test);
+                    Blackboard.getBlackboard().appendStudent(test);
+                    System.out.println(test);
+                }
+                else{
+                    //TODO: check if username or class code is incorrect and show appropriate dialog box
+                    System.out.println("Error");
+                }
             }
         }
 
@@ -94,6 +107,11 @@ public class CreateInstructorAccountPanel extends SignInPanel implements ActionL
      */
     @Override
     boolean isUserNameValid(String input) {
+        //TODO: implement database check
+        return true;
+    }
+
+    boolean isClassCodeValid(String input) {
         //TODO: implement database check
         return true;
     }

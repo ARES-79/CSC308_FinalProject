@@ -32,9 +32,8 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
         JPanel leftCenter = new JPanel ();
         leftCenter.setLayout(new BorderLayout());
 
-        JLabel codeLabel = new JLabel("Source Code:");
-        codeLabel.setSize(400,100);
-        leftCenter.add(codeLabel, BorderLayout.NORTH);
+        JLabel instructionLabel = new JLabel("Translate the code below to UML:");
+        leftCenter.add(instructionLabel, BorderLayout.NORTH);
 
         JTextArea codeProblem = new JTextArea(30,20);
         codeProblem.setText(TEMPTEXT);
@@ -70,6 +69,8 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
         nextQuestion.setContentAreaFilled(false);
         JButton requestHint = new JButton("?");
         requestHint.setContentAreaFilled(false);
+        requestHint.addActionListener(this);
+        nextQuestion.addActionListener(this);
 
         selectionToolBar.add(association);
         selectionToolBar.add(inheritance);
@@ -87,14 +88,36 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        switch (e.getActionCommand()){
+        System.out.println(e.getActionCommand());
+        switch (e.getActionCommand()) {
             case ("Next") -> {
-                System.out.println("Next was pressed.");
+//                Hint hint1 = new Hint("hint1");
+//                Hint hint2 = new Hint("hint2");
+//                Hint hint3 = new Hint("hint3");
+//                ArrayList<Hint> hints = new ArrayList<>();
+//                hints.add(hint1);
+//                hints.add(hint2);
+//                hints.add(hint3);
+//                Question question = new Question("Does this work?", "Maybe", hints, 1);
+//                JLabel testQ = new JLabel(question.getText());
+//                System.out.println(question.getText());
             }
             case ("?") -> {
-                System.out.println("? was pressed.");
+//                Hint hint1 = new Hint("hint1");
+//                Hint hint2 = new Hint("hint2");
+//                Hint hint3 = new Hint("hint3");
+//                ArrayList<Hint> hints = new ArrayList<>();
+//                hints.add(hint1);
+//                hints.add(hint2);
+//                hints.add(hint3);
+//                Question question = new Question("Does this work?", "Maybe", hints, 1);
+
             }
         }
+    }
+
+    void addQuestionToScreen(Question question){
+
     }
 
 }

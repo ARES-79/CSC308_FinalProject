@@ -1,7 +1,6 @@
 import javax.swing.*;
-import java.awt.*;
 
-public class StatusBar extends JLabel implements MyObserver{
+public class StatusBar extends JLabel implements MyObserver {
     private JLabel statusBar;
 
     public StatusBar(){

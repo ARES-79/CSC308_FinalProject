@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Inheritance extends Connection{
+public class Inheritance extends Connection {
     /**
      * Connection constructor
      * creates a Connection which has an origin Box, destination Box, and a type

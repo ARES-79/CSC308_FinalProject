@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -10,7 +9,7 @@ import java.io.ObjectOutputStream;
  * @version 1.0
  * SaveModel - class which handles the functionality for saving the current state of the draw panel into a Serialized object file
  */
-public class SaveModel implements FileHandler{
+public class SaveModel implements FileHandler {
 
     /**
      * saveProject - Shows the dialog box to receive a name for the current state of the project and saves the project to a file as a serialized object

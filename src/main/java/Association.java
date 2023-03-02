@@ -1,8 +1,6 @@
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 
-public class Association extends Connection{
+public class Association extends Connection {
     /**
      * Connection constructor
      * creates a Connection which has an origin Box, destination Box, and a type

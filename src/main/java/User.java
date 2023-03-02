@@ -1,28 +1,28 @@
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
 /**
  * @author Mitashi Parikh
  */
-class User {
-    private final String username;
-    private final String password;
-    private final String firstName;
-    private final String lastName;
-    private final int userId;
+@MappedSuperclass
+public class User {
+    private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
+    @Id
+    private int userId;
 
-    User(String username, String password, String firstName, String lastName){
+    public User(String username, String password, String firstName, String lastName){
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userId = generateUserId();
     }
 
-    User(String username, String password, String firstName, String lastName, int userId){
-        this.username = username;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userId = userId;
-    }
+    public User(){}
+
+
 
     public String getUsername() {
         return username;

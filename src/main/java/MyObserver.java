@@ -1,5 +1,3 @@
-import java.io.IOException;
-
 /**
  * Assignment 03
  * @author Mitashi Parikh
