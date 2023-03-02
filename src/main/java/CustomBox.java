@@ -7,7 +7,7 @@ import java.awt.*;
  * Box variables-
  * String name, Int x, Int y, Int width, Int height
  */
-public class CustomBox extends UMLComponent{
+public class CustomBox extends UMLComponent {
     int addedHeight = 0;
 
     /**

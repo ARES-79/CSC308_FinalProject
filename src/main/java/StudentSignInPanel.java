@@ -2,8 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class StudentSignInPanel extends SignInPanel implements ActionListener {
+    JPasswordField password;
 
     public StudentSignInPanel(TempSignInWindow host){
         super();
@@ -79,26 +82,18 @@ public class StudentSignInPanel extends SignInPanel implements ActionListener {
         System.out.println(e.getActionCommand());
         switch (e.getActionCommand()){
             case("Submit") -> {
-                //TODO: implement login check
-//                char[] input = password.getPassword();
-//                if (isPasswordCorrect(input)) {
-//                    JOptionPane.showMessageDialog(this,
-//                            "Success! You typed the right password.");
-//                } else {
-//                    JOptionPane.showMessageDialog(this,
-//                            "Invalid password. Try again.",
-//                            "Error Message",
-//                            JOptionPane.ERROR_MESSAGE);
-//                }
-//
-//                //Zero out the possible password, for security.
-//                Arrays.fill(input, '0');
-//
-//                password.selectAll();
+                Student student = Blackboard.getBlackboard().getDatabaseController().getStudentByUsername(username.getText());
+                String input = String.valueOf(password.getPassword());
+                if (student != null && input.equals(student.getPassword())) {
+                    TutorApp.main(new String[]{username.getText(), password.getText()});
+                    host.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "Invalid password. Try again.",
+                            "Error Message",
+                            JOptionPane.ERROR_MESSAGE);
+                }
 
-                //TODO: call the main of the instructor app instead of the student app
-                TutorApp.main(new String[]{username.getText(), password.getText()});
-                host.dispose();
             }
             case ("Back") -> {
                 host.remove(host.getScreenPanel());

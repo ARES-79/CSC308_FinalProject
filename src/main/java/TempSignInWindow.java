@@ -25,10 +25,16 @@ public class TempSignInWindow extends JFrame implements ActionListener {
      * creates a new Sign in window and allows it to be seen and closed properly.
      */
     public static void main(String[]args){
+        Blackboard.getBlackboard().getDatabaseController().setUp();
         TempSignInWindow signInWindow = new TempSignInWindow();
         signInWindow.setSize(800,600);
         signInWindow.setVisible(true);
-        signInWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        signInWindow.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                Blackboard.getBlackboard().getDatabaseController().shutDown();
+                System.exit(0);
+            }
+        });;
     }
 
     public TempSignInWindow(){

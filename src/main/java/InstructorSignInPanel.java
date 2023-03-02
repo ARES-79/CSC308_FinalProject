@@ -79,6 +79,8 @@ public class InstructorSignInPanel extends SignInPanel implements ActionListener
         System.out.println(e.getActionCommand());
         switch (e.getActionCommand()){
             case("Submit") -> {
+                Instructor instructor = Blackboard.getBlackboard().getDatabaseController().getInstructorByUsername(username.getText());
+                System.out.println(instructor);
                 //TODO: implement login check
 //                char[] input = password.getPassword();
 //                if (isPasswordCorrect(input)) {
@@ -97,8 +99,8 @@ public class InstructorSignInPanel extends SignInPanel implements ActionListener
 //                password.selectAll();
 
                 //TODO: call the main of the instructor app instead of the student app
-                TutorApp.main(new String[]{username.getText(), password.getText()});
-                host.dispose();
+//                TutorApp.main(new String[]{username.getText(), password.getText()});
+//                host.dispose();
             }
             case ("Back") -> {
                 host.remove(host.getScreenPanel());

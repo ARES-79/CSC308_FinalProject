@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.Observable;
 
 /**
  * Assignment 01
@@ -8,7 +7,7 @@ import java.util.Observable;
  * @version 1.0.1
  * DrawPanel - section of the application for drawing Classes
  */
-public class DrawPanel extends JPanel implements MyObserver{
+public class DrawPanel extends JPanel implements MyObserver {
 
     /**
      * DrawPanel constructor

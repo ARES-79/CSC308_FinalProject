@@ -1,18 +1,27 @@
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Random;
 
 /**
  * Assignment 01
+ *
  * @author Andrew Estrada
  * @version 1.0
  * Container for Instructor Information
  */
-public class Instructor extends User{
+@Entity
+@Table(name = "Instructors")
+public class Instructor extends User {
 
+    @Column(name = "classCode")
     private final String classCode;
     //studentList may be changed to a list of Student Objects
     //private ArrayList<Student> studentList = new ArrayList<>();
+    @Transient
     private ArrayList<Integer> studentList = new ArrayList<>();
 
     public String getClassCode() {
@@ -26,20 +35,22 @@ public class Instructor extends User{
     /**
      * Constructor
      *
-     * @param username username of the instructor
-     * @param password password of the instructor
+     * @param username  username of the instructor
+     * @param password  password of the instructor
      * @param firstName first name of the instructor
-     * @param lastName last name of the instructor
+     * @param lastName  last name of the instructor
      */
     public Instructor(String username, String password, String firstName, String lastName, String classCode) {
         super(username, password, firstName, lastName);
         if (classCode == null) {
             this.classCode = generateClassCode();
-        }else{this.classCode = classCode;}
+        } else {
+            this.classCode = classCode;
+        }
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Username: " + getUsername() + "    UserId: " + super.getUserId() +
                 "\nFirst Name: " + getFirstName() +
                 "\nLast Name: " + getLastName() +
@@ -52,7 +63,7 @@ public class Instructor extends User{
      *
      * @return an alphanumeric code unique to this instructor
      */
-    private String generateClassCode(){
+    private String generateClassCode() {
         int leftLimit = 48; // numeral '0'
         int rightLimit = 90; // letter 'Z'
         int targetStringLength = 8;
@@ -75,8 +86,8 @@ public class Instructor extends User{
      *
      * @return true if the code is free to use, false otherwise
      */
-    private boolean validateClassCode(String code){
-        if (code == null){
+    private boolean validateClassCode(String code) {
+        if (code == null) {
             return false;
         }
         //TODO: implement the check
@@ -88,7 +99,7 @@ public class Instructor extends User{
      *
      * @param userId user ID of the new student in the instructor's class
      */
-    public void addStudent(int userId){
+    public void addStudent(int userId) {
         studentList.add(userId);
     }
 

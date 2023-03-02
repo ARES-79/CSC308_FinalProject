@@ -10,7 +10,7 @@ import java.util.List;
  * Blackboard - central location for the data which needs to be accessed by several data requesters.
  * It is a singleton class and is also observable
  */
-public class Blackboard extends MyObservable{
+public class Blackboard extends MyObservable {
     private List<UMLComponent> BoxList = new ArrayList<>();
     private ConnectionType connectionType = ConnectionType.ASSOCIATION;
     private HashSet<String> savedProjects = LoadModel.deserializeSavedProjects();
@@ -20,6 +20,8 @@ public class Blackboard extends MyObservable{
     private List<User> teachers = new ArrayList<>();
     private List<User> students = new ArrayList<>();
     private User currentUser;
+
+    private DatabaseController databaseController = new DatabaseController();
 
     private static Blackboard blackboard;
 
@@ -163,5 +165,12 @@ public class Blackboard extends MyObservable{
      */
     public void reset(){
         setBoxList(new ArrayList<>());
+    }
+    public DatabaseController getDatabaseController() {
+        return databaseController;
+    }
+
+    public void setDatabaseController(DatabaseController databaseController) {
+        this.databaseController = databaseController;
     }
 }

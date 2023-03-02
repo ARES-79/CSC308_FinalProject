@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,7 +10,7 @@ import java.util.List;
  * @version 1.0
  * LoadModel - class which handles the functionality for loading a previously saved state of the draw panel by deserializing an object file of the name entered by the user, if such a file exists
  */
-public class LoadModel implements FileHandler{
+public class LoadModel implements FileHandler {
 
     /**
      * loadProject - Shows the dialog box to receive the name of the project that needs to be loaded and uses it to deserialize the file and restore the previous project if it exists.
