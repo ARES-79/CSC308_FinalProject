@@ -3,8 +3,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.exception.ConstraintViolationException;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
@@ -50,7 +52,7 @@ public class DatabaseController {
         }
     }
 
-    public void saveInstructor(Instructor instructor) throws SQLIntegrityConstraintViolationException {
+    public void saveInstructor(Instructor instructor) throws PersistenceException {
         this.session.persist(instructor);
         this.session.getTransaction().commit();
 

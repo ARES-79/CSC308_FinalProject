@@ -1,8 +1,12 @@
+import org.hibernate.exception.ConstraintViolationException;
+
 import javax.persistence.EntityExistsException;
+import javax.persistence.PersistenceException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 public class CreateInstructorAccountPanel extends SignInPanel implements ActionListener {
 
@@ -85,7 +89,7 @@ public class CreateInstructorAccountPanel extends SignInPanel implements ActionL
                 try {
                     Blackboard.getBlackboard().getDatabaseController().saveInstructor(test);
                 }
-                catch (EntityExistsException exception){
+                catch (PersistenceException exception){
                     JOptionPane.showMessageDialog(this,
                             "An instructor with that username already exists",
                             "User Already Exists",
