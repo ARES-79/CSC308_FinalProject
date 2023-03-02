@@ -8,8 +8,8 @@ import java.util.List;
 public class Student extends User{
     private int classCode;
     private double overallProficiency;
+    private HashMap<String,Double> subjectProficiency = new HashMap<>();
     private List<Integer> completedQuestions = new ArrayList<>();
-    private HashMap<String,Double> subjectProficiency = new HashMap<>();;
 
     Student(String username, String password, String firstName, String lastName, int classCode) {
         super(username, password, firstName, lastName);

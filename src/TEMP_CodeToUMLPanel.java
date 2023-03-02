@@ -87,10 +87,14 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-//        switch (e.getActionCommand()){
-//            case (){}
-//        }
+        switch (e.getActionCommand()){
+            case ("Next") -> {
+                System.out.println("Next was pressed.");
+            }
+            case ("?") -> {
+                System.out.println("? was pressed.");
+            }
+        }
     }
 
 }
