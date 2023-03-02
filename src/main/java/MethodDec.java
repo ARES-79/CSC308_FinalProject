@@ -1,3 +1,6 @@
+import lombok.Getter;
+import lombok.Setter;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +13,8 @@ import java.util.stream.Collectors;
  * @version 2.1
  * MethodDecorator - concrete decoration for methods
  */
+@Getter
+@Setter
 public class MethodDec extends Decoration {
     private String methodName;
     private UMLComponent component;
