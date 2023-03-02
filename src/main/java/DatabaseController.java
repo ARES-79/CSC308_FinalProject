@@ -20,6 +20,7 @@ public class DatabaseController {
             this.session.beginTransaction();
         } catch (Exception e) {
             System.out.println(e);
+            throw(e);
         }
     }
 

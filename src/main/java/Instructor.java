@@ -18,7 +18,7 @@ import java.util.Random;
 public class Instructor extends User {
 
     @Column(name = "classCode")
-    private final String classCode;
+    private String classCode;
     //studentList may be changed to a list of Student Objects
     //private ArrayList<Student> studentList = new ArrayList<>();
     @Transient
@@ -47,6 +47,10 @@ public class Instructor extends User {
         } else {
             this.classCode = classCode;
         }
+    }
+
+    public Instructor(){
+
     }
 
     @Override

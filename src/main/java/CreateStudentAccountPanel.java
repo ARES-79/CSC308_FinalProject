@@ -86,7 +86,7 @@ public class CreateStudentAccountPanel extends SignInPanel implements ActionList
                 //TODO: implement putting the data into the database
                 if(isUserNameValid(username.getText()) && isClassCodeValid(classCode.getText())){
                     Student test = new Student(username.getText(), password.getText(),
-                            firstName.getText(), lastName.getText(), Integer.parseInt(classCode.getText()));
+                            firstName.getText(), lastName.getText(), classCode.getText());
                     Blackboard.getBlackboard().setCurrentUser(test);
                     Blackboard.getBlackboard().appendStudent(test);
                     System.out.println(test);

@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class InstructorSignInPanel extends SignInPanel implements ActionListener {
+    JPasswordField password;
 
     public InstructorSignInPanel(TempSignInWindow host){
         super();
@@ -81,22 +82,19 @@ public class InstructorSignInPanel extends SignInPanel implements ActionListener
             case("Submit") -> {
                 Instructor instructor = Blackboard.getBlackboard().getDatabaseController().getInstructorByUsername(username.getText());
                 System.out.println(instructor);
-                //TODO: implement login check
-//                char[] input = password.getPassword();
-//                if (isPasswordCorrect(input)) {
-//                    JOptionPane.showMessageDialog(this,
-//                            "Success! You typed the right password.");
-//                } else {
-//                    JOptionPane.showMessageDialog(this,
-//                            "Invalid password. Try again.",
-//                            "Error Message",
-//                            JOptionPane.ERROR_MESSAGE);
-//                }
-//
-//                //Zero out the possible password, for security.
-//                Arrays.fill(input, '0');
-//
-//                password.selectAll();
+                String input = String.valueOf(password.getPassword());
+                if (instructor != null && input.equals(instructor.getPassword())) {
+                    JOptionPane.showMessageDialog(this,
+                            "Please be patient while be finish up the instructor page",
+                            "Work In Progress",
+                            JOptionPane.WARNING_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "Invalid password. Try again.",
+                            "Error Message",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
 
                 //TODO: call the main of the instructor app instead of the student app
 //                TutorApp.main(new String[]{username.getText(), password.getText()});

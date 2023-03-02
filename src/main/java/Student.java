@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = "Students")
 public class Student extends User{
     @Column(name = "classCode")
-    private int classCode;
+    private String classCode;
     @Column(name = "overallProficiency")
     private float overallProficiency;
     @Transient
@@ -18,7 +18,7 @@ public class Student extends User{
     @Transient
     private HashMap<String,Double> subjectProficiency = new HashMap<>();;
 
-    public Student(String username, String password, String firstName, String lastName, int classCode) {
+    public Student(String username, String password, String firstName, String lastName, String classCode) {
         super(username, password, firstName, lastName);
         this.classCode = classCode;
         overallProficiency = 0;
@@ -32,7 +32,7 @@ public class Student extends User{
         super();
     }
 
-    public int getClassCode() {
+    public String getClassCode() {
         return classCode;
     }
 }
