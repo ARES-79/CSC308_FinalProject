@@ -1,16 +1,22 @@
 import java.util.List;
 
 public class Question {
+    private int id;
     private String text;
     private String answer;
     private List<Hint> hints;
     double difficulty;
 
-    public Question(String text, String answer, List<Hint> hints, double difficulty){
+    public Question(int id, String text, String answer, List<Hint> hints, double difficulty){
+        this.id = id;
         this.text = text;
         this.answer = answer;
         this.hints = hints;
         this.difficulty = difficulty;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getText() {
