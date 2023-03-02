@@ -57,6 +57,11 @@ public class DatabaseController {
         this.session.getTransaction().commit();
 
     }
+    public void saveStudent(Student student) throws PersistenceException {
+        this.session.persist(student);
+        this.session.getTransaction().commit();
+
+    }
 
     public void shutDown() {
         this.session.close();
