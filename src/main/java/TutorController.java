@@ -30,6 +30,7 @@ public class TutorController implements ActionListener {
                 host.add(host.getScreenPanel());
                 host.revalidate();
                 host.repaint();
+                Blackboard.getBlackboard().setCurrentSubject(SubjectType.CodetoUML);
             }
             case ("Code --> Metrics") -> {
                 host.setVisible(false);
@@ -38,6 +39,7 @@ public class TutorController implements ActionListener {
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
+                Blackboard.getBlackboard().setCurrentSubject(SubjectType.CodetoMetrics);
                 new TEMP_CodeToMetricsWindow(host);
             }
             case ("UML --> Code") ->{
@@ -47,6 +49,7 @@ public class TutorController implements ActionListener {
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
+                Blackboard.getBlackboard().setCurrentSubject(SubjectType.UMLtoCode);
                 new TEMP_UMLToCodeWindow(host);
             }
             case ("View Progress") -> {

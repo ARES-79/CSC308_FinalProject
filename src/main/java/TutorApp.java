@@ -32,9 +32,9 @@ public class TutorApp extends JFrame {
      * args[1] : password of user
      */
     public static void main(String[]args){
-//        System.out.println("Username: " + args[0] + "    Password: " + args[1]);
+        System.out.println("Username: " + args[0] + "    Password: " + args[1]);
         Blackboard.getBlackboard().getDatabaseController().setUp();
-        TutorApp menu = new TutorApp("archie1802");
+        TutorApp menu = new TutorApp(args[0]);
         menu.setSize(800,600);
         menu.setVisible(true);
         menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
