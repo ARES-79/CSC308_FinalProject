@@ -93,26 +93,26 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
         System.out.println(e.getActionCommand());
         switch (e.getActionCommand()) {
             case ("Next") -> {
-                Hint hint1 = new Hint("hint1");
-                Hint hint2 = new Hint("hint2");
-                Hint hint3 = new Hint("hint3");
-                ArrayList<Hint> hints = new ArrayList<>();
-                hints.add(hint1);
-                hints.add(hint2);
-                hints.add(hint3);
-                Question question = new Question("Does this work?", "Maybe", hints, 1);
-                JLabel testQ = new JLabel(question.getText());
-                System.out.println(question.getText());
+//                Hint hint1 = new Hint("hint1");
+//                Hint hint2 = new Hint("hint2");
+//                Hint hint3 = new Hint("hint3");
+//                ArrayList<Hint> hints = new ArrayList<>();
+//                hints.add(hint1);
+//                hints.add(hint2);
+//                hints.add(hint3);
+//                Question question = new Question("Does this work?", "Maybe", hints, 1);
+//                JLabel testQ = new JLabel(question.getText());
+//                System.out.println(question.getText());
             }
             case ("?") -> {
-                Hint hint1 = new Hint("hint1");
-                Hint hint2 = new Hint("hint2");
-                Hint hint3 = new Hint("hint3");
-                ArrayList<Hint> hints = new ArrayList<>();
-                hints.add(hint1);
-                hints.add(hint2);
-                hints.add(hint3);
-                Question question = new Question("Does this work?", "Maybe", hints, 1);
+//                Hint hint1 = new Hint("hint1");
+//                Hint hint2 = new Hint("hint2");
+//                Hint hint3 = new Hint("hint3");
+//                ArrayList<Hint> hints = new ArrayList<>();
+//                hints.add(hint1);
+//                hints.add(hint2);
+//                hints.add(hint3);
+//                Question question = new Question("Does this work?", "Maybe", hints, 1);
 
             }
         }
