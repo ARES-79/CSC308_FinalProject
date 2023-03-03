@@ -6,7 +6,7 @@ import java.util.Comparator;
 
 /**
  * Final Project
- * @author Andrew Estrada
+ * @author Andrew Estrada, Mitashi Parikh
  * @version 1.0
  * Second attempt at a window that can open when a button is pressed
  *      supposed to much easier to digest
