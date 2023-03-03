@@ -93,6 +93,7 @@ public class InstructorSignInPanel extends SignInPanel implements ActionListener
                             "Please be patient while be finish up the instructor page",
                             "Work In Progress",
                             JOptionPane.WARNING_MESSAGE);
+                    Blackboard.getBlackboard().setCurrentUser(instructor);
                 } else {
                     JOptionPane.showMessageDialog(this,
                             "Invalid password. Try again.",

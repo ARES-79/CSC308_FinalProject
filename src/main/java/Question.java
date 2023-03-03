@@ -1,3 +1,4 @@
+import com.sun.source.tree.StatementTree;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +22,6 @@ public class Question {
     }
 
     boolean checkAnswer(String studentAnswer){
-        return this.answer.equals(studentAnswer);
+        return this.answer.strip().replace(" ", "").equalsIgnoreCase(studentAnswer.strip().replace(" ", ""));
     }
 }
