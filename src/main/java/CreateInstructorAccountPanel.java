@@ -92,6 +92,10 @@ public class CreateInstructorAccountPanel extends SignInPanel implements ActionL
                             firstName.getText(), lastName.getText(), null);
                 try {
                     Blackboard.getBlackboard().getDatabaseController().saveInstructor(test);
+                    JOptionPane.showMessageDialog(this,
+                            "Your class code is: "+test.getClassCode(),
+                            "New Instuctor Class Code",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
                 catch (PersistenceException exception){
                     JOptionPane.showMessageDialog(this,

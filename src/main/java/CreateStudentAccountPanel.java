@@ -112,6 +112,10 @@ public class CreateStudentAccountPanel extends SignInPanel implements ActionList
                     Blackboard.getBlackboard().getDatabaseController().saveStudent(test);
                     TutorApp.main(new String[]{test.getUsername(), test.getPassword()});
                     host.dispose();
+                    JOptionPane.showMessageDialog(this,
+                            "Successfully created your student account",
+                            "Success",
+                            JOptionPane.INFORMATION_MESSAGE);
                 } catch (PersistenceException exception) {
                     JOptionPane.showMessageDialog(this,
                             "Error Creating Account",
