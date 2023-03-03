@@ -7,4 +7,8 @@ public class Hint {
 
         this.text = text;
     }
+
+    public String getText() {
+        return text;
+    }
 }

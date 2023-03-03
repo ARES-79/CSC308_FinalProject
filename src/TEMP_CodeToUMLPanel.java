@@ -13,13 +13,29 @@ import java.util.ArrayList;
  */
 public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
 
-    private final String TEMPTEXT = """
+    private final String TEMPTEXT1 = """
 
 
 
 
 
                         class A {
+                        }
+                        
+                        """;
+
+    private final String TEMPTEXT2 = """
+
+
+
+
+
+                        class B {
+                            A a;
+                            C c;
+                            method(){
+                            
+                            }
                         }
                         
                         """;
@@ -38,7 +54,7 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
         leftCenter.add(codeLabel, BorderLayout.NORTH);
 
         JTextArea codeProblem = new JTextArea(30,20);
-        codeProblem.setText(TEMPTEXT);
+        codeProblem.setText(TEMPTEXT1);
         codeProblem.setEditable(false);
         JScrollPane scroll = new JScrollPane (codeProblem,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -91,6 +107,7 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println(e.getActionCommand());
+        int hintCount = 0;
         switch (e.getActionCommand()) {
             case ("Next") -> {
 //                Hint hint1 = new Hint("hint1");
@@ -105,21 +122,25 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
 //                System.out.println(question.getText());
             }
             case ("?") -> {
-//                Hint hint1 = new Hint("hint1");
-//                Hint hint2 = new Hint("hint2");
-//                Hint hint3 = new Hint("hint3");
-//                ArrayList<Hint> hints = new ArrayList<>();
-//                hints.add(hint1);
-//                hints.add(hint2);
-//                hints.add(hint3);
-//                Question question = new Question("Does this work?", "Maybe", hints, 1);
-
+                Hint hint1 = new Hint("hint1");
+                Hint hint2 = new Hint("hint2");
+                Hint hint3 = new Hint("hint3");
+                ArrayList<Hint> hints = new ArrayList<>();
+                hints.add(hint1);
+                hints.add(hint2);
+                hints.add(hint3);
+                Question question = new Question(1, "Does this work?", "Maybe", hints, 1);
+                hintCount ++;
+                JOptionPane.showMessageDialog(this, question.getHints().get(hintCount).getText(), "Hint", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }
 
     void addQuestionToScreen(Question question){
+    }
 
+    void showHint(Question question, int idx){
+        JOptionPane.showMessageDialog(this, question.getHints().get(idx).getText(), "Hint", JOptionPane.INFORMATION_MESSAGE);
     }
 
 }
