@@ -4,6 +4,15 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * Final Project
+ * @author Jamie Luna
+ * @version 1.0
+ *
+ * Question object to hold information about each of the questions
+ *
+ */
+
 @Getter
 @Setter
 public class Question {

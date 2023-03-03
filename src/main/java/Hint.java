@@ -1,6 +1,12 @@
 import lombok.Getter;
 import lombok.Setter;
-
+/**
+ * Final Project
+ * @author Jamie Luna
+ * @version 1.0
+ *
+ * Hint object to read from the DB and display to the user
+ */
 @Getter
 @Setter
 public class Hint {
