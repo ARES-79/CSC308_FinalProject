@@ -92,6 +92,7 @@ public class StudentSignInPanel extends SignInPanel implements ActionListener {
                 if (student != null && input.equals(student.getPassword())) {
                     TutorApp.main(new String[]{username.getText(), password.getText()});
                     host.dispose();
+                    Blackboard.getBlackboard().setCurrentUser(student);
                 } else {
                     JOptionPane.showMessageDialog(this,
                             "Invalid password. Try again.",

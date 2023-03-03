@@ -2,10 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Comparator;
 
 /**
  * Final Project
- * @author Andrew Estrada
+ * @author Andrew Estrada, Mitashi Parikh
  * @version 1.0
  * Second attempt at a window that can open when a button is pressed
  *      supposed to much easier to digest
@@ -19,9 +20,12 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
 
 
                         class A {
+                        
                         }
                         
                         """;
+    //TODO: Load Question from DB
+    private Question question = new Question(1, TEMPTEXT, TEMPTEXT, null, 1);
 
     public TEMP_CodeToUMLPanel(){
         super();
@@ -65,17 +69,21 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
         group.add(inheritance);
         group.add(composition);
 
+        JButton submit = new JButton("Submit");
+        submit.setContentAreaFilled(false);
         JButton nextQuestion = new JButton("Next");
         nextQuestion.setContentAreaFilled(false);
         JButton requestHint = new JButton("?");
         requestHint.setContentAreaFilled(false);
         requestHint.addActionListener(this);
         nextQuestion.addActionListener(this);
+        submit.addActionListener(this);
 
         selectionToolBar.add(association);
         selectionToolBar.add(inheritance);
         selectionToolBar.add(composition);
         selectionToolBar.add(Box.createHorizontalGlue());
+        selectionToolBar.add(submit);
         selectionToolBar.add(nextQuestion);
         selectionToolBar.add(requestHint);
 
@@ -90,6 +98,9 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         System.out.println(e.getActionCommand());
         switch (e.getActionCommand()) {
+            case ("Submit") -> {
+                submitPressed();
+            }
             case ("Next") -> {
 //                Hint hint1 = new Hint("hint1");
 //                Hint hint2 = new Hint("hint2");
@@ -118,6 +129,25 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
 
     void addQuestionToScreen(Question question){
 
+    }
+
+    void submitPressed(){
+        Parser parser = new Parser();
+        String answer = parser.parseClasses(Blackboard.getBlackboard().getBoxList()); //.sort(Comparator.comparing(UMLComponent::getName)));
+        if(question.checkAnswer(answer)){
+            Student s = (Student) Blackboard.getBlackboard().getCurrentUser();
+//            s.updateProficiency();
+            JOptionPane.showMessageDialog(this,
+                    "Your answer is correct \nYou updated Code to UML proficiency is:" +s.getSubjectProficiency().get(SubjectType.CodetoUML),
+                    "Correct Answer",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            JOptionPane.showMessageDialog(this,
+                    "Your answer is incorrect",
+                    "Incorrect Answer",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 }
