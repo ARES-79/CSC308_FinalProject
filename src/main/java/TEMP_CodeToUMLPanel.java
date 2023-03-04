@@ -85,7 +85,8 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BorderLayout());
 
-
+        CustomTextArea pairedText = new CustomTextArea(30,20);
+        MainController mC = new MainController(this, pairedText);
         east.setBackground(Color.LIGHT_GRAY);
         Blackboard.getBlackboard().addObserver(east);
         centerPanel.add(east, BorderLayout.CENTER);
@@ -100,6 +101,9 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
         group.add(inheritance);
         group.add(composition);
 
+        JButton newButton = new JButton("Reset");
+        newButton.setActionCommand("New");
+        newButton.setContentAreaFilled(false);
         JButton submit = new JButton("Submit");
         submit.setContentAreaFilled(false);
         JButton nextQuestion = new JButton("Next");
@@ -114,6 +118,7 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
         selectionToolBar.add(inheritance);
         selectionToolBar.add(composition);
         selectionToolBar.add(Box.createHorizontalGlue());
+        selectionToolBar.add(newButton);
         selectionToolBar.add(submit);
         selectionToolBar.add(nextQuestion);
         selectionToolBar.add(requestHint);
@@ -123,6 +128,11 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
         add(centerPanel, BorderLayout.CENTER);
 
         //possibly add a status bar
+        //Action Listeners
+        newButton.addActionListener(mC);
+        association.addActionListener(mC);
+        inheritance.addActionListener(mC);
+        composition.addActionListener(mC);
     }
 
     @Override
