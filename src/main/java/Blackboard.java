@@ -2,9 +2,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 /**
  * Final Project
@@ -26,6 +25,9 @@ public class Blackboard extends MyObservable {
     private List<User> students = new ArrayList<>();
     private User currentUser;
     private SubjectType currentSubject;
+
+    private ArrayList<Question> codeToUMLQuestions = getCodeToUMLQuestions();
+
 
     private DatabaseController databaseController = new DatabaseController();
 
@@ -124,6 +126,93 @@ public class Blackboard extends MyObservable {
     }
     public DatabaseController getDatabaseController() {
         return databaseController;
+    }
+
+
+    public ArrayList<Question> getCodeToUMLQuestions(){
+        writeCodeToUMLQuestions();
+        ArrayList<Question> questions = new ArrayList<>();
+        try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(new File("codeToUMLQuestions.bin")))) {
+            questions = (ArrayList<Question>)
+                    is.readObject();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return questions;
+    }
+
+
+    private void writeCodeToUMLQuestions(){
+        String TEMPTEXT1 = """
+
+
+
+
+
+                        class A {
+                        
+                        }
+                        
+                        """;
+
+        String TEMPTEXT2 = """
+
+
+
+
+
+                        class B {
+                            A a;
+                            C c;
+                            
+                        }
+                        
+                        """;
+
+        String TEMPTEXT3 = """
+
+
+
+
+
+                        class B {
+                            A a;
+                            C c;
+                            
+                        }
+                        
+                        class C {
+                            D d;
+                            draw(){
+                            
+                            }
+                        
+                        }
+                        
+                        """;
+
+        //TODO: Load Question from DB
+        //will come from Blackboard eventually:
+        Hint hint1 = new Hint("hint1");
+        Hint hint2 = new Hint("hint2");
+        Hint hint3 = new Hint("hint3");
+        ArrayList<Hint> hints_list = new ArrayList<Hint>(Arrays.asList(hint1, hint2, hint3));
+        Question question1 = new Question(100, TEMPTEXT1, TEMPTEXT1, hints_list, 1);
+        Question question2 = new Question(101, TEMPTEXT2, TEMPTEXT2, hints_list, 2);
+        Question question3 = new Question(102, TEMPTEXT3, TEMPTEXT3, hints_list, 3);
+
+        ArrayList<Question> questions = new ArrayList<>(Arrays.asList(question1, question2, question3));
+
+        try {
+            FileOutputStream fileOut = new FileOutputStream("codeToUMLQuestions.bin");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(questions);
+            out.close();
+            fileOut.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
     }
 
 }
