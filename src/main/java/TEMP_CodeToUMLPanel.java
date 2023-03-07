@@ -15,44 +15,8 @@ import java.util.Comparator;
  */
 public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
 
-    private final String TEMPTEXT1 = """
-
-
-
-
-
-                        class A {
-                        
-                        }
-                        
-                        """;
-
-    private final String TEMPTEXT2 = """
-
-
-
-
-
-                        class B {
-                            A a;
-                            C c;
-                            method(){
-                            
-                            }
-                        }
-                        
-                        """;
-
-    //TODO: Load Question from DB
-    //will come from Blackboard eventually:
-    private Hint hint1 = new Hint("hint1");
-    private Hint hint2 = new Hint("hint2");
-    private Hint hint3 = new Hint("hint3");
-    private ArrayList<Hint> hints_list = new ArrayList<Hint>(Arrays.asList(hint1, hint2, hint3));
-    private Question question1 = new Question(1, TEMPTEXT1, TEMPTEXT1, hints_list, 1);
-    private Question question2 = new Question(1, TEMPTEXT2, TEMPTEXT2, hints_list, 1);
-    private ArrayList<Question> questions = new ArrayList<>(Arrays.asList(question1, question2));
-    private Question currentQuestion = question1;
+    private final ArrayList<Question> questions = Blackboard.getBlackboard().getCodeToUMLQuestions();
+    private Question currentQuestion = questions.get(0);
     private int hintIdx = 0;
 
     private JTextArea codeProblem = new JTextArea(30,20);
