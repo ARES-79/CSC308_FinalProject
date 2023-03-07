@@ -1,5 +1,8 @@
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
+
 /**
  * Final Project
  * @author Jamie Luna
@@ -9,7 +12,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class Hint {
+public class Hint implements Serializable {
     String text;
     int rank; //rank is 1st hint, 2nd hint, etc,
     boolean visited; //if the student has used it or not
