@@ -33,7 +33,7 @@ public class TutorApp extends JFrame {
      */
     public static void main(String[]args){
         System.out.println("Username: " + args[0] + "    Password: " + args[1]);
-        Blackboard.getBlackboard().getDatabaseController().setUp();
+        //Blackboard.getBlackboard().getDatabaseController().setUp();
         TutorApp menu = new TutorApp(args[0]);
         menu.setSize(800,600);
         menu.setVisible(true);

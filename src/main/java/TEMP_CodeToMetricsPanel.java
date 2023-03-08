@@ -142,22 +142,53 @@ public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
     }
 
     void submitPressed(){
-        Parser parser = new Parser();
-        String answer = parser.parseClasses(Blackboard.getBlackboard().getBoxList()); //.sort(Comparator.comparing(UMLComponent::getName)));
-        if(currentQuestion.checkAnswer(answer)){
+        CodeMetricCalculator calculator = new CodeMetricCalculator();
+        String locAnswer = locA.getText().trim();
+        String elocAnswer = elocA.getText().trim();
+        String llocAnswer = llocA.getText().trim();
+        boolean allCorrect = true;
+        String code = questions.get(questions.indexOf(currentQuestion)).getText();
+        String message = "";
+
+        if( locAnswer.equals( String.valueOf(calculator.totalLOC(code)) )){
+            message += "Your LOC answer is correct. \n";
+        }
+        else{
+            message += "Your LOC answer is incorrect. \n";
+            allCorrect = false;
+        }
+        if( elocAnswer.equals( String.valueOf(calculator.totalELOC(code)) )){
+            message += "Your eLOC answer is correct. \n";
+        }
+        else{
+            message += "Your eLOC answer is incorrect. \n";
+            allCorrect = false;
+        }
+        if( llocAnswer.equals( String.valueOf(calculator.totalLLOC(code)) )){
+            message += "Your lLOC answer is correct. \n";
+        }
+        else{
+            message += "Your LOC answer is incorrect. \n";
+            allCorrect = false;
+        }
+        if(allCorrect){
             Blackboard.getBlackboard().setBoxList(new ArrayList<>());
             Blackboard.getBlackboard().updateData();
             Student s = (Student) Blackboard.getBlackboard().getCurrentUser();
 //            s.updateProficiency();
             JOptionPane.showMessageDialog(this,
-                    "Your answer is correct \nYou updated Code to UML proficiency is:" +s.getSubjectProficiency().get(SubjectType.CodetoUML),
+                    message, // + "You updated Code to UML proficiency is:" + s.getSubjectProficiency().get(SubjectType.CodetoUML),
                     "Correct Answer",
                     JOptionPane.INFORMATION_MESSAGE);
+            locA.setText("");
+            elocA.setText("");
+            llocA.setText("");
             showNextQuestion();
+
         }
         else{
             JOptionPane.showMessageDialog(this,
-                    "Your answer is incorrect",
+                    message,
                     "Incorrect Answer",
                     JOptionPane.ERROR_MESSAGE);
         }
