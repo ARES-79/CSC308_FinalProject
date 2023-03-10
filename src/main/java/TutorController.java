@@ -43,17 +43,21 @@ public class TutorController implements ActionListener {
                 Blackboard.getBlackboard().setCurrentSubject(SubjectType.CodetoMetrics);
             }
             case ("UML --> Code") ->{
-                host.setVisible(false);
-                try {
-                    Thread.sleep(300);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-                Blackboard.getBlackboard().setCurrentSubject(SubjectType.UMLtoCode);
-                new TEMP_UMLToCodeWindow(host);
+                // uml to code panel
+            }
+            case ("UML --> Metrics") -> {
+                // uml to metrics panle
+            }
+            case ("Practice") -> {
+                host.alternativeFileMenu();
+                host.remove(host.getScreenPanel());
+                host.setScreenPanel(new PracticePanel());
+                host.add(host.getScreenPanel());
+                host.revalidate();
+                host.repaint();
             }
             case ("View Progress") -> {
-                //
+                // progress panel
             }
             case ("Back To Menu") -> {
                 host.resetFileMenu();
