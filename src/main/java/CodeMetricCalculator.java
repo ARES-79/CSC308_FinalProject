@@ -1,3 +1,4 @@
+import javax.swing.*;
 
 /**
  * Final Project
@@ -5,7 +6,26 @@
  * @version 1.0
  * Class that can calculate the total LOC, eLOC, or lLOC of a chunk of code
  */
-public class CodeMetricCalculator {
+public class CodeMetricCalculator implements MyObserver {
+
+    private CustomTextArea codeText;
+    private JTextArea textArea;
+
+    /**
+     * default constructor
+     */
+    public CodeMetricCalculator(){}
+
+    /**
+     * overridden constructor for use as an observer
+     *
+     * @param textArea textArea whose text should be updated
+     * @param codeText CustomTextArea with code text
+     */
+    public CodeMetricCalculator(JTextArea textArea, CustomTextArea codeText){
+        this.codeText = codeText;
+        this.textArea = textArea;
+    }
 
     /**
      * Determines if the input is a valid LOC
@@ -88,5 +108,18 @@ public class CodeMetricCalculator {
             if (isLLOC(line)){ count++;}
         }
         return count;
+    }
+
+    /**
+     * overridden method to update the text area with new metrics
+     *
+     * @param ob
+     */
+    @Override
+    public void update(MyObservable ob) {
+        String code = codeText.getText();
+        textArea.setText("\t LOC: " + totalLOC(code)
+                        + "\t\t eLOC: " + totalELOC(code)
+                        + "\t\t lLOC: " + totalLLOC(code));
     }
 }
