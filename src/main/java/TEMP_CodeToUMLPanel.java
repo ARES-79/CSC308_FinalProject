@@ -143,7 +143,7 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
             Blackboard.getBlackboard().setBoxList(new ArrayList<>());
             Blackboard.getBlackboard().updateData();
             Student s = (Student) Blackboard.getBlackboard().getCurrentUser();
-//            s.updateProficiency();
+            s.updateProficiency();
             JOptionPane.showMessageDialog(this,
                     "Your answer is correct \nYou updated Code to UML proficiency is:" +s.getSubjectProficiency().get(SubjectType.CodetoUML),
                     "Correct Answer",

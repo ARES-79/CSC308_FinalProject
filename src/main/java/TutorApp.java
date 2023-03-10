@@ -8,15 +8,10 @@ import javax.swing.*;
  */
 public class TutorApp extends JFrame {
 
-    private final String username;
     private JPanel screenPanel;
     private JMenu file;
     private TutorController controller = new TutorController(this);
 
-
-    public String getUsername() {
-        return username;
-    }
 
     public JPanel getScreenPanel() {
         return screenPanel;
@@ -31,10 +26,10 @@ public class TutorApp extends JFrame {
      * args[0] : username of user
      * args[1] : password of user
      */
-    public static void main(String[]args){
-        System.out.println("Username: " + args[0] + "    Password: " + args[1]);
+    public static void main(){
+        System.out.println("Username: " + Blackboard.getBlackboard().getCurrentUser().getUsername());
         //Blackboard.getBlackboard().getDatabaseController().setUp();
-        TutorApp menu = new TutorApp(args[0]);
+        TutorApp menu = new TutorApp();
         menu.setSize(800,600);
         menu.setVisible(true);
         menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -92,9 +87,8 @@ public class TutorApp extends JFrame {
     /**
      * Constructor
      */
-    public TutorApp(String username) {
+    public TutorApp() {
         super("My UML Tutor Menu");
-        this.username  = username;
 
         //menu
         JMenuBar menuBar = new JMenuBar();
@@ -107,7 +101,7 @@ public class TutorApp extends JFrame {
         menuBar.add(file);
         menuBar.add(help);
 
-        screenPanel = new MenuPanel(username, controller);
+        screenPanel = new MenuPanel(controller);
         add(screenPanel);
 
         //actionListeners

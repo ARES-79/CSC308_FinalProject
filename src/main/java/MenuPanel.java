@@ -10,14 +10,14 @@ import java.awt.event.ActionListener;
 @Setter
 public class MenuPanel  extends JPanel {
 
-    public MenuPanel(String username, TutorController controller){
+    public MenuPanel(TutorController controller){
         super();
         setLayout(new GridLayout(7,1));
         add(new JLabel(""));
 
         JLabel welcome;
         //Welcome Message
-        if (!(username == null)){welcome = new JLabel("Welcome, " + username +
+        if (!(Blackboard.getBlackboard().getCurrentUser() == null)){welcome = new JLabel("Welcome, " + Blackboard.getBlackboard().getCurrentUser().getFirstName() +
                 ", to the UML tutor! Please select your subject.", SwingConstants.CENTER);
         } else{welcome = new JLabel(
                 "Welcome to the UML tutor! Please select your subject.", SwingConstants.CENTER);}

@@ -58,7 +58,7 @@ public class TutorController implements ActionListener {
             case ("Back To Menu") -> {
                 host.resetFileMenu();
                 host.remove(host.getScreenPanel());
-                host.setScreenPanel(new MenuPanel(host.getUsername(), this));
+                host.setScreenPanel(new MenuPanel(this));
                 host.add(host.getScreenPanel());
                 host.revalidate();
                 host.repaint();
