@@ -42,18 +42,18 @@ public class Parser {
             }
             text += " {\n";
             if (compositionCons.size() > 0) {
-                text += " " + String.join("\n ", compositionCons) + "\n";
+                text += " " + String.join(";\n ", compositionCons) + ";\n";
             }
             if (variables.size() > 0) {
-                text += " " + String.join("\n ", variables) + "\n";
+                text += " " + String.join(";\n ", variables) + ";\n";
             }
             if (associationCons.size() > 0) {
-                text += " methods() {\n  " + String.join("\n  ", associationCons) + "\n }\n";
+                text += " methods() {\n  " + String.join(";\n  ", associationCons) + ";\n }\n";
             }
             if (methods.size() > 0) {
-                text += " " + String.join("() {\n }\n ", methods) + "() {\n }";
+                text += " " + String.join("() {\n\n }\n ", methods) + "() {\n }";
             }
-            text += "\n}\n";
+            text += "\n}\n\n";
             completeText += (text);
         }
         return completeText;

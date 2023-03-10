@@ -1,3 +1,4 @@
+import org.apache.commons.lang3.StringUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -138,8 +139,8 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
 
     void submitPressed(){
         Parser parser = new Parser();
-        String answer = parser.parseClasses(Blackboard.getBlackboard().getBoxList()); //.sort(Comparator.comparing(UMLComponent::getName)));
-        if(currentQuestion.checkAnswer(answer)){
+        String studentAttempt = parser.parseClasses(Blackboard.getBlackboard().getBoxList()); //.sort(Comparator.comparing(UMLComponent::getName)));
+        if(currentQuestion.checkAnswer(studentAttempt)){
             Blackboard.getBlackboard().setBoxList(new ArrayList<>());
             Blackboard.getBlackboard().updateData();
             Student s = (Student) Blackboard.getBlackboard().getCurrentUser();
@@ -151,8 +152,15 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
             showNextQuestion();
         }
         else{
+            String message = "Your answer is incorrect";
+            if (StringUtils.countMatches(currentQuestion.getAnswer(), "class") < Blackboard.getBlackboard().getBoxList().size()){
+                message += "\nHint: You have made too many classes!";
+            }
+            else if (StringUtils.countMatches(currentQuestion.getAnswer(), "class") > Blackboard.getBlackboard().getBoxList().size()){
+                message += "\nHint: You still need to make more classes";
+            }
             JOptionPane.showMessageDialog(this,
-                    "Your answer is incorrect",
+                    message,
                     "Incorrect Answer",
                     JOptionPane.ERROR_MESSAGE);
         }
