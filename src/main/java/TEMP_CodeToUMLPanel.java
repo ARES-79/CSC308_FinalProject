@@ -146,18 +146,21 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
             Student s = (Student) Blackboard.getBlackboard().getCurrentUser();
             s.updateProficiency();
             JOptionPane.showMessageDialog(this,
-                    "Your answer is correct \nYou updated Code to UML proficiency is:" +s.getSubjectProficiency().get(SubjectType.CodetoUML),
+                    Blackboard.getBlackboard().getCurrentUser().getFirstName() + ", your answer is correct \nYour updated Code to UML proficiency is:" +s.getSubjectProficiency().get(SubjectType.CodetoUML),
                     "Correct Answer",
                     JOptionPane.INFORMATION_MESSAGE);
             showNextQuestion();
         }
         else{
-            String message = "Your answer is incorrect";
+            String message = Blackboard.getBlackboard().getCurrentUser().getFirstName() + ", your answer is incorrect.";
             if (StringUtils.countMatches(currentQuestion.getAnswer(), "class") < Blackboard.getBlackboard().getBoxList().size()){
                 message += "\nHint: You have made too many classes!";
             }
             else if (StringUtils.countMatches(currentQuestion.getAnswer(), "class") > Blackboard.getBlackboard().getBoxList().size()){
                 message += "\nHint: You still need to make more classes";
+            }
+            else if (StringUtils.countMatches(currentQuestion.getAnswer(), "()") > StringUtils.countMatches(studentAttempt, "()")){
+                message += "\nHint: Check if you have added all the required methods";
             }
             JOptionPane.showMessageDialog(this,
                     message,
