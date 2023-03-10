@@ -55,10 +55,10 @@ public class DrawPanelController implements MouseListener, MouseMotionListener {
             }
         } else{
             if(SwingUtilities.isRightMouseButton(e)){
-                if(e.isPopupTrigger()){
+                //if(e.isPopupTrigger()){
                     PopupMenu menu = new PopupMenu(dpModel.returnClickedBox(e.getX(), e.getY()));
                     menu.show(e.getComponent(), e.getX(), e.getY());
-                }
+                //}
             }
         }
     }
