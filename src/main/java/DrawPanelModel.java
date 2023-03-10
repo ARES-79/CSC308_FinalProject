@@ -63,6 +63,15 @@ public class DrawPanelModel {
         return false;
     }
 
+    public UMLComponent returnClickedBox(int x, int y){
+        for (UMLComponent c: Blackboard.getBlackboard().getBoxList()){
+            if(c.checkCollision(x,y)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
     /**
      * dealWithBox - either creates connection or sets which box was pressed
      * @param boxPressed - class object that was selected on the screen

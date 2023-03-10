@@ -71,7 +71,6 @@ public class CustomTextArea extends JTextArea implements MyObserver {
                 box.getConnections().add(connection);
             }
         } else {
-            System.out.println("This class have a variable " + currentWord);
             MethodDec tempMethodDec = (MethodDec) box;
             VarDec tempVarDec = (VarDec) tempMethodDec.getComponent();
             if (Arrays.stream(tempVarDec.getVarName().split("\n"))
