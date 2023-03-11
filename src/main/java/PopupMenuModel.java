@@ -15,8 +15,8 @@ public class PopupMenuModel {
         } else{
             s = (String) JOptionPane.showInputDialog(
                     null,
-                    "What would you like to name your new variable?\n",
-                    "Add a method",
+                    "Enter your new variable's data type and name?\n",
+                    "Add a variable",
                     JOptionPane.PLAIN_MESSAGE,
                     null,
                     null,
