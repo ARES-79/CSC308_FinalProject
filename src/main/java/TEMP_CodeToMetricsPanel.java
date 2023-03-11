@@ -148,7 +148,7 @@ public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
         String llocAnswer = llocA.getText().trim();
         boolean allCorrect = true;
         String code = questions.get(questions.indexOf(currentQuestion)).getText();
-        String message = "";
+        String message = Blackboard.getBlackboard().getCurrentUser().getFirstName() + ",\n";
 
         if( locAnswer.equals( String.valueOf(calculator.totalLOC(code)) )){
             message += "Your LOC answer is correct. \n";

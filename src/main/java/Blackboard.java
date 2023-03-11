@@ -193,7 +193,6 @@ public class Blackboard extends MyObservable {
                             draw(){
                             
                             }
-                        
                         }
                         
                         """;

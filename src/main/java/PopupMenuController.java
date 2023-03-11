@@ -24,22 +24,26 @@ public class PopupMenuController implements ActionListener {
             }
             case("Add Method") -> {
                 String name = popupMenuModel.showDialogueBox("Method");
-                MethodDec tempMethodDec = (MethodDec) this.clickedBox;
-                if (Arrays.stream(tempMethodDec.getMethodName().split("\n"))
-                        .noneMatch(str -> str.equals(name))) {
-                    tempMethodDec.setMethodName((tempMethodDec.getMethodName() + "\n" + name));
+                if (name != null){
+                    MethodDec tempMethodDec = (MethodDec) this.clickedBox;
+                    if (Arrays.stream(tempMethodDec.getMethodName().split("\n"))
+                            .noneMatch(str -> str.equals(name))) {
+                        tempMethodDec.setMethodName((tempMethodDec.getMethodName() + "\n" + name));
+                    }
+                    Blackboard.getBlackboard().notifying();
                 }
-                Blackboard.getBlackboard().notifying();
             }
             case("Add Variable") -> {
                 String name = popupMenuModel.showDialogueBox("Variable");
-                MethodDec tempMethodDec = (MethodDec) clickedBox;
-                VarDec tempVarDec = (VarDec) tempMethodDec.getComponent();
-                if (Arrays.stream(tempVarDec.getVarName().split("\n"))
-                        .noneMatch(str -> str.equals(name))) {
-                    tempVarDec.setVarName((tempVarDec.getVarName() + "\n" + name));
+                if (name != null) {
+                    MethodDec tempMethodDec = (MethodDec) clickedBox;
+                    VarDec tempVarDec = (VarDec) tempMethodDec.getComponent();
+                    if (Arrays.stream(tempVarDec.getVarName().split("\n"))
+                            .noneMatch(str -> str.equals(name))) {
+                        tempVarDec.setVarName((tempVarDec.getVarName() + "\n" + name));
+                    }
+                    Blackboard.getBlackboard().notifying();
                 }
-                Blackboard.getBlackboard().notifying();
             }
         }
     }
