@@ -42,10 +42,11 @@ public class CustomTextArea extends JTextArea implements MyObserver {
                 } else {
                     String currentWord = splitClass.get(i);
                     int currentWordIndex = s.indexOf(currentWord);
-                    char lastChar = s.charAt(currentWordIndex + currentWord.length());
+                    char lastChar = s.charAt(currentWordIndex + currentWord.length() + 1);
+                    System.out.println(lastChar);
                     if (lastChar == '\n') {
                         this.parseVariable(currentWord, box);
-                    } else if (lastChar == '(' && !currentWord.equals("methods")) {
+                    } else if (lastChar == ')' && !currentWord.equals("methods")) {
                         this.parseMethod(currentWord, box);
                     } else {
                         i = this.parseAssociation(currentWord, box, i, currentWordIndex, s, splitClass);

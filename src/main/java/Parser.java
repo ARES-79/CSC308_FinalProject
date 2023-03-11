@@ -51,9 +51,9 @@ public class Parser {
                 text += " methods() {\n  " + String.join(";\n  ", associationCons) + ";\n }\n";
             }
             if (methods.size() > 0) {
-                text += " " + String.join("() {\n\n }\n ", methods) + "() {\n }";
+                text += " " + String.join("() {\n }\n ", methods) + "() {\n }";
             }
-            text += "\n}\n\n";
+            text += "\n}\n";
             completeText += (text);
         }
         return completeText;

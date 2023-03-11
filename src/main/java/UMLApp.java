@@ -101,6 +101,7 @@ public class UMLApp extends JFrame {
         add(south, BorderLayout.SOUTH);
 
         //actionListeners
+
         newB.addActionListener(mC);
         save.addActionListener(mC);
         load.addActionListener(mC);
