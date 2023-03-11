@@ -4,8 +4,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 
 /**
  * Final Project
@@ -159,14 +157,39 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
             else if (StringUtils.countMatches(currentQuestion.getAnswer(), "class") > Blackboard.getBlackboard().getBoxList().size()){
                 message += "\nHint: You still need to make more classes";
             }
+            else if (StringUtils.countMatches(currentQuestion.getAnswer(), ";") > StringUtils.countMatches(studentAttempt, ";")) {
+                message += "\nHint: Check if you have added all the required variables";
+            }
             else if (StringUtils.countMatches(currentQuestion.getAnswer(), "()") > StringUtils.countMatches(studentAttempt, "()")){
                 message += "\nHint: Check if you have added all the required methods";
             }
-            JOptionPane.showMessageDialog(this,
+            else if (!areClassNamesCorrect(currentQuestion.getAnswer(), studentAttempt)){
+                message += "\nHint: Are you naming your classes correctly?";
+            }
+                JOptionPane.showMessageDialog(this,
                     message,
                     "Incorrect Answer",
                     JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    boolean areClassNamesCorrect(String correctAns, String studentAns){
+        correctAns = correctAns.trim().replace("\n", " ").replace("\t", "");
+        studentAns = studentAns.trim().replace("\n", " ");
+        String[] correctAnswer = correctAns.split(" ");
+        String[] studentAnswer = studentAns.split(" ");
+        System.out.println(correctAns);
+        System.out.println(studentAns);
+        for (int i = 0; i < correctAnswer.length-1; i++){
+            System.out.println(correctAnswer[i]);
+            System.out.println(studentAnswer[i]);
+            if(correctAnswer[i].equals("class") && studentAnswer[i].equals("class")){
+                if(!correctAnswer[i+1].equals(studentAnswer[i+1])){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }
