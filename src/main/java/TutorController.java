@@ -1,6 +1,14 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryCrosshairState;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.AbstractDataset;
 
 
 public class TutorController implements ActionListener {
@@ -57,7 +65,12 @@ public class TutorController implements ActionListener {
                 host.repaint();
             }
             case ("View Progress") -> {
-                // progress panel
+                host.alternativeFileMenu();
+                host.remove(host.getScreenPanel());
+                host.setScreenPanel(createChart());
+                host.add(host.getScreenPanel());
+                host.revalidate();
+                host.repaint();
             }
             case ("Back To Menu") -> {
                 host.resetFileMenu();
@@ -74,5 +87,18 @@ public class TutorController implements ActionListener {
 
         }
 
+    }
+
+    private ChartPanel createChart(){
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        Student s = (Student)Blackboard.getBlackboard().getCurrentUser();
+        dataset.setValue(s.getCodetoUML(), "Code To UML","");
+        dataset.setValue(s.getUMLtoCode(), "UML To Code", "");
+        dataset.setValue(s.getCodetoMetrics(), "Code To Metrics", "");
+        dataset.setValue(s.getUMLtoMetrics(), "UML To Metrics", "");
+        dataset.setValue(s.getOverallProficiency(), "Overall", "");
+
+        JFreeChart chart = ChartFactory.createBarChart("Topic Proficiency", "Topic", "Proficiency", dataset, PlotOrientation.VERTICAL,true, true, false);
+        return new ChartPanel(chart);
     }
 }
