@@ -91,6 +91,7 @@ public class StudentSignInPanel extends SignInPanel implements ActionListener {
                 String input = String.valueOf(password.getPassword());
                 if (student != null && input.equals(student.getPassword())) {
                     Blackboard.getBlackboard().setCurrentUser(student);
+                    System.out.println(student.getCodetoUML());
                     TutorApp.main();
                     host.dispose();
                 } else {
