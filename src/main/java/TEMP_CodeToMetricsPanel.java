@@ -185,7 +185,7 @@ public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
             elocA.setText("");
             llocA.setText("");
             showNextQuestion();
-
+            Blackboard.getBlackboard().getDatabaseController().saveCurrentStudent(s);
         }
         else{
             JOptionPane.showMessageDialog(this,

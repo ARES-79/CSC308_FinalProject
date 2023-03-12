@@ -109,7 +109,7 @@ public class CreateStudentAccountPanel extends SignInPanel implements ActionList
                 Student test = new Student(username.getText(), password.getText(),
                         firstName.getText(), lastName.getText(), classCode.getText());
                 try {
-                    Blackboard.getBlackboard().getDatabaseController().saveStudent(test);
+                    Blackboard.getBlackboard().getDatabaseController().saveNewStudent(test);
                     TutorApp.main();
                     host.dispose();
                     JOptionPane.showMessageDialog(this,
