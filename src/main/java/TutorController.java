@@ -52,6 +52,13 @@ public class TutorController implements ActionListener {
             }
             case ("UML --> Code") ->{
                 // uml to code panel
+                host.alternativeFileMenu();
+                host.remove(host.getScreenPanel());
+                host.setScreenPanel(new UMLtoCodePanel());
+                host.add(host.getScreenPanel());
+                host.revalidate();
+                host.repaint();
+                Blackboard.getBlackboard().setCurrentSubject(SubjectType.UMLtoCode);
             }
             case ("UML --> Metrics") -> {
                 // uml to metrics panle
