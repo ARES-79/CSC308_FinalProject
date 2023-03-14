@@ -21,8 +21,15 @@ public class Student extends User{
     private float overallProficiency;
     @Transient
     private List<Integer> completedQuestions = new ArrayList<>();
-    @Transient
-    private HashMap<SubjectType, Double> subjectProficiency = new HashMap<SubjectType, Double>();;
+    @Column (name = "UMLtoCode")
+    private float UMLtoCode;
+    @Column (name = "CodetoUML")
+    private float CodetoUML;
+    @Column (name = "CodetoMetrics")
+    private float CodetoMetrics;
+    @Column (name = "UMLtoMetrics")
+    private float UMLtoMetrics;
+
 
     /*
 
@@ -31,10 +38,10 @@ public class Student extends User{
         super(username, password, firstName, lastName);
         this.classCode = classCode;
         overallProficiency = 0;
-        subjectProficiency.put(SubjectType.UMLtoCode, 0.0);
-        subjectProficiency.put(SubjectType.CodetoUML, 0.0);
-        subjectProficiency.put(SubjectType.CodetoMetrics, 0.0);
-        subjectProficiency.put(SubjectType.UMLtoMetrics, 0.0);
+        UMLtoCode = 0;
+        CodetoUML = 0;
+        CodetoMetrics = 0;
+        UMLtoMetrics = 0;
     }
 
     public Student(){
@@ -42,21 +49,25 @@ public class Student extends User{
     }
 
 
-    public float getOverallProficiency() {
+    public double getOverallProficiency() {
         return overallProficiency;
-    }
-
-    public HashMap<SubjectType, Double> getSubjectProficiency() {
-        return subjectProficiency;
     }
 
     public void updateProficiency(){
         SubjectType subject = Blackboard.getBlackboard().getCurrentSubject();
-        subjectProficiency.put(subject, subjectProficiency.get(subject)+1);
-        float total = 0;
-        for(SubjectType key: subjectProficiency.keySet()) {
-            total += subjectProficiency.get(key);
+        if(subject == SubjectType.UMLtoCode){
+            UMLtoCode += 1;
         }
-        overallProficiency = total/subjectProficiency.size();
+        else if(subject == SubjectType.CodetoUML){
+            CodetoUML += 1;
+        }
+        else if(subject == SubjectType.CodetoMetrics){
+            CodetoMetrics += 1;
+        }
+        else if(subject == SubjectType.UMLtoMetrics){
+            UMLtoMetrics += 1;
+        }
+        float total = UMLtoCode + CodetoUML + CodetoMetrics + UMLtoMetrics;
+        overallProficiency = total/4;
     }
 }

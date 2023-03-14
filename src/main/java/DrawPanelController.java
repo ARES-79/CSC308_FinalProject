@@ -1,6 +1,8 @@
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -31,17 +33,32 @@ public class DrawPanelController implements MouseListener, MouseMotionListener {
             String input = dpModel.showDialogueBox();
             System.out.println(input);
             if (input != null) {
-                System.out.print("A class named \"" + input +
-                        "\" was created at (" + e.getX() +
-                        ", " + e.getY() + ").");
-                UMLComponent newBox = new MethodDec("", new VarDec("", new CustomBox(input, e.getX(), e.getY())));
-                Blackboard.getBlackboard().appendBoxList(newBox);
-                Blackboard.getBlackboard().updateData();
+                if(Blackboard.getBlackboard().getBoxList().stream().noneMatch(box -> box.getName().equals(input))) {
+                    System.out.print("A class named \"" + input +
+                            "\" was created at (" + e.getX() +
+                            ", " + e.getY() + ").");
+                    UMLComponent newBox = new MethodDec("", new VarDec("", new CustomBox(input, e.getX(), e.getY())));
+                    Blackboard.getBlackboard().appendBoxList(newBox);
+                    Blackboard.getBlackboard().updateData();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,
+                            "Class already exists",
+                            "",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             } else {
                 System.out.print("User clicked(" + e.getX() +
                         ", " + e.getY() + "), " +
                         "but no class was created.");
                 Blackboard.getBlackboard().statusBarClickedNoClass();
+            }
+        } else{
+            if(SwingUtilities.isRightMouseButton(e)){
+                //if(e.isPopupTrigger()){
+                    PopupMenu menu = new PopupMenu(dpModel.returnClickedBox(e.getX(), e.getY()));
+                    menu.show(e.getComponent(), e.getX(), e.getY());
+                //}
             }
         }
     }

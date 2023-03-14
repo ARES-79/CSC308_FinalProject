@@ -1,10 +1,9 @@
+import org.apache.commons.lang3.StringUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 
 /**
  * Final Project
@@ -138,24 +137,59 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
 
     void submitPressed(){
         Parser parser = new Parser();
-        String answer = parser.parseClasses(Blackboard.getBlackboard().getBoxList()); //.sort(Comparator.comparing(UMLComponent::getName)));
-        if(currentQuestion.checkAnswer(answer)){
+        String studentAttempt = parser.parseClasses(Blackboard.getBlackboard().getBoxList()); //.sort(Comparator.comparing(UMLComponent::getName)));
+        if(currentQuestion.checkAnswer(studentAttempt)){
             Blackboard.getBlackboard().setBoxList(new ArrayList<>());
             Blackboard.getBlackboard().updateData();
             Student s = (Student) Blackboard.getBlackboard().getCurrentUser();
-//            s.updateProficiency();
+            s.updateProficiency();
             JOptionPane.showMessageDialog(this,
-                    "Your answer is correct \nYou updated Code to UML proficiency is:" +s.getSubjectProficiency().get(SubjectType.CodetoUML),
+                    Blackboard.getBlackboard().getCurrentUser().getFirstName() + ", your answer is correct \nYour updated Code to UML proficiency is:" +s.getCodetoUML(),
                     "Correct Answer",
                     JOptionPane.INFORMATION_MESSAGE);
             showNextQuestion();
         }
         else{
-            JOptionPane.showMessageDialog(this,
-                    "Your answer is incorrect",
+            String message = Blackboard.getBlackboard().getCurrentUser().getFirstName() + ", your answer is incorrect.";
+            if (StringUtils.countMatches(currentQuestion.getAnswer(), "class") < Blackboard.getBlackboard().getBoxList().size()){
+                message += "\nHint: You have made too many classes!";
+            }
+            else if (StringUtils.countMatches(currentQuestion.getAnswer(), "class") > Blackboard.getBlackboard().getBoxList().size()){
+                message += "\nHint: You still need to make more classes";
+            }
+            else if (StringUtils.countMatches(currentQuestion.getAnswer(), ";") > StringUtils.countMatches(studentAttempt, ";")) {
+                message += "\nHint: Check if you have added all the required variables";
+            }
+            else if (StringUtils.countMatches(currentQuestion.getAnswer(), "()") > StringUtils.countMatches(studentAttempt, "()")){
+                message += "\nHint: Check if you have added all the required methods";
+            }
+            else if (!areClassNamesCorrect(currentQuestion.getAnswer(), studentAttempt)){
+                message += "\nHint: Are you naming your classes correctly?";
+            }
+                JOptionPane.showMessageDialog(this,
+                    message,
                     "Incorrect Answer",
                     JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    boolean areClassNamesCorrect(String correctAns, String studentAns){
+        correctAns = correctAns.trim().replace("\n", " ").replace("\t", "");
+        studentAns = studentAns.trim().replace("\n", " ");
+        String[] correctAnswer = correctAns.split(" ");
+        String[] studentAnswer = studentAns.split(" ");
+        System.out.println(correctAns);
+        System.out.println(studentAns);
+        for (int i = 0; i < correctAnswer.length-1; i++){
+            System.out.println(correctAnswer[i]);
+            System.out.println(studentAnswer[i]);
+            if(correctAnswer[i].equals("class") && studentAnswer[i].equals("class")){
+                if(!correctAnswer[i+1].equals(studentAnswer[i+1])){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }

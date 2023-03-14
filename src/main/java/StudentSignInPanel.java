@@ -90,9 +90,10 @@ public class StudentSignInPanel extends SignInPanel implements ActionListener {
                 Student student = Blackboard.getBlackboard().getDatabaseController().getStudentByUsername(username.getText());
                 String input = String.valueOf(password.getPassword());
                 if (student != null && input.equals(student.getPassword())) {
-                    TutorApp.main(new String[]{username.getText(), password.getText()});
-                    host.dispose();
                     Blackboard.getBlackboard().setCurrentUser(student);
+                    System.out.println(student.getCodetoUML());
+                    TutorApp.main();
+                    host.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this,
                             "Invalid password. Try again.",

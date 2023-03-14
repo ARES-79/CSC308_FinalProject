@@ -110,7 +110,7 @@ public class CreateStudentAccountPanel extends SignInPanel implements ActionList
                         firstName.getText(), lastName.getText(), classCode.getText());
                 try {
                     Blackboard.getBlackboard().getDatabaseController().saveStudent(test);
-                    TutorApp.main(new String[]{test.getUsername(), test.getPassword()});
+                    TutorApp.main();
                     host.dispose();
                     JOptionPane.showMessageDialog(this,
                             "Successfully created your student account",
@@ -118,8 +118,8 @@ public class CreateStudentAccountPanel extends SignInPanel implements ActionList
                             JOptionPane.INFORMATION_MESSAGE);
                 } catch (PersistenceException exception) {
                     JOptionPane.showMessageDialog(this,
-                            "Error Creating Account",
                             "Username Already Exists or Class Code Not Valid",
+                            "Error Creating Account",
                             JOptionPane.ERROR_MESSAGE);
                 }
                 Blackboard.getBlackboard().setCurrentUser(test);

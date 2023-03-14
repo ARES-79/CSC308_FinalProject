@@ -3,6 +3,7 @@ import lombok.Setter;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Assignment 01
@@ -14,6 +15,20 @@ import java.util.ArrayList;
 @Setter
 public abstract class UMLComponent implements java.io.Serializable{
     private String name;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UMLComponent that = (UMLComponent) o;
+        return x == that.x && y == that.y && width == that.width && height == that.height && numVars == that.numVars && totalVars == that.totalVars && numMethods == that.numMethods && name.equals(that.name) && connections.equals(that.connections);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, x, y, width, height, connections, numVars, totalVars, numMethods);
+    }
+
     private int x;
     private int y;
     private int width = 120;

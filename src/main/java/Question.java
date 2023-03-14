@@ -37,7 +37,9 @@ public class Question implements Serializable {
     }
 
     boolean checkAnswer(String studentAnswer){
-        return this.answer.strip().replace(" ", "").equalsIgnoreCase(studentAnswer.strip().replace(" ", ""));
+        String studentAns = studentAnswer.strip().replace(" ", "").replace("\n", "").replace("\t", "");
+        String correctAns = answer.strip().replace(" ", "").replace("\n", "").replace("\t", "");
+        return correctAns.equalsIgnoreCase(studentAns);
     }
 
 }
