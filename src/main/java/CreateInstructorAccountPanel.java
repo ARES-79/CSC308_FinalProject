@@ -91,7 +91,7 @@ public class CreateInstructorAccountPanel extends SignInPanel implements ActionL
                 Instructor test = new Instructor(username.getText(), password.getText(),
                             firstName.getText(), lastName.getText(), null);
                 try {
-                    Blackboard.getBlackboard().getDatabaseController().saveInstructor(test);
+                    Blackboard.getBlackboard().getDatabaseController().saveNewInstructor(test);
                     JOptionPane.showMessageDialog(this,
                             "Your class code is: "+test.getClassCode(),
                             "New Instuctor Class Code",

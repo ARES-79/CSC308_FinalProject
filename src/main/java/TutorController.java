@@ -4,11 +4,8 @@ import java.awt.event.ActionListener;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryCrosshairState;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.AbstractDataset;
 
 
 public class TutorController implements ActionListener {
@@ -97,7 +94,6 @@ public class TutorController implements ActionListener {
         dataset.setValue(s.getCodetoMetrics(), "Code To Metrics", "");
         dataset.setValue(s.getUMLtoMetrics(), "UML To Metrics", "");
         dataset.setValue(s.getOverallProficiency(), "Overall", "");
-
         JFreeChart chart = ChartFactory.createBarChart("Topic Proficiency", "Topic", "Proficiency", dataset, PlotOrientation.VERTICAL,true, true, false);
         return new ChartPanel(chart);
     }

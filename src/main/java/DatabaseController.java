@@ -53,13 +53,19 @@ public class DatabaseController {
         }
     }
 
-    public void saveInstructor(Instructor instructor) throws PersistenceException {
+    public void saveNewInstructor(Instructor instructor) throws PersistenceException {
         this.session.persist(instructor);
         this.session.getTransaction().commit();
 
     }
-    public void saveStudent(Student student) throws PersistenceException {
+    public void saveNewStudent(Student student) throws PersistenceException {
         this.session.persist(student);
+        this.session.getTransaction().commit();
+
+    }
+
+    public void saveCurrentStudent(Student student) throws PersistenceException {
+        this.session.saveOrUpdate(student);
         this.session.getTransaction().commit();
 
     }
