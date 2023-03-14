@@ -169,8 +169,8 @@ public class Blackboard extends MyObservable {
 
 
                         class B {
-                            A a;
-                            C c;
+                            A;
+                            C;
                             
                         }
                         
@@ -183,13 +183,13 @@ public class Blackboard extends MyObservable {
 
 
                         class B {
-                            A a;
-                            C c;
+                            A;
+                            C;
                             
                         }
                         
                         class C {
-                            D d;
+                            D;
                             draw(){
                             
                             }
