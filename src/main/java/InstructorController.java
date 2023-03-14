@@ -1,6 +1,8 @@
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -58,6 +60,9 @@ public class InstructorController implements ActionListener {
         dataset.setValue(s.getUMLtoMetrics(), "UML To Metrics", "");
         dataset.setValue(s.getOverallProficiency(), "Overall", "");
         JFreeChart chart = ChartFactory.createBarChart(s.getFirstName() + "'s proficiency", "Topic", "Proficiency", dataset, PlotOrientation.VERTICAL,true, true, false);
+        CategoryPlot plot = (CategoryPlot) chart.getPlot();
+        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+        rangeAxis.setRange(0, 10);
         return new ChartPanel(chart);
     }
     public void setScreenPanel(JPanel nextPanel){
