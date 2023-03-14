@@ -75,6 +75,7 @@ public class PracticePanel  extends JPanel{
         add(south, BorderLayout.SOUTH);
 
         //Action Listeners
+        update.addActionListener(mC);
         newButton.addActionListener(mC);
         association.addActionListener(mC);
         inheritance.addActionListener(mC);
