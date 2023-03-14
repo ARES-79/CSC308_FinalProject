@@ -12,7 +12,7 @@ class StudentTest {
         test.updateProficiency();
 
         assertEquals(0.25, test.getOverallProficiency(), "Testing overall proficiency 1");
-        assertEquals(1, test.getUMLtoCode(), "Testing subject proficiency UML to Code");
+        assertEquals(1, test.getUmlToCode(), "Testing subject proficiency UML to Code");
     }
 
     @Test
@@ -22,7 +22,7 @@ class StudentTest {
         test.updateProficiency();
 
         assertEquals(0.25, test.getOverallProficiency(), "Testing overall proficiency 1");
-        assertEquals(1, test.getCodetoUML(), "Testing subject proficiency Code to UML");
+        assertEquals(1, test.getCodeToUML(), "Testing subject proficiency Code to UML");
     }
 
     @Test
@@ -32,7 +32,7 @@ class StudentTest {
         test.updateProficiency();
 
         assertEquals(0.25, test.getOverallProficiency(), "Testing overall proficiency 1");
-        assertEquals(1, test.getCodetoMetrics(), "Testing subject proficiency Code to Metrics");
+        assertEquals(1, test.getCodeToMetrics(), "Testing subject proficiency Code to Metrics");
     }
 
     @Test
@@ -42,7 +42,7 @@ class StudentTest {
         test.updateProficiency();
 
         assertEquals(0.25, test.getOverallProficiency(), "Testing overall proficiency 1");
-        assertEquals(1, test.getUMLtoMetrics(), "Testing subject proficiency UML to Metrics");
+        assertEquals(1, test.getUmlToMetrics(), "Testing subject proficiency UML to Metrics");
     }
 
     @Test

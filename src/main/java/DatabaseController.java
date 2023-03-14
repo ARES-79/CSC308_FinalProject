@@ -41,6 +41,14 @@ public class DatabaseController {
             return null;
         }
     }
+    public void updateStudentProficiency(Student student){
+        try{
+            this.session.update(student);
+            this.session.getTransaction().commit();
+        } catch (Exception e){
+            System.out.println(e);
+        }
+    }
 
     public ArrayList<Student> getStudentsByClassCode(String classCode){
         String hql = "FROM Student S WHERE S.classCode =:classCode";

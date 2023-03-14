@@ -98,10 +98,10 @@ public class TutorController implements ActionListener {
     private ChartPanel createChart(){
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         Student s = (Student)Blackboard.getBlackboard().getCurrentUser();
-        dataset.setValue(s.getCodetoUML(), "Code To UML","");
-        dataset.setValue(s.getUMLtoCode(), "UML To Code", "");
-        dataset.setValue(s.getCodetoMetrics(), "Code To Metrics", "");
-        dataset.setValue(s.getUMLtoMetrics(), "UML To Metrics", "");
+        dataset.setValue(s.getCodeToUML(), "Code To UML","");
+        dataset.setValue(s.getUmlToCode(), "UML To Code", "");
+        dataset.setValue(s.getCodeToMetrics(), "Code To Metrics", "");
+        dataset.setValue(s.getUmlToMetrics(), "UML To Metrics", "");
         dataset.setValue(s.getOverallProficiency(), "Overall", "");
         JFreeChart chart = ChartFactory.createBarChart("Topic Proficiency", "Topic", "Proficiency", dataset, PlotOrientation.VERTICAL,true, true, false);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();

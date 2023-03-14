@@ -13,7 +13,7 @@ class SubmitTest {
         test.updateProficiency();
 
         assertEquals(0.25, test.getOverallProficiency(), "Testing overall proficiency 1");
-        assertEquals(1, test.getUMLtoCode(), "Testing subject proficiency UML to Code");
+        assertEquals(1, test.getUmlToCode(), "Testing subject proficiency UML to Code");
     }
 
 

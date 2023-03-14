@@ -176,7 +176,7 @@ public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
             Blackboard.getBlackboard().updateData();
             Student s = (Student) Blackboard.getBlackboard().getCurrentUser();
             s.updateProficiency();
-            message += "Your updated Code to Metrics proficiency is:" + s.getCodetoMetrics();
+            message += "Your updated Code to Metrics proficiency is:" + s.getCodeToMetrics();
             JOptionPane.showMessageDialog(this,
                     message,
                     "Correct Answer",

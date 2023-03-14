@@ -20,14 +20,14 @@ public class Student extends User{
     private float overallProficiency;
     @Transient
     private List<Integer> completedQuestions = new ArrayList<>();
-    @Column (name = "UMLtoCode")
-    private float UMLtoCode;
-    @Column (name = "CodetoUML")
-    private float CodetoUML;
-    @Column (name = "CodetoMetrics")
-    private float CodetoMetrics;
-    @Column (name = "UMLtoMetrics")
-    private float UMLtoMetrics;
+    @Column (name = "umlToCode")
+    private float umlToCode;
+    @Column (name = "codeToUML")
+    private float codeToUML;
+    @Column (name = "codeToMetrics")
+    private float codeToMetrics;
+    @Column (name = "umlToMetrics")
+    private float umlToMetrics;
 
 
     /*
@@ -37,10 +37,10 @@ public class Student extends User{
         super(username, password, firstName, lastName);
         this.classCode = classCode;
         overallProficiency = 0;
-        UMLtoCode = 0;
-        CodetoUML = 0;
-        CodetoMetrics = 0;
-        UMLtoMetrics = 0;
+        this.umlToCode = 0;
+        this.codeToUML = 0;
+        this.codeToMetrics = 0;
+        this.umlToMetrics = 0;
     }
 
     public Student(){
@@ -55,18 +55,19 @@ public class Student extends User{
     public void updateProficiency(){
         SubjectType subject = Blackboard.getBlackboard().getCurrentSubject();
         if(subject == SubjectType.UMLtoCode){
-            UMLtoCode += 1;
+            this.umlToCode += 1;
         }
         else if(subject == SubjectType.CodetoUML){
-            CodetoUML += 1;
+            this.codeToUML += 1;
         }
         else if(subject == SubjectType.CodetoMetrics){
-            CodetoMetrics += 1;
+            this.codeToMetrics += 1;
         }
         else if(subject == SubjectType.UMLtoMetrics){
-            UMLtoMetrics += 1;
+            this.umlToMetrics += 1;
         }
-        float total = UMLtoCode + CodetoUML + CodetoMetrics + UMLtoMetrics;
+        float total = this.umlToCode + this.codeToMetrics + this.codeToUML + this.umlToMetrics;
         overallProficiency = total/4;
+        Blackboard.getBlackboard().getDatabaseController().updateStudentProficiency(this);
     }
 }
