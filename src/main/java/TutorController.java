@@ -33,6 +33,7 @@ public class TutorController implements ActionListener {
         host.add(host.getScreenPanel());
         host.revalidate();
         host.repaint();
+        Blackboard.getBlackboard().reset();
     }
 
     /**
