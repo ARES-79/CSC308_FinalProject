@@ -8,6 +8,8 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
@@ -30,7 +32,6 @@ public class DatabaseController {
     }
 
     public Student getStudentByUsername(String username) {
-        System.out.println(username);
         String hql = "FROM Student S WHERE S.username =:username";
         Query query = session.createQuery(hql);
         try {
@@ -39,6 +40,18 @@ public class DatabaseController {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public ArrayList<Student> getStudentsByClassCode(String classCode){
+        String hql = "FROM Student S WHERE S.classCode =:classCode";
+        Query query = session.createQuery(hql);
+        try {
+            query.setParameter("classCode", classCode);
+            return (ArrayList<Student>) query.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 
     public Instructor getInstructorByUsername(String username) {
