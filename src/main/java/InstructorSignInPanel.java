@@ -89,11 +89,9 @@ public class InstructorSignInPanel extends SignInPanel implements ActionListener
                 System.out.println(instructor);
                 String input = String.valueOf(password.getPassword());
                 if (instructor != null && input.equals(instructor.getPassword())) {
-                    JOptionPane.showMessageDialog(this,
-                            "Please be patient while be finish up the instructor page",
-                            "Work In Progress",
-                            JOptionPane.WARNING_MESSAGE);
                     Blackboard.getBlackboard().setCurrentUser(instructor);
+                    InstructorApp.main();
+                    host.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this,
                             "Invalid password. Try again.",

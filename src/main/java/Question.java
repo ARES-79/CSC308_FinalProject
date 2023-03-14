@@ -27,6 +27,7 @@ public class Question implements Serializable {
     private String answer;
     private List<Hint> hints;
     double difficulty;
+    private ArrayList<UMLComponent> UML;
 
     public Question(int id, String text, String answer, List<Hint> hints, double difficulty){
         this.id = id;
@@ -34,6 +35,14 @@ public class Question implements Serializable {
         this.answer = answer;
         this.hints = hints;
         this.difficulty = difficulty;
+    }
+
+    public Question(int id, ArrayList<UMLComponent> UML, String answer, List<Hint> hints, double difficulty){
+        this.id = id;
+        this.UML = UML;
+        this.answer = answer;
+        this.difficulty = difficulty;
+        this.hints = hints;
     }
 
     boolean checkAnswer(String studentAnswer){

@@ -3,8 +3,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.util.*;
+import java.util.List;
 
 /**
  * Final Project
@@ -28,7 +30,7 @@ public class Blackboard extends MyObservable {
     private SubjectType currentSubject;
 
     private ArrayList<Question> codeToUMLQuestions = getCodeToUMLQuestions();
-
+    private ArrayList<Question> UMLtoCodeQuestions = getUMLtoCodeQuestions();
 
     private DatabaseController databaseController = new DatabaseController();
 
@@ -169,8 +171,8 @@ public class Blackboard extends MyObservable {
 
 
                         class B {
-                            A a;
-                            C c;
+                            A;
+                            C;
                             
                         }
                         
@@ -183,13 +185,13 @@ public class Blackboard extends MyObservable {
 
 
                         class B {
-                            A a;
-                            C c;
+                            A;
+                            C;
                             
                         }
                         
                         class C {
-                            D d;
+                            D;
                             draw(){
                             
                             }
@@ -220,4 +222,65 @@ public class Blackboard extends MyObservable {
         }
     }
 
+
+    private void writeUMLtoCodeQuestions(){
+        ArrayList<UMLComponent> boxes1 = new ArrayList<>();
+        UMLComponent box1 = new CustomBox("A", 100, 100);
+        boxes1.add(box1);
+
+        UMLComponent box2 = new CustomBox("A", 75, 75);
+        UMLComponent box3 = new CustomBox("B", 75, 150);
+        UMLComponent box4 = new CustomBox("C", 225, 75);
+        Connection inheritance = new Inheritance(box3, box2, ConnectionType.INHERITANCE);
+        ArrayList<Connection> connections2 = new ArrayList<>();
+        connections2.add(inheritance);
+        box2.setConnections(connections2);
+        ArrayList<UMLComponent> boxes2 = new ArrayList<>();
+        boxes2.add(box2);
+        boxes2.add(box3);
+        boxes2.add(box4);
+
+        Hint hint1 = new Hint("hint1");
+        Hint hint2 = new Hint("hint2");
+        Hint hint3 = new Hint("hint3");
+        ArrayList<Hint> hints_list = new ArrayList<Hint>(Arrays.asList(hint1, hint2, hint3));
+        Question question1 = new Question(200, boxes1, "", hints_list, 1);
+        Question question2 = new Question(201, boxes2, "", hints_list, 2);
+
+        ArrayList<Question> questions = new ArrayList<>();
+        questions.add(question1);
+        questions.add(question2);
+
+        try {
+            FileOutputStream fileOut = new FileOutputStream("UMLtoCodeQuestions.bin");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(questions);
+            out.close();
+            fileOut.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+
+
+    public ArrayList<Question> getUMLtoCodeQuestions(){
+        writeUMLtoCodeQuestions();
+        ArrayList<Question> questions = new ArrayList<>();
+        try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(new File("UMLtoCodeQuestions.bin")))) {
+            questions = (ArrayList<Question>)
+                    is.readObject();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return questions;
+    }
+
+
+    public void drawUMLtoCodeBoxes(Question q){
+        for (UMLComponent umlComponent : q.getUML()){
+            BoxList.add(umlComponent);
+            updateData();
+        }
+    }
 }

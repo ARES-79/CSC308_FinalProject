@@ -12,8 +12,28 @@ public class TutorController implements ActionListener {
 
     private TutorApp host;
 
+    /**
+     * Constructor
+     *
+     * @param host TutorApp JFrame host of the panel
+     */
     public TutorController(TutorApp host){
         this.host = host;
+    }
+
+    /**
+     * updates what is seen on screen
+     *
+     * @param nextPanel the panel set tp take over the screen
+     */
+    public void setScreenPanel(JPanel nextPanel){
+        host.alternativeFileMenu();
+        host.remove(host.getScreenPanel());
+        host.setScreenPanel( nextPanel );
+        host.add(host.getScreenPanel());
+        host.revalidate();
+        host.repaint();
+        Blackboard.getBlackboard().reset();
     }
 
     /**
@@ -30,36 +50,28 @@ public class TutorController implements ActionListener {
                         "About",
                         JOptionPane.INFORMATION_MESSAGE);}
             case ("Code --> UML") -> {
-                host.alternativeFileMenu();
-                host.remove(host.getScreenPanel());
-                host.setScreenPanel(new TEMP_CodeToUMLPanel());
-                host.add(host.getScreenPanel());
-                host.revalidate();
-                host.repaint();
+                setScreenPanel(new TEMP_CodeToUMLPanel());
                 Blackboard.getBlackboard().setCurrentSubject(SubjectType.CodetoUML);
             }
             case ("Code --> Metrics") -> {
-                host.alternativeFileMenu();
-                host.remove(host.getScreenPanel());
-                host.setScreenPanel(new TEMP_CodeToMetricsPanel());
-                host.add(host.getScreenPanel());
-                host.revalidate();
-                host.repaint();
+                setScreenPanel(new TEMP_CodeToMetricsPanel());
                 Blackboard.getBlackboard().setCurrentSubject(SubjectType.CodetoMetrics);
             }
             case ("UML --> Code") ->{
                 // uml to code panel
+                host.alternativeFileMenu();
+                host.remove(host.getScreenPanel());
+                host.setScreenPanel(new UMLtoCodePanel());
+                host.add(host.getScreenPanel());
+                host.revalidate();
+                host.repaint();
+                Blackboard.getBlackboard().setCurrentSubject(SubjectType.UMLtoCode);
             }
             case ("UML --> Metrics") -> {
                 // uml to metrics panle
             }
             case ("Practice") -> {
-                host.alternativeFileMenu();
-                host.remove(host.getScreenPanel());
-                host.setScreenPanel(new PracticePanel());
-                host.add(host.getScreenPanel());
-                host.revalidate();
-                host.repaint();
+                setScreenPanel(new PracticePanel());
             }
             case ("View Progress") -> {
                 host.alternativeFileMenu();
@@ -70,12 +82,7 @@ public class TutorController implements ActionListener {
                 host.repaint();
             }
             case ("Back To Menu") -> {
-                host.resetFileMenu();
-                host.remove(host.getScreenPanel());
-                host.setScreenPanel(new MenuPanel(this));
-                host.add(host.getScreenPanel());
-                host.revalidate();
-                host.repaint();
+                setScreenPanel(new MenuPanel(this));
             }
             case ("Log Out") -> {
                 TempSignInWindow.main(null);
