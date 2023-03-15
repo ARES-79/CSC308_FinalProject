@@ -29,13 +29,11 @@ public class TutorController implements ActionListener {
      * @param nextPanel the panel set tp take over the screen
      */
     public void setScreenPanel(JPanel nextPanel){
-        host.alternativeFileMenu();
         host.remove(host.getScreenPanel());
         host.setScreenPanel( nextPanel );
         host.add(host.getScreenPanel());
         host.revalidate();
         host.repaint();
-        Blackboard.getBlackboard().reset();
     }
 
     /**
@@ -52,38 +50,40 @@ public class TutorController implements ActionListener {
                         "About",
                         JOptionPane.INFORMATION_MESSAGE);}
             case ("Code --> UML") -> {
+                host.alternativeFileMenu();
                 setScreenPanel(new TEMP_CodeToUMLPanel());
+                Blackboard.getBlackboard().reset();
                 Blackboard.getBlackboard().setCurrentSubject(SubjectType.CodetoUML);
             }
             case ("Code --> Metrics") -> {
+                host.alternativeFileMenu();
                 setScreenPanel(new TEMP_CodeToMetricsPanel());
+                Blackboard.getBlackboard().reset();
                 Blackboard.getBlackboard().setCurrentSubject(SubjectType.CodetoMetrics);
             }
             case ("UML --> Code") ->{
                 // uml to code panel
                 host.alternativeFileMenu();
-                host.remove(host.getScreenPanel());
-                host.setScreenPanel(new UMLtoCodePanel());
-                host.add(host.getScreenPanel());
-                host.revalidate();
-                host.repaint();
+                setScreenPanel(new UMLtoCodePanel());
                 Blackboard.getBlackboard().setCurrentSubject(SubjectType.UMLtoCode);
             }
             case ("UML --> Metrics") -> {
-                // uml to metrics panle
+                // uml to metrics panel
+                host.alternativeFileMenu();
+                setScreenPanel(new TEMP_UMLtoMetricsPanel());
+                Blackboard.getBlackboard().setCurrentSubject(SubjectType.UMLtoMetrics);
             }
             case ("Practice") -> {
+                host.alternativeFileMenu();
                 setScreenPanel(new PracticePanel());
+                Blackboard.getBlackboard().reset();
             }
             case ("View Progress") -> {
                 host.alternativeFileMenu();
-                host.remove(host.getScreenPanel());
-                host.setScreenPanel(createChart());
-                host.add(host.getScreenPanel());
-                host.revalidate();
-                host.repaint();
+                setScreenPanel(createChart());
             }
             case ("Back To Menu") -> {
+                host.resetFileMenu();
                 setScreenPanel(new MenuPanel(this));
             }
             case ("Log Out") -> {

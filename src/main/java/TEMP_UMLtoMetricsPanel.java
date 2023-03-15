@@ -4,25 +4,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class UMLtoCodePanel extends JPanel implements ActionListener {
+public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
     private final ArrayList<Question> questions = Blackboard.getBlackboard().getUMLtoCodeQuestions();
     private Question currentQuestion = questions.get(0);
     private int hintIdx = 0;
 
 
-    private DrawPanel east = new DrawPanel();
+    private DrawPanel west = new DrawPanel();
 
-    public UMLtoCodePanel(){
+    public TEMP_UMLtoMetricsPanel(){
         super();
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setLayout(new BorderLayout());
 
 
-        east.removeMouseListener(east.getMouseListeners()[0]);
-        east.removeMouseMotionListener(east.getMouseMotionListeners()[0]);
-        Blackboard.getBlackboard().addObserver(east);
+        west.removeMouseListener(west.getMouseListeners()[0]);
+        west.removeMouseMotionListener(west.getMouseMotionListeners()[0]);
+        Blackboard.getBlackboard().addObserver(west);
 
-        //west
+        //eas
         JPanel leftCenter = new JPanel ();
         leftCenter.setLayout(new BorderLayout());
 
@@ -37,7 +37,7 @@ public class UMLtoCodePanel extends JPanel implements ActionListener {
         leftCenter.add(scroll, BorderLayout.CENTER);
         leftCenter.setVisible (true);
 
-        add(leftCenter, BorderLayout.WEST);
+        add(leftCenter, BorderLayout.EAST);
 
         //center
         // TODO: Connect this to the blackboard and a CustomTextArea
@@ -46,9 +46,9 @@ public class UMLtoCodePanel extends JPanel implements ActionListener {
 
         CustomTextArea pairedText = new CustomTextArea(30,20);
         MainController mC = new MainController(this, pairedText);
-        east.setBackground(Color.LIGHT_GRAY);
-        Blackboard.getBlackboard().addObserver(east);
-        centerPanel.add(east, BorderLayout.CENTER);
+        west.setBackground(Color.LIGHT_GRAY);
+        Blackboard.getBlackboard().addObserver(west);
+        centerPanel.add(west, BorderLayout.CENTER);
 
         JToolBar selectionToolBar = new JToolBar();
 
@@ -75,11 +75,8 @@ public class UMLtoCodePanel extends JPanel implements ActionListener {
 
         add(centerPanel, BorderLayout.CENTER);
 
-        //possibly add a status bar
-        //Action Listeners
-        newButton.addActionListener(mC);
-
         Blackboard.getBlackboard().drawUMLtoCodeBoxes(questions.get(0));
+        Blackboard.getBlackboard().removeObserver(west);
     }
 
     @Override
