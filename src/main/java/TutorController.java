@@ -85,6 +85,7 @@ public class TutorController implements ActionListener {
             case ("Back To Menu") -> {
                 host.resetFileMenu();
                 setScreenPanel(new MenuPanel(this));
+                Blackboard.getBlackboard().reset();
             }
             case ("Log Out") -> {
                 TempSignInWindow.main(null);
