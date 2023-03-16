@@ -74,6 +74,9 @@ public class UMLtoCodePanel extends QuestionPanel {
         Blackboard.getBlackboard().drawUMLtoCodeBoxes(super.getCurrentQuestion());
     }
 
+    /**
+     * Brings the next question to the screen or says the current question is the last
+     */
     @Override
     void showNextQuestion(){
         int current_index = super.getQuestions().indexOf(super.getCurrentQuestion());

@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
@@ -13,15 +11,13 @@ import java.util.ArrayList;
  */
 public class TEMP_CodeToMetricsPanel extends QuestionPanel {
 
-    private final ArrayList<Question> questions = Blackboard.getBlackboard().getCodeToUMLQuestions();
-    private Question currentQuestion = questions.get(0);
-    private int hintIdx = 0;
-
     private JTextArea codeProblem = new JTextArea(30,30);
     private JTextField locA, elocA, llocA;
 
     public TEMP_CodeToMetricsPanel(){
         super();
+        super.setQuestions(Blackboard.getBlackboard().getCodeToUMLQuestions());
+        super.setCurrentQuestion(super.getQuestions().get(0));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setLayout(new BorderLayout());
 
@@ -33,7 +29,7 @@ public class TEMP_CodeToMetricsPanel extends QuestionPanel {
         leftCenter.add(instructionLabel, BorderLayout.NORTH);
 
 
-        codeProblem.setText(questions.get(0).getText());
+        codeProblem.setText(super.getCurrentQuestion().getText());
         codeProblem.setEditable(false);
         JScrollPane scroll = new JScrollPane (codeProblem,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -103,25 +99,19 @@ public class TEMP_CodeToMetricsPanel extends QuestionPanel {
         submit.addActionListener(this);
     }
 
+    /**
+     * Brings the next question to the screen or says the current question is the last
+     */
     @Override
     void showNextQuestion(){
-        if(questions.indexOf(currentQuestion) + 1 < questions.size()){
-            currentQuestion = questions.get(questions.indexOf(currentQuestion) + 1);
-            codeProblem.setText(currentQuestion.getText());
+        int current_index = super.getQuestions().indexOf(super.getCurrentQuestion());
+        if(current_index + 1 < super.getQuestions().size()){
+            super.setCurrentQuestion(super.getQuestions().get(current_index + 1));
+            codeProblem.setText(super.getCurrentQuestion().getText());
+            super.setHintIdx(0);
         } else {
             JOptionPane.showMessageDialog(this, "This is the last question!",
                     "", JOptionPane.WARNING_MESSAGE);
-        }
-    }
-
-    @Override
-    void showHint(){
-        if(hintIdx < currentQuestion.getHints().size()){
-            JOptionPane.showMessageDialog(this, currentQuestion.getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
-            hintIdx++;
-        } else{
-            hintIdx = 0;
-            JOptionPane.showMessageDialog(this, currentQuestion.getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -132,7 +122,7 @@ public class TEMP_CodeToMetricsPanel extends QuestionPanel {
         String elocAnswer = elocA.getText().trim();
         String llocAnswer = llocA.getText().trim();
         boolean allCorrect = true;
-        String code = questions.get(questions.indexOf(currentQuestion)).getText();
+        String code = super.getCurrentQuestion().getText();
         String message = Blackboard.getBlackboard().getCurrentUser().getFirstName() + ",\n";
 
         if( locAnswer.equals( String.valueOf(calculator.totalLOC(code)) )){

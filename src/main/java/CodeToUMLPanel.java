@@ -93,6 +93,9 @@ public class CodeToUMLPanel extends QuestionPanel {
         composition.addActionListener(mC);
     }
 
+    /**
+     * Brings the next question to the screen or says the current question is the last
+     */
     @Override
     void showNextQuestion(){
         int current_index = super.getQuestions().indexOf(super.getCurrentQuestion());

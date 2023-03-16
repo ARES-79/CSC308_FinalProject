@@ -1,15 +1,8 @@
-import org.apache.commons.lang3.StringUtils;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class TEMP_UMLtoMetricsPanel extends QuestionPanel {
-    private final ArrayList<Question> questions = Blackboard.getBlackboard().getUMLtoMetricsQuestions();
-    private Question currentQuestion = questions.get(0);
-    private int hintIdx = 0;
 
     private DrawPanel west = new DrawPanel();
     private JTextField numerator, denominator;
@@ -19,6 +12,8 @@ public class TEMP_UMLtoMetricsPanel extends QuestionPanel {
      */
     public TEMP_UMLtoMetricsPanel(){
         super();
+        super.setQuestions(Blackboard.getBlackboard().getUMLtoMetricsQuestions());
+        super.setCurrentQuestion(super.getQuestions().get(0));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setLayout(new BorderLayout());
 
@@ -87,24 +82,27 @@ public class TEMP_UMLtoMetricsPanel extends QuestionPanel {
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BorderLayout());
 
-        CustomTextArea pairedText = new CustomTextArea(30,20);
-        MainController mC = new MainController(this, pairedText);
         west.setBackground(Color.LIGHT_GRAY);
         Blackboard.getBlackboard().addObserver(west);
         centerPanel.add(west, BorderLayout.CENTER);
 
         add(centerPanel, BorderLayout.CENTER);
 
-        Blackboard.getBlackboard().drawUMLtoCodeBoxes(questions.get(0));
+        Blackboard.getBlackboard().drawUMLtoCodeBoxes(super.getCurrentQuestion());
         Blackboard.getBlackboard().removeObserver(west);
     }
 
+    /**
+     * Brings the next question to the screen or says the current question is the last
+     */
     @Override
     void showNextQuestion(){
-        if(questions.indexOf(currentQuestion) + 1 < questions.size()){
-            currentQuestion = questions.get(questions.indexOf(currentQuestion) + 1);
+        int current_index = super.getQuestions().indexOf(super.getCurrentQuestion());
+        if(current_index + 1 < super.getQuestions().size()){
+            super.setCurrentQuestion(super.getQuestions().get(current_index + 1));
             Blackboard.getBlackboard().reset();
-            Blackboard.getBlackboard().drawUMLtoCodeBoxes(currentQuestion);
+            Blackboard.getBlackboard().drawUMLtoCodeBoxes(super.getCurrentQuestion());
+            super.setHintIdx(0);
         } else {
             JOptionPane.showMessageDialog(this, "This is the last question!",
                     "", JOptionPane.WARNING_MESSAGE);
@@ -112,21 +110,8 @@ public class TEMP_UMLtoMetricsPanel extends QuestionPanel {
     }
 
     @Override
-    void showHint(){
-        if(hintIdx < currentQuestion.getHints().size()){
-            JOptionPane.showMessageDialog(this, currentQuestion.getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
-            hintIdx++;
-        } else{
-            hintIdx = 0;
-            JOptionPane.showMessageDialog(this, currentQuestion.getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
-
-    @Override
     void submitPressed(){
-        String[] answerPair = currentQuestion.getAnswer().split(",");
-        System.out.print("listed answer: " );
-        System.out.println(answerPair);
+        String[] answerPair = super.getCurrentQuestion().getAnswer().split(",");
         boolean allCorrect = true;
         String message = Blackboard.getBlackboard().getCurrentUser().getFirstName() + ",\n";
         if( numerator.getText().strip().equals(answerPair[0]) ){
