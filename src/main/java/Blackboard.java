@@ -258,8 +258,27 @@ public class Blackboard extends MyObservable {
                         }
                         
                         """;
+        String q2_answer = """
+
+
+
+
+
+                        class A {
+                        
+                        }
+                        
+                        class B extends A {
+                        
+                        }
+                        
+                        class C {
+                        
+                        }
+                        
+                        """;
         Question question1 = new Question(200, boxes1, q1_answer, hints_list, 1);
-        Question question2 = new Question(201, boxes2, "", hints_list, 2);
+        Question question2 = new Question(201, boxes2, q2_answer, hints_list, 2);
 
         ArrayList<Question> questions = new ArrayList<>();
         questions.add(question1);
