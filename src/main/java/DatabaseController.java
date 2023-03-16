@@ -9,7 +9,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import java.util.ArrayList;
-import java.util.List;
 
 
 @Getter
@@ -81,12 +80,6 @@ public class DatabaseController {
     }
     public void saveNewStudent(Student student) throws PersistenceException {
         this.session.persist(student);
-        this.session.getTransaction().commit();
-
-    }
-
-    public void saveCurrentStudent(Student student) throws PersistenceException {
-        this.session.saveOrUpdate(student);
         this.session.getTransaction().commit();
 
     }
