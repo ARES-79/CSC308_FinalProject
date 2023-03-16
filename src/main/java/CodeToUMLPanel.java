@@ -32,7 +32,8 @@ public class CodeToUMLPanel extends QuestionPanel {
         leftCenter.add(instructionLabel, BorderLayout.NORTH);
 
 
-        codeProblem.setText(Blackboard.getBlackboard().getCodeToUMLQuestions().get(0).getText());
+        Blackboard.getBlackboard().setCurrentQuestion(Blackboard.getBlackboard().getCodeToUMLQuestions().get(0));
+        codeProblem.setText(Blackboard.getBlackboard().getCurrentQuestion().getText());
         codeProblem.setEditable(false);
         JScrollPane scroll = new JScrollPane (codeProblem,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
