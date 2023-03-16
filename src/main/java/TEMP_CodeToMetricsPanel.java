@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Second attempt at a window that can open when a button is pressed
  *      supposed to much easier to digest
  */
-public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
+public class TEMP_CodeToMetricsPanel extends QuestionPanel {
 
     private final ArrayList<Question> questions = Blackboard.getBlackboard().getCodeToUMLQuestions();
     private Question currentQuestion = questions.get(0);
@@ -43,7 +43,6 @@ public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
         add(leftCenter, BorderLayout.WEST);
 
         //center
-        // TODO: Connect this to the blackboard and a CustomTextArea
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BorderLayout());
 
@@ -105,22 +104,6 @@ public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand());
-        int hintCount = 0;
-        switch (e.getActionCommand()) {
-            case ("Submit") -> {
-                submitPressed();
-            }
-            case ("Next") -> {
-                showNextQuestion();
-            }
-            case ("?") -> {
-                showHint();
-            }
-        }
-    }
-
     void showNextQuestion(){
         if(questions.indexOf(currentQuestion) + 1 < questions.size()){
             currentQuestion = questions.get(questions.indexOf(currentQuestion) + 1);
@@ -131,6 +114,7 @@ public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
         }
     }
 
+    @Override
     void showHint(){
         if(hintIdx < currentQuestion.getHints().size()){
             JOptionPane.showMessageDialog(this, currentQuestion.getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
@@ -141,6 +125,7 @@ public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
         }
     }
 
+    @Override
     void submitPressed(){
         CodeMetricCalculator calculator = new CodeMetricCalculator();
         String locAnswer = locA.getText().trim();

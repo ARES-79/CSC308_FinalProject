@@ -1,10 +1,7 @@
 import org.apache.commons.lang3.StringUtils;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Final Project
@@ -13,17 +10,14 @@ import java.util.Arrays;
  * Second attempt at a window that can open when a button is pressed
  *      supposed to much easier to digest
  */
-public class CodeToUMLPanel extends JPanel implements ActionListener {
-
-    private final ArrayList<Question> questions = Blackboard.getBlackboard().getCodeToUMLQuestions();
-    private Question currentQuestion = questions.get(0);
-    private int hintIdx = 0;
+public class CodeToUMLPanel extends QuestionPanel {
 
     private JTextArea codeProblem = new JTextArea(30,20);
-    private DrawPanel east = new DrawPanel();
 
     public CodeToUMLPanel(){
         super();
+        super.setQuestions(Blackboard.getBlackboard().getCodeToUMLQuestions());
+        super.setCurrentQuestion(super.getQuestions().get(0));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setLayout(new BorderLayout());
 
@@ -35,7 +29,7 @@ public class CodeToUMLPanel extends JPanel implements ActionListener {
         leftCenter.add(instructionLabel, BorderLayout.NORTH);
 
 
-        codeProblem.setText(questions.get(0).getText());
+        codeProblem.setText(super.getCurrentQuestion().getText());
         codeProblem.setEditable(false);
         JScrollPane scroll = new JScrollPane (codeProblem,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -45,12 +39,12 @@ public class CodeToUMLPanel extends JPanel implements ActionListener {
         add(leftCenter, BorderLayout.WEST);
 
         //center
-        // TODO: Connect this to the blackboard and a CustomTextArea
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BorderLayout());
 
         CustomTextArea pairedText = new CustomTextArea(30,20);
         MainController mC = new MainController(this, pairedText);
+        DrawPanel east = new DrawPanel();
         east.setBackground(Color.LIGHT_GRAY);
         Blackboard.getBlackboard().addObserver(east);
         centerPanel.add(east, BorderLayout.CENTER);
@@ -100,46 +94,24 @@ public class CodeToUMLPanel extends JPanel implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand());
-        int hintCount = 0;
-        switch (e.getActionCommand()) {
-            case ("Submit") -> {
-                submitPressed();
-            }
-            case ("Next") -> {
-                showNextQuestion();
-            }
-            case ("?") -> {
-                showHint();
-            }
-        }
-    }
-
     void showNextQuestion(){
-        if(questions.indexOf(currentQuestion) + 1 < questions.size()){
-            currentQuestion = questions.get(questions.indexOf(currentQuestion) + 1);
-            codeProblem.setText(currentQuestion.getText());
+        int current_index = super.getQuestions().indexOf(super.getCurrentQuestion());
+        if(current_index + 1 < super.getQuestions().size()){
+            Blackboard.getBlackboard().reset();
+            super.setCurrentQuestion(super.getQuestions().get(current_index + 1));
+            codeProblem.setText(super.getCurrentQuestion().getText());
+            super.setHintIdx(0);
         } else {
             JOptionPane.showMessageDialog(this, "This is the last question!",
                     "", JOptionPane.WARNING_MESSAGE);
         }
     }
 
-    void showHint(){
-        if(hintIdx < currentQuestion.getHints().size()){
-            JOptionPane.showMessageDialog(this, currentQuestion.getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
-            hintIdx++;
-        } else{
-            hintIdx = 0;
-            JOptionPane.showMessageDialog(this, currentQuestion.getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
-
+    @Override
     void submitPressed(){
         Parser parser = new Parser();
         String studentAttempt = parser.parseClasses(Blackboard.getBlackboard().getBoxList()); //.sort(Comparator.comparing(UMLComponent::getName)));
-        if(currentQuestion.checkAnswer(studentAttempt)){
+        if(super.getCurrentQuestion().checkAnswer(studentAttempt)){
             Blackboard.getBlackboard().setBoxList(new ArrayList<>());
             Blackboard.getBlackboard().updateData();
             Student s = (Student) Blackboard.getBlackboard().getCurrentUser();
@@ -152,19 +124,19 @@ public class CodeToUMLPanel extends JPanel implements ActionListener {
         }
         else{
             String message = Blackboard.getBlackboard().getCurrentUser().getFirstName() + ", your answer is incorrect.";
-            if (StringUtils.countMatches(currentQuestion.getAnswer(), "class") < Blackboard.getBlackboard().getBoxList().size()){
+            if (StringUtils.countMatches(super.getCurrentQuestion().getAnswer(), "class") < Blackboard.getBlackboard().getBoxList().size()){
                 message += "\nHint: You have made too many classes!";
             }
-            else if (StringUtils.countMatches(currentQuestion.getAnswer(), "class") > Blackboard.getBlackboard().getBoxList().size()){
+            else if (StringUtils.countMatches(super.getCurrentQuestion().getAnswer(), "class") > Blackboard.getBlackboard().getBoxList().size()){
                 message += "\nHint: You still need to make more classes";
             }
-            else if (StringUtils.countMatches(currentQuestion.getAnswer(), ";") > StringUtils.countMatches(studentAttempt, ";")) {
+            else if (StringUtils.countMatches(super.getCurrentQuestion().getAnswer(), ";") > StringUtils.countMatches(studentAttempt, ";")) {
                 message += "\nHint: Check if you have added all the required variables";
             }
-            else if (StringUtils.countMatches(currentQuestion.getAnswer(), "()") > StringUtils.countMatches(studentAttempt, "()")){
+            else if (StringUtils.countMatches(super.getCurrentQuestion().getAnswer(), "()") > StringUtils.countMatches(studentAttempt, "()")){
                 message += "\nHint: Check if you have added all the required methods";
             }
-            else if (!areClassNamesCorrect(currentQuestion.getAnswer(), studentAttempt)){
+            else if (!areClassNamesCorrect(super.getCurrentQuestion().getAnswer(), studentAttempt)){
                 message += "\nHint: Are you naming your classes correctly?";
             }
                 JOptionPane.showMessageDialog(this,

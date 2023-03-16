@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
+public class TEMP_UMLtoMetricsPanel extends QuestionPanel {
     private final ArrayList<Question> questions = Blackboard.getBlackboard().getUMLtoMetricsQuestions();
     private Question currentQuestion = questions.get(0);
     private int hintIdx = 0;
@@ -100,22 +100,6 @@ public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand());
-        switch (e.getActionCommand()) {
-            case ("Submit") -> {
-                submitPressed();
-            }
-            case ("Next") -> {
-                showNextQuestion();
-            }
-            case ("?") -> {
-                showHint();
-            }
-        }
-
-    }
-
     void showNextQuestion(){
         if(questions.indexOf(currentQuestion) + 1 < questions.size()){
             currentQuestion = questions.get(questions.indexOf(currentQuestion) + 1);
@@ -127,6 +111,7 @@ public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
         }
     }
 
+    @Override
     void showHint(){
         if(hintIdx < currentQuestion.getHints().size()){
             JOptionPane.showMessageDialog(this, currentQuestion.getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
@@ -137,6 +122,7 @@ public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
         }
     }
 
+    @Override
     void submitPressed(){
         String[] answerPair = currentQuestion.getAnswer().split(",");
         System.out.print("listed answer: " );
