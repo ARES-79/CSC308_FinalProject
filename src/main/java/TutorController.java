@@ -9,7 +9,13 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-
+/**
+ * TutorController
+ * @author Andrew Estrada
+ * @version 1.0
+ *
+ * Controller for the TutorApp
+ */
 public class TutorController implements ActionListener {
 
     private TutorApp host;

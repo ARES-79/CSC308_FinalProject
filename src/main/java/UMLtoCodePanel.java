@@ -11,6 +11,9 @@ public class UMLtoCodePanel extends QuestionPanel {
     //private CustomTextArea pairedText = new CustomTextArea(30,20);
     private JTextArea codeProblem = new CustomTextArea(30,30);
 
+    /**
+     * Constructor
+     */
     public UMLtoCodePanel(){
         super();
         super.setQuestions(Blackboard.getBlackboard().getUMLtoCodeQuestions());
@@ -91,6 +94,9 @@ public class UMLtoCodePanel extends QuestionPanel {
         }
     }
 
+    /**
+     * Checks student answer, gives messages and changes question if correct
+     */
     @Override
     void submitPressed(){
         String studentAttempt = codeProblem.getText();

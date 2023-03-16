@@ -4,9 +4,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
- * Final Project
+ * QuestionPanel
  * @author Andrew Estrada
  * @version 1.2
+ *
  * Parent panel to all panels with a correct answer
  */
 public abstract class QuestionPanel extends JPanel implements ActionListener {

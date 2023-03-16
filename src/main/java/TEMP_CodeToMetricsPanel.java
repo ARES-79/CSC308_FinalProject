@@ -3,17 +3,20 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Final Project
+ * CodeToMetricsPanel
  * @author Andrew Estrada, Mitashi Parikh, Jamie Luna
  * @version 1.0
- * Second attempt at a window that can open when a button is pressed
- *      supposed to much easier to digest
+ *
+ * Panel for questions related to calculating LOC metrics
  */
 public class TEMP_CodeToMetricsPanel extends QuestionPanel {
 
     private JTextArea codeProblem = new JTextArea(30,30);
     private JTextField locA, elocA, llocA;
 
+    /**
+     * Constructor
+     */
     public TEMP_CodeToMetricsPanel(){
         super();
         super.setQuestions(Blackboard.getBlackboard().getCodeToUMLQuestions());
@@ -115,6 +118,9 @@ public class TEMP_CodeToMetricsPanel extends QuestionPanel {
         }
     }
 
+    /**
+     * Checks student answer, gives messages and changes question if correct
+     */
     @Override
     void submitPressed(){
         CodeMetricCalculator calculator = new CodeMetricCalculator();

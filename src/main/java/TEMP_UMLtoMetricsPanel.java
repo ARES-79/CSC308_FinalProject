@@ -2,6 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * UMLtoMetricsPanel
+ * @author Andrew Estrada
+ * @version 1.0
+ *
+ * Panel for questions related to calculating Instability metrics
+ */
 public class TEMP_UMLtoMetricsPanel extends QuestionPanel {
 
     private DrawPanel west = new DrawPanel();
@@ -109,6 +116,9 @@ public class TEMP_UMLtoMetricsPanel extends QuestionPanel {
         }
     }
 
+    /**
+     * Checks student answer, gives messages and changes question if correct
+     */
     @Override
     void submitPressed(){
         String[] answerPair = super.getCurrentQuestion().getAnswer().split(",");

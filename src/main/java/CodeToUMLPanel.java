@@ -7,13 +7,16 @@ import java.util.ArrayList;
  * Final Project
  * @author Andrew Estrada, Mitashi Parikh, Jamie Luna
  * @version 1.0
- * Second attempt at a window that can open when a button is pressed
- *      supposed to much easier to digest
+ *
+ * Panel for questions related to translating Code to UML
  */
 public class CodeToUMLPanel extends QuestionPanel {
 
     private JTextArea codeProblem = new JTextArea(30,20);
 
+    /**
+     * Constructor
+     */
     public CodeToUMLPanel(){
         super();
         super.setQuestions(Blackboard.getBlackboard().getCodeToUMLQuestions());
@@ -110,6 +113,9 @@ public class CodeToUMLPanel extends QuestionPanel {
         }
     }
 
+    /**
+     * Checks student answer, gives messages and changes question if correct
+     */
     @Override
     void submitPressed(){
         Parser parser = new Parser();
