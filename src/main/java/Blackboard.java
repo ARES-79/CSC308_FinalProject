@@ -31,6 +31,8 @@ public class Blackboard extends MyObservable {
 
     private ArrayList<Question> codeToUMLQuestions = getCodeToUMLQuestions();
     private ArrayList<Question> UMLtoCodeQuestions = getUMLtoCodeQuestions();
+    private ArrayList<Question> UMLtoMetricsQuestions = getUMLtoMetricsQuestions();
+
 
     private DatabaseController databaseController = new DatabaseController();
 
@@ -278,6 +280,78 @@ public class Blackboard extends MyObservable {
         writeUMLtoCodeQuestions();
         ArrayList<Question> questions = new ArrayList<>();
         try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(new File("UMLtoCodeQuestions.bin")))) {
+            questions = (ArrayList<Question>)
+                    is.readObject();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return questions;
+    }
+
+    private void writeUMLtoMetricsQuestions(){
+        ArrayList<UMLComponent> boxes1 = new ArrayList<>();
+        UMLComponent box1 = new CustomBox("A", 200, 200);
+        UMLComponent box2 = new CustomBox("B", 100, 100);
+        UMLComponent box3 = new CustomBox("C", 300, 100);
+        UMLComponent box4 = new CustomBox("D", 100, 300);
+        boxes1.add(box1);
+        boxes1.add(box2);
+        boxes1.add(box3);
+        boxes1.add(box4);
+
+//        UMLComponent box2 = new CustomBox("A", 75, 75);
+//        UMLComponent box3 = new CustomBox("B", 75, 150);
+//        UMLComponent box4 = new CustomBox("C", 225, 75);
+        Connection inheritance = new Inheritance(box3, box2, ConnectionType.INHERITANCE);
+        Connection inheritanceOut1 = new Inheritance(box1, box2, ConnectionType.INHERITANCE);
+        Connection compositionOut1 = new Composition(box1, box3, ConnectionType.COMPOSITION);
+        Connection associationIn = new Association(box4, box1, ConnectionType.ASSOCIATION);
+        ArrayList<Connection> connections2 = new ArrayList<>();
+        connections2.add(inheritance);
+        connections2.add(inheritanceOut1);
+        box2.setConnections(connections2);
+        ArrayList<Connection> connections1 = new ArrayList<>();
+        connections1.add(associationIn);
+        box1.setConnections(connections1);
+        ArrayList<Connection> connections3 = new ArrayList<>();
+        connections3.add(compositionOut1);
+        box3.setConnections(connections3);
+
+
+        ArrayList<UMLComponent> boxes2 = new ArrayList<>();
+        boxes2.add(box2);
+        boxes2.add(box3);
+        boxes2.add(box4);
+
+        Hint hint1 = new Hint("Instability is related to the connections of a class.");
+        Hint hint2 = new Hint("The numerator is the number of connections out. ");
+        Hint hint3 = new Hint("The denominator should be greater than or equal to the numerator.");
+        ArrayList<Hint> hints_list = new ArrayList<Hint>(Arrays.asList(hint1, hint2, hint3));
+        String q1_answer = "2 3";
+        Question question1 = new Question(300, boxes1, q1_answer, hints_list, 2);
+        Question question2 = new Question(301, boxes2, "", hints_list, 2);
+
+        ArrayList<Question> questions = new ArrayList<>();
+        questions.add(question1);
+        questions.add(question2);
+
+        try {
+            FileOutputStream fileOut = new FileOutputStream("UMLtoMetricsQuestions.bin");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(questions);
+            out.close();
+            fileOut.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+
+
+    public ArrayList<Question> getUMLtoMetricsQuestions(){
+        writeUMLtoMetricsQuestions();
+        ArrayList<Question> questions = new ArrayList<>();
+        try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(new File("UMLtoMetricsQuestions.bin")))) {
             questions = (ArrayList<Question>)
                     is.readObject();
         } catch (Exception e) {

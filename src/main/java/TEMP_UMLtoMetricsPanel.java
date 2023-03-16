@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
-    private final ArrayList<Question> questions = Blackboard.getBlackboard().getUMLtoCodeQuestions();
+    private final ArrayList<Question> questions = Blackboard.getBlackboard().getUMLtoMetricsQuestions();
     private Question currentQuestion = questions.get(0);
     private int hintIdx = 0;
 
