@@ -87,7 +87,7 @@ public class Blackboard extends MyObservable {
 
     public void statusBarNewProject(){
         statusBarMessage = "     New Project Created";
-        updateData();;
+        updateData();
     }
 
     public void statusBarProjectSaved(){
@@ -128,6 +128,7 @@ public class Blackboard extends MyObservable {
      */
     public void reset(){
         setBoxList(new ArrayList<>());
+        updateData();
     }
     public DatabaseController getDatabaseController() {
         return databaseController;

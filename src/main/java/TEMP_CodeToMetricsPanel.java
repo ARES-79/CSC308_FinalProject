@@ -1,27 +1,26 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
- * Final Project
+ * CodeToMetricsPanel
  * @author Andrew Estrada, Mitashi Parikh, Jamie Luna
  * @version 1.0
- * Second attempt at a window that can open when a button is pressed
- *      supposed to much easier to digest
+ *
+ * Panel for questions related to calculating LOC metrics
  */
-public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
-
-    private final ArrayList<Question> questions = Blackboard.getBlackboard().getCodeToUMLQuestions();
-    private Question currentQuestion = questions.get(0);
-    private int hintIdx = 0;
+public class TEMP_CodeToMetricsPanel extends QuestionPanel {
 
     private JTextArea codeProblem = new JTextArea(30,30);
     private JTextField locA, elocA, llocA;
 
+    /**
+     * Constructor
+     */
     public TEMP_CodeToMetricsPanel(){
         super();
+        super.setQuestions(Blackboard.getBlackboard().getCodeToUMLQuestions());
+        super.setCurrentQuestion(super.getQuestions().get(0));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setLayout(new BorderLayout());
 
@@ -33,7 +32,7 @@ public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
         leftCenter.add(instructionLabel, BorderLayout.NORTH);
 
 
-        codeProblem.setText(questions.get(0).getText());
+        codeProblem.setText(super.getCurrentQuestion().getText());
         codeProblem.setEditable(false);
         JScrollPane scroll = new JScrollPane (codeProblem,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -43,7 +42,6 @@ public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
         add(leftCenter, BorderLayout.WEST);
 
         //center
-        // TODO: Connect this to the blackboard and a CustomTextArea
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BorderLayout());
 
@@ -104,50 +102,33 @@ public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
         submit.addActionListener(this);
     }
 
+    /**
+     * Brings the next question to the screen or says the current question is the last
+     */
     @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand());
-        int hintCount = 0;
-        switch (e.getActionCommand()) {
-            case ("Submit") -> {
-                submitPressed();
-            }
-            case ("Next") -> {
-                showNextQuestion();
-            }
-            case ("?") -> {
-                showHint();
-            }
-        }
-    }
-
     void showNextQuestion(){
-        if(questions.indexOf(currentQuestion) + 1 < questions.size()){
-            currentQuestion = questions.get(questions.indexOf(currentQuestion) + 1);
-            codeProblem.setText(currentQuestion.getText());
+        int current_index = super.getQuestions().indexOf(super.getCurrentQuestion());
+        if(current_index + 1 < super.getQuestions().size()){
+            super.setCurrentQuestion(super.getQuestions().get(current_index + 1));
+            codeProblem.setText(super.getCurrentQuestion().getText());
+            super.setHintIdx(0);
         } else {
             JOptionPane.showMessageDialog(this, "This is the last question!",
                     "", JOptionPane.WARNING_MESSAGE);
         }
     }
 
-    void showHint(){
-        if(hintIdx < currentQuestion.getHints().size()){
-            JOptionPane.showMessageDialog(this, currentQuestion.getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
-            hintIdx++;
-        } else{
-            hintIdx = 0;
-            JOptionPane.showMessageDialog(this, currentQuestion.getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
-
+    /**
+     * Checks student answer, gives messages and changes question if correct
+     */
+    @Override
     void submitPressed(){
         CodeMetricCalculator calculator = new CodeMetricCalculator();
         String locAnswer = locA.getText().trim();
         String elocAnswer = elocA.getText().trim();
         String llocAnswer = llocA.getText().trim();
         boolean allCorrect = true;
-        String code = questions.get(questions.indexOf(currentQuestion)).getText();
+        String code = super.getCurrentQuestion().getText();
         String message = Blackboard.getBlackboard().getCurrentUser().getFirstName() + ",\n";
 
         if( locAnswer.equals( String.valueOf(calculator.totalLOC(code)) )){
