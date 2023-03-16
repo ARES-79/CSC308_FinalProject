@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Final Project
  * @author Mitashi Parikh, Jamie Luna, Archie Jones, Andrew Estrada
- * @version 1.0
+ * @version 2.0
  * Blackboard - central location for the data which needs to be accessed by several data requesters.
  * It is a singleton class and is also observable
  */
@@ -275,7 +275,11 @@ public class Blackboard extends MyObservable {
         }
     }
 
-
+    /**
+     * stores and retrieves UML to Code Questions
+     *
+     * @return list of UML to Code Questions
+     */
     public ArrayList<Question> getUMLtoCodeQuestions(){
         writeUMLtoCodeQuestions();
         ArrayList<Question> questions = new ArrayList<>();
@@ -289,52 +293,76 @@ public class Blackboard extends MyObservable {
         return questions;
     }
 
+    /**
+     * Creates and stores preset UML to Metrics questions for demonstration of application
+     */
     private void writeUMLtoMetricsQuestions(){
-        ArrayList<UMLComponent> boxes1 = new ArrayList<>();
-        UMLComponent box1 = new CustomBox("A", 200, 200);
-        UMLComponent box2 = new CustomBox("B", 100, 100);
-        UMLComponent box3 = new CustomBox("C", 300, 100);
-        UMLComponent box4 = new CustomBox("D", 100, 300);
-        boxes1.add(box1);
-        boxes1.add(box2);
-        boxes1.add(box3);
-        boxes1.add(box4);
+        ArrayList<UMLComponent> q1boxes = new ArrayList<>();
+        UMLComponent q1box1 = new CustomBox("A", 150, 150);
+        UMLComponent q1box2 = new CustomBox("B", 150, 250);
+        q1boxes.add(q1box1);
+        q1boxes.add(q1box2);
+        Connection q1connection1 = new Association(q1box2, q1box1, ConnectionType.ASSOCIATION);
+        ArrayList<Connection> q1box1connections = new ArrayList<>();
+        q1box1connections.add(q1connection1);
+        q1box1.setConnections(q1box1connections);
 
-//        UMLComponent box2 = new CustomBox("A", 75, 75);
-//        UMLComponent box3 = new CustomBox("B", 75, 150);
-//        UMLComponent box4 = new CustomBox("C", 225, 75);
-        Connection inheritance = new Inheritance(box3, box2, ConnectionType.INHERITANCE);
-        Connection inheritanceOut1 = new Inheritance(box1, box2, ConnectionType.INHERITANCE);
-        Connection compositionOut1 = new Composition(box1, box3, ConnectionType.COMPOSITION);
-        Connection associationIn = new Association(box4, box1, ConnectionType.ASSOCIATION);
+        ArrayList<UMLComponent> q2boxes = new ArrayList<>();
+        UMLComponent q2box1 = new CustomBox("A", 150, 150);
+        UMLComponent q2box2 = new CustomBox("B", 150, 250);
+        UMLComponent q2box3 = new CustomBox("C", 300, 150);
+        q2boxes.add(q2box1);
+        q2boxes.add(q2box2);
+        q2boxes.add(q2box3);
+        Connection q2connection1 = new Association(q2box2, q2box1, ConnectionType.ASSOCIATION);
+        Connection q2connection2 = new Association(q2box1, q2box3, ConnectionType.ASSOCIATION);
+        ArrayList<Connection> q2box1connections = new ArrayList<>();
+        q2box1connections.add(q2connection1);
+        q2box1.setConnections(q2box1connections);
+        ArrayList<Connection> q2box3connections = new ArrayList<>();
+        q2box3connections.add(q2connection2);
+        q2box3.setConnections(q2box3connections);
+
+
+        ArrayList<UMLComponent> question3boxes = new ArrayList<>();
+        UMLComponent question3box1 = new CustomBox("A", 200, 200);
+        UMLComponent question3box2 = new CustomBox("B", 100, 100);
+        UMLComponent question3box3 = new CustomBox("C", 300, 100);
+        UMLComponent question3box4 = new CustomBox("D", 100, 300);
+        question3boxes.add(question3box1);
+        question3boxes.add(question3box2);
+        question3boxes.add(question3box3);
+        question3boxes.add(question3box4);
+
+        Connection question3connection1 = new Inheritance(question3box3, question3box2, ConnectionType.INHERITANCE);
+        Connection question3connection2 = new Inheritance(question3box1, question3box2, ConnectionType.INHERITANCE);
+        Connection question3connection3 = new Composition(question3box1, question3box3, ConnectionType.COMPOSITION);
+        Connection question3connection4 = new Association(question3box4, question3box1, ConnectionType.ASSOCIATION);
         ArrayList<Connection> connections2 = new ArrayList<>();
-        connections2.add(inheritance);
-        connections2.add(inheritanceOut1);
-        box2.setConnections(connections2);
+        connections2.add(question3connection1);
+        connections2.add(question3connection2);
+        question3box2.setConnections(connections2);
         ArrayList<Connection> connections1 = new ArrayList<>();
-        connections1.add(associationIn);
-        box1.setConnections(connections1);
+        connections1.add(question3connection4);
+        question3box1.setConnections(connections1);
         ArrayList<Connection> connections3 = new ArrayList<>();
-        connections3.add(compositionOut1);
-        box3.setConnections(connections3);
-
-
-        ArrayList<UMLComponent> boxes2 = new ArrayList<>();
-        boxes2.add(box2);
-        boxes2.add(box3);
-        boxes2.add(box4);
+        connections3.add(question3connection3);
+        question3box3.setConnections(connections3);
 
         Hint hint1 = new Hint("Instability is related to the connections of a class.");
         Hint hint2 = new Hint("The numerator is the number of connections out. ");
         Hint hint3 = new Hint("The denominator should be greater than or equal to the numerator.");
         ArrayList<Hint> hints_list = new ArrayList<Hint>(Arrays.asList(hint1, hint2, hint3));
-        String q1_answer = "2 3";
-        Question question1 = new Question(300, boxes1, q1_answer, hints_list, 2);
-        Question question2 = new Question(301, boxes2, "", hints_list, 2);
+        Question question1 = new Question(301, q1boxes, "0 1", hints_list, 1);
+        Question question2 = new Question(302, q2boxes, "1 2", hints_list, 2);
+        Question question3 = new Question(303, question3boxes, "2 3", hints_list, 3);
+
+
 
         ArrayList<Question> questions = new ArrayList<>();
         questions.add(question1);
         questions.add(question2);
+        questions.add(question3);
 
         try {
             FileOutputStream fileOut = new FileOutputStream("UMLtoMetricsQuestions.bin");
@@ -347,7 +375,11 @@ public class Blackboard extends MyObservable {
         }
     }
 
-
+    /**
+     * stores and retrieves UML to Metrics Questions
+     *
+     * @return list of UML to Metrics Questions
+     */
     public ArrayList<Question> getUMLtoMetricsQuestions(){
         writeUMLtoMetricsQuestions();
         ArrayList<Question> questions = new ArrayList<>();
