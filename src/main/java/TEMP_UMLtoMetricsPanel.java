@@ -1,12 +1,15 @@
-import org.apache.commons.lang3.StringUtils;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
+/**
+ * UMLtoMetricsPanel
+ * @author Andrew Estrada
+ * @version 1.0
+ *
+ * Panel for questions related to calculating Instability metrics
+ */
+public class TEMP_UMLtoMetricsPanel extends QuestionPanel {
 
     private DrawPanel west = new DrawPanel();
     private JTextField numerator, denominator;
@@ -85,8 +88,6 @@ public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BorderLayout());
 
-        CustomTextArea pairedText = new CustomTextArea(30,20);
-        MainController mC = new MainController(this, pairedText);
         west.setBackground(Color.LIGHT_GRAY);
         Blackboard.getBlackboard().addObserver(west);
         centerPanel.add(west, BorderLayout.CENTER);
@@ -98,6 +99,9 @@ public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
         Blackboard.getBlackboard().removeObserver(west);
     }
 
+    /**
+     * Brings the next question to the screen or says the current question is the last
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println(e.getActionCommand());
@@ -121,7 +125,10 @@ public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
         }
     }
 
-
+    /**
+     * Checks student answer, gives messages and changes question if correct
+     */
+    @Override
     void submitPressed(){
         String[] answerPair = Blackboard.getBlackboard().getCurrentQuestion().getAnswer().split(",");
         System.out.print("listed answer: " );

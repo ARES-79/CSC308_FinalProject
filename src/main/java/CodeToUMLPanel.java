@@ -2,22 +2,28 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * Final Project
  * @author Andrew Estrada, Mitashi Parikh, Jamie Luna
  * @version 1.0
- * Second attempt at a window that can open when a button is pressed
- *      supposed to much easier to digest
+ *
+ * Panel for questions related to translating Code to UML
  */
-public class CodeToUMLPanel extends JPanel implements ActionListener {
+public class CodeToUMLPanel extends QuestionPanel {
 
     private JTextArea codeProblem = new JTextArea(30,20);
     private DrawPanel east = new DrawPanel();
     QuestionButtonsModel questionButtonsModel = new QuestionButtonsModel();
 
+    /**
+     * Constructor
+     */
     public CodeToUMLPanel(){
         super();
+        super.setQuestions(Blackboard.getBlackboard().getCodeToUMLQuestions());
+        super.setCurrentQuestion(super.getQuestions().get(0));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setLayout(new BorderLayout());
 
@@ -91,38 +97,27 @@ public class CodeToUMLPanel extends JPanel implements ActionListener {
         association.addActionListener(mC);
         inheritance.addActionListener(mC);
         composition.addActionListener(mC);
-
-        Blackboard.getBlackboard().setCurrentQuestion(Blackboard.getBlackboard().getCodeToUMLQuestions().get(0));
     }
 
+    /**
+     * Brings the next question to the screen or says the current question is the last
+     */
     @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand());
-        int hintCount = 0;
-        switch (e.getActionCommand()) {
-            case ("Submit") -> {
-                submitPressed();
-            }
-            case ("Next") -> {
-                showNextQuestion();
-            }
-            case ("?") -> {
-                questionButtonsModel.showHint();
-            }
-        }
-    }
-
     void showNextQuestion(){
         if(questionButtonsModel.showNextQuestion(Blackboard.getBlackboard().getCodeToUMLQuestions())){
             codeProblem.setText(Blackboard.getBlackboard().getCurrentQuestion().getText());
         }
     }
 
-
+    /**
+     * Checks student answer, gives messages and changes question if correct
+     */
+    @Override
     void submitPressed(){
         Parser parser = new Parser();
         String studentAttempt = parser.parseClasses(Blackboard.getBlackboard().getBoxList()); //.sort(Comparator.comparing(UMLComponent::getName)));
         if (questionButtonsModel.submitPressed(studentAttempt)){
+            Blackboard.getBlackboard().setBoxList(new ArrayList<>());
             Blackboard.getBlackboard().updateData();
             showNextQuestion();
         }

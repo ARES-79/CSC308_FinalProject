@@ -1,25 +1,27 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
- * Final Project
+ * CodeToMetricsPanel
  * @author Andrew Estrada, Mitashi Parikh, Jamie Luna
  * @version 1.0
- * Second attempt at a window that can open when a button is pressed
- *      supposed to much easier to digest
+ *
+ * Panel for questions related to calculating LOC metrics
  */
-public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
-
+public class TEMP_CodeToMetricsPanel extends QuestionPanel {
     private QuestionButtonsModel questionButtonsModel = new QuestionButtonsModel();
 
     private JTextArea codeProblem = new JTextArea(30,30);
     private JTextField locA, elocA, llocA;
 
+    /**
+     * Constructor
+     */
     public TEMP_CodeToMetricsPanel(){
         super();
+        super.setQuestions(Blackboard.getBlackboard().getCodeToUMLQuestions());
+        super.setCurrentQuestion(super.getQuestions().get(0));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setLayout(new BorderLayout());
 
@@ -41,7 +43,6 @@ public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
         add(leftCenter, BorderLayout.WEST);
 
         //center
-        // TODO: Connect this to the blackboard and a CustomTextArea
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BorderLayout());
 
@@ -102,6 +103,9 @@ public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
         submit.addActionListener(this);
     }
 
+    /**
+     * Brings the next question to the screen or says the current question is the last
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println(e.getActionCommand());

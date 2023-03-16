@@ -2,12 +2,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-public class UMLtoCodePanel extends JPanel implements ActionListener {
+public class UMLtoCodePanel extends QuestionPanel {
+
     //private CustomTextArea pairedText = new CustomTextArea(30,20);
     private JTextArea codeProblem = new CustomTextArea(30,30);
     QuestionButtonsModel questionButtonsModel = new QuestionButtonsModel();
 
+    /**
+     * Constructor
+     */
     public UMLtoCodePanel(){
         super();
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -70,6 +75,9 @@ public class UMLtoCodePanel extends JPanel implements ActionListener {
         Blackboard.getBlackboard().setCurrentQuestion(Blackboard.getBlackboard().getUMLtoCodeQuestions().get(0));
     }
 
+    /**
+     * Brings the next question to the screen or says the current question is the last
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println(e.getActionCommand());
@@ -93,6 +101,9 @@ public class UMLtoCodePanel extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Checks student answer, gives messages and changes question if correct
+     */
     void submitPressed(){
         String studentAttempt = codeProblem.getText();
         if(questionButtonsModel.submitPressed(studentAttempt))

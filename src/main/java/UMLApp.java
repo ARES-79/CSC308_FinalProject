@@ -6,6 +6,7 @@ import java.awt.*;
  * @author Andrew Estrada, Jamie Luna
  * @version 1.3
  * UMLApp Class - a UML application GUI framework
+ * DEPRECATED - old 308 application
  */
 public class UMLApp extends JFrame {
 
