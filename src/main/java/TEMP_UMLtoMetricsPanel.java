@@ -19,8 +19,6 @@ public class TEMP_UMLtoMetricsPanel extends QuestionPanel {
      */
     public TEMP_UMLtoMetricsPanel(){
         super();
-        super.setQuestions(Blackboard.getBlackboard().getUMLtoMetricsQuestions());
-        super.setCurrentQuestion(super.getQuestions().get(0));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setLayout(new BorderLayout());
 
@@ -95,24 +93,17 @@ public class TEMP_UMLtoMetricsPanel extends QuestionPanel {
 
         add(centerPanel, BorderLayout.CENTER);
 
-        Blackboard.getBlackboard().drawUMLtoCodeBoxes(super.getCurrentQuestion());
+        Blackboard.getBlackboard().setCurrentQuestion(Blackboard.getBlackboard().getUMLtoMetricsQuestions().get(0));
+        Blackboard.getBlackboard().drawUMLtoCodeBoxes(Blackboard.getBlackboard().getCurrentQuestion());
         Blackboard.getBlackboard().removeObserver(west);
     }
 
     /**
      * Brings the next question to the screen or says the current question is the last
      */
-    @Override
     void showNextQuestion(){
-        int current_index = super.getQuestions().indexOf(super.getCurrentQuestion());
-        if(current_index + 1 < super.getQuestions().size()){
-            super.setCurrentQuestion(super.getQuestions().get(current_index + 1));
-            Blackboard.getBlackboard().reset();
-            Blackboard.getBlackboard().drawUMLtoCodeBoxes(super.getCurrentQuestion());
-            super.setHintIdx(0);
-        } else {
-            JOptionPane.showMessageDialog(this, "This is the last question!",
-                    "", JOptionPane.WARNING_MESSAGE);
+        if(super.getQuestionButtonsModel().showNextQuestion(Blackboard.getBlackboard().getUMLtoMetricsQuestions())){
+            Blackboard.getBlackboard().drawUMLtoCodeBoxes(Blackboard.getBlackboard().getCurrentQuestion());
         }
     }
 
@@ -121,14 +112,16 @@ public class TEMP_UMLtoMetricsPanel extends QuestionPanel {
      */
     @Override
     void submitPressed(){
-        String[] answerPair = super.getCurrentQuestion().getAnswer().split(",");
+        String[] answerPair = Blackboard.getBlackboard().getCurrentQuestion().getAnswer().split(",");
+        System.out.print("listed answer: " );
+        System.out.println(answerPair);
         boolean allCorrect = true;
         String message = Blackboard.getBlackboard().getCurrentUser().getFirstName() + ",\n";
         if( numerator.getText().strip().equals(answerPair[0]) ){
             message += "Your numerator answer is correct. \n";
         }
         else{
-            message += "Your narrator answer is incorrect. \n";
+            message += "Your numerator answer is incorrect. \n";
             allCorrect = false;
         }
         if( denominator.getText().strip().equals(answerPair[1]) ){
@@ -144,7 +137,7 @@ public class TEMP_UMLtoMetricsPanel extends QuestionPanel {
             Student s = (Student) Blackboard.getBlackboard().getCurrentUser();
             s.updateProficiency();
             JOptionPane.showMessageDialog(this,
-                    Blackboard.getBlackboard().getCurrentUser().getFirstName() + ", your answer is correct \nYour updated Code to UML proficiency is:" +s.getCodeToUML(),
+                    Blackboard.getBlackboard().getCurrentUser().getFirstName() + ", your answer is correct \nYour updated UML to Metrics proficiency is:" +s.getUmlToMetrics(),
                     "Correct Answer",
                     JOptionPane.INFORMATION_MESSAGE);
             numerator.setText("");

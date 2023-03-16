@@ -1,6 +1,7 @@
-import org.apache.commons.lang3.StringUtils;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
@@ -13,14 +14,13 @@ import java.util.ArrayList;
 public class CodeToUMLPanel extends QuestionPanel {
 
     private JTextArea codeProblem = new JTextArea(30,20);
+    private DrawPanel east = new DrawPanel();
 
     /**
      * Constructor
      */
     public CodeToUMLPanel(){
         super();
-        super.setQuestions(Blackboard.getBlackboard().getCodeToUMLQuestions());
-        super.setCurrentQuestion(super.getQuestions().get(0));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setLayout(new BorderLayout());
 
@@ -32,7 +32,7 @@ public class CodeToUMLPanel extends QuestionPanel {
         leftCenter.add(instructionLabel, BorderLayout.NORTH);
 
 
-        codeProblem.setText(super.getCurrentQuestion().getText());
+        codeProblem.setText(Blackboard.getBlackboard().getCodeToUMLQuestions().get(0).getText());
         codeProblem.setEditable(false);
         JScrollPane scroll = new JScrollPane (codeProblem,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -42,12 +42,12 @@ public class CodeToUMLPanel extends QuestionPanel {
         add(leftCenter, BorderLayout.WEST);
 
         //center
+        // TODO: Connect this to the blackboard and a CustomTextArea
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BorderLayout());
 
         CustomTextArea pairedText = new CustomTextArea(30,20);
         MainController mC = new MainController(this, pairedText);
-        DrawPanel east = new DrawPanel();
         east.setBackground(Color.LIGHT_GRAY);
         Blackboard.getBlackboard().addObserver(east);
         centerPanel.add(east, BorderLayout.CENTER);
@@ -101,15 +101,8 @@ public class CodeToUMLPanel extends QuestionPanel {
      */
     @Override
     void showNextQuestion(){
-        int current_index = super.getQuestions().indexOf(super.getCurrentQuestion());
-        if(current_index + 1 < super.getQuestions().size()){
-            Blackboard.getBlackboard().reset();
-            super.setCurrentQuestion(super.getQuestions().get(current_index + 1));
-            codeProblem.setText(super.getCurrentQuestion().getText());
-            super.setHintIdx(0);
-        } else {
-            JOptionPane.showMessageDialog(this, "This is the last question!",
-                    "", JOptionPane.WARNING_MESSAGE);
+        if(super.getQuestionButtonsModel().showNextQuestion(Blackboard.getBlackboard().getCodeToUMLQuestions())){
+            codeProblem.setText(Blackboard.getBlackboard().getCurrentQuestion().getText());
         }
     }
 
@@ -120,59 +113,10 @@ public class CodeToUMLPanel extends QuestionPanel {
     void submitPressed(){
         Parser parser = new Parser();
         String studentAttempt = parser.parseClasses(Blackboard.getBlackboard().getBoxList()); //.sort(Comparator.comparing(UMLComponent::getName)));
-        if(super.getCurrentQuestion().checkAnswer(studentAttempt)){
+        if (super.getQuestionButtonsModel().submitPressed(studentAttempt)){
             Blackboard.getBlackboard().setBoxList(new ArrayList<>());
             Blackboard.getBlackboard().updateData();
-            Student s = (Student) Blackboard.getBlackboard().getCurrentUser();
-            s.updateProficiency();
-            JOptionPane.showMessageDialog(this,
-                    Blackboard.getBlackboard().getCurrentUser().getFirstName() + ", your answer is correct \nYour updated Code to UML proficiency is:" +s.getCodeToUML(),
-                    "Correct Answer",
-                    JOptionPane.INFORMATION_MESSAGE);
             showNextQuestion();
         }
-        else{
-            String message = Blackboard.getBlackboard().getCurrentUser().getFirstName() + ", your answer is incorrect.";
-            if (StringUtils.countMatches(super.getCurrentQuestion().getAnswer(), "class") < Blackboard.getBlackboard().getBoxList().size()){
-                message += "\nHint: You have made too many classes!";
-            }
-            else if (StringUtils.countMatches(super.getCurrentQuestion().getAnswer(), "class") > Blackboard.getBlackboard().getBoxList().size()){
-                message += "\nHint: You still need to make more classes";
-            }
-            else if (StringUtils.countMatches(super.getCurrentQuestion().getAnswer(), ";") > StringUtils.countMatches(studentAttempt, ";")) {
-                message += "\nHint: Check if you have added all the required variables";
-            }
-            else if (StringUtils.countMatches(super.getCurrentQuestion().getAnswer(), "()") > StringUtils.countMatches(studentAttempt, "()")){
-                message += "\nHint: Check if you have added all the required methods";
-            }
-            else if (!areClassNamesCorrect(super.getCurrentQuestion().getAnswer(), studentAttempt)){
-                message += "\nHint: Are you naming your classes correctly?";
-            }
-                JOptionPane.showMessageDialog(this,
-                    message,
-                    "Incorrect Answer",
-                    JOptionPane.ERROR_MESSAGE);
-        }
     }
-
-    boolean areClassNamesCorrect(String correctAns, String studentAns){
-        correctAns = correctAns.trim().replace("\n", " ").replace("\t", "");
-        studentAns = studentAns.trim().replace("\n", " ");
-        String[] correctAnswer = correctAns.split(" ");
-        String[] studentAnswer = studentAns.split(" ");
-        ArrayList<String> correctClasses = new ArrayList<>();
-        ArrayList<String> studentClasses = new ArrayList<>();
-        for (int i = 0; i < correctAnswer.length-1; i++){
-            if(correctAnswer[i].equals("class")){
-                correctClasses.add(correctAnswer[i+1]);
-            }
-        }
-        for (int i = 0; i < studentAnswer.length-1; i++){
-            if(studentAnswer[i].equals("class")){
-                studentClasses.add(studentAnswer[i+1]);
-            }
-        }
-        return correctClasses.equals(studentClasses);
-    }
-
 }

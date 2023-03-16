@@ -19,8 +19,6 @@ public class TEMP_CodeToMetricsPanel extends QuestionPanel {
      */
     public TEMP_CodeToMetricsPanel(){
         super();
-        super.setQuestions(Blackboard.getBlackboard().getCodeToUMLQuestions());
-        super.setCurrentQuestion(super.getQuestions().get(0));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setLayout(new BorderLayout());
 
@@ -31,8 +29,8 @@ public class TEMP_CodeToMetricsPanel extends QuestionPanel {
         JLabel instructionLabel = new JLabel("Determine metrics for the code below:");
         leftCenter.add(instructionLabel, BorderLayout.NORTH);
 
-
-        codeProblem.setText(super.getCurrentQuestion().getText());
+        Blackboard.getBlackboard().setCurrentQuestion(Blackboard.getBlackboard().getCodeToUMLQuestions().get(0));
+        codeProblem.setText(Blackboard.getBlackboard().getCurrentQuestion().getText());
         codeProblem.setEditable(false);
         JScrollPane scroll = new JScrollPane (codeProblem,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -105,30 +103,22 @@ public class TEMP_CodeToMetricsPanel extends QuestionPanel {
     /**
      * Brings the next question to the screen or says the current question is the last
      */
-    @Override
     void showNextQuestion(){
-        int current_index = super.getQuestions().indexOf(super.getCurrentQuestion());
-        if(current_index + 1 < super.getQuestions().size()){
-            super.setCurrentQuestion(super.getQuestions().get(current_index + 1));
-            codeProblem.setText(super.getCurrentQuestion().getText());
-            super.setHintIdx(0);
-        } else {
-            JOptionPane.showMessageDialog(this, "This is the last question!",
-                    "", JOptionPane.WARNING_MESSAGE);
+        if(super.getQuestionButtonsModel().showNextQuestion(Blackboard.getBlackboard().getCodeToUMLQuestions())){
+            codeProblem.setText(Blackboard.getBlackboard().getCurrentQuestion().getText());
         }
     }
 
     /**
      * Checks student answer, gives messages and changes question if correct
      */
-    @Override
     void submitPressed(){
         CodeMetricCalculator calculator = new CodeMetricCalculator();
         String locAnswer = locA.getText().trim();
         String elocAnswer = elocA.getText().trim();
         String llocAnswer = llocA.getText().trim();
         boolean allCorrect = true;
-        String code = super.getCurrentQuestion().getText();
+        String code = Blackboard.getBlackboard().getCurrentQuestion().getText();
         String message = Blackboard.getBlackboard().getCurrentUser().getFirstName() + ",\n";
 
         if( locAnswer.equals( String.valueOf(calculator.totalLOC(code)) )){
