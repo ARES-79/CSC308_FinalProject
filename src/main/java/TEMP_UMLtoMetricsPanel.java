@@ -93,7 +93,8 @@ public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
 
         add(centerPanel, BorderLayout.CENTER);
 
-        Blackboard.getBlackboard().drawUMLtoCodeBoxes(Blackboard.getBlackboard().getUMLtoMetricsQuestions().get(0));
+        Blackboard.getBlackboard().setCurrentQuestion(Blackboard.getBlackboard().getUMLtoMetricsQuestions().get(0));
+        Blackboard.getBlackboard().drawUMLtoCodeBoxes(Blackboard.getBlackboard().getCurrentQuestion());
         Blackboard.getBlackboard().removeObserver(west);
     }
 
@@ -115,7 +116,7 @@ public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
     }
 
     void showNextQuestion(){
-        if(questionButtonsModel.showNextQuestion(Blackboard.getBlackboard().getUMLtoCodeQuestions())){
+        if(questionButtonsModel.showNextQuestion(Blackboard.getBlackboard().getUMLtoMetricsQuestions())){
             Blackboard.getBlackboard().drawUMLtoCodeBoxes(Blackboard.getBlackboard().getCurrentQuestion());
         }
     }
@@ -131,7 +132,7 @@ public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
             message += "Your numerator answer is correct. \n";
         }
         else{
-            message += "Your narrator answer is incorrect. \n";
+            message += "Your numerator answer is incorrect. \n";
             allCorrect = false;
         }
         if( denominator.getText().strip().equals(answerPair[1]) ){
@@ -147,7 +148,7 @@ public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
             Student s = (Student) Blackboard.getBlackboard().getCurrentUser();
             s.updateProficiency();
             JOptionPane.showMessageDialog(this,
-                    Blackboard.getBlackboard().getCurrentUser().getFirstName() + ", your answer is correct \nYour updated Code to UML proficiency is:" +s.getCodeToUML(),
+                    Blackboard.getBlackboard().getCurrentUser().getFirstName() + ", your answer is correct \nYour updated UML to Metrics proficiency is:" +s.getUmlToMetrics(),
                     "Correct Answer",
                     JOptionPane.INFORMATION_MESSAGE);
             numerator.setText("");

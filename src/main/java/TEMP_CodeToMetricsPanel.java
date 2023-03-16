@@ -30,8 +30,8 @@ public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
         JLabel instructionLabel = new JLabel("Determine metrics for the code below:");
         leftCenter.add(instructionLabel, BorderLayout.NORTH);
 
-
-        codeProblem.setText(Blackboard.getBlackboard().getCodeToUMLQuestions().get(0).getText());
+        Blackboard.getBlackboard().setCurrentQuestion(Blackboard.getBlackboard().getCodeToUMLQuestions().get(0));
+        codeProblem.setText(Blackboard.getBlackboard().getCurrentQuestion().getText());
         codeProblem.setEditable(false);
         JScrollPane scroll = new JScrollPane (codeProblem,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -131,7 +131,7 @@ public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
         String elocAnswer = elocA.getText().trim();
         String llocAnswer = llocA.getText().trim();
         boolean allCorrect = true;
-        String code = Blackboard.getBlackboard().getCodeToUMLQuestions().get(questionButtonsModel.getQuestionIdx()).getText();
+        String code = Blackboard.getBlackboard().getCurrentQuestion().getText();
         String message = Blackboard.getBlackboard().getCurrentUser().getFirstName() + ",\n";
 
         if( locAnswer.equals( String.valueOf(calculator.totalLOC(code)) )){
