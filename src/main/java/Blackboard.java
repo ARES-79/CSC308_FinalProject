@@ -203,11 +203,11 @@ public class Blackboard extends MyObservable {
                         """;
 
         //TODO: Load Question from DB
-        //will come from Blackboard eventually:
-        Hint hint1 = new Hint("hint1");
-        Hint hint2 = new Hint("hint2");
-        Hint hint3 = new Hint("hint3");
-        ArrayList<Hint> hints_list = new ArrayList<Hint>(Arrays.asList(hint1, hint2, hint3));
+        Hint hint1 = new Hint("Arrows with a solid black triangle head represent Association");
+        Hint hint2 = new Hint("Arrows with a outline triangle head represent Inheritance");
+        Hint hint3 = new Hint("Arrows with a solid black diamond head represent Composition");
+        Hint hint4 = new Hint("Method names end with a ()");
+        ArrayList<Hint> hints_list = new ArrayList<Hint>(Arrays.asList(hint1, hint2, hint3, hint4));
         Question question1 = new Question(100, TEMPTEXT1, TEMPTEXT1, hints_list, 1);
         Question question2 = new Question(101, TEMPTEXT2, TEMPTEXT2, hints_list, 2);
         Question question3 = new Question(102, TEMPTEXT3, TEMPTEXT3, hints_list, 3);
@@ -243,10 +243,11 @@ public class Blackboard extends MyObservable {
         boxes2.add(box3);
         boxes2.add(box4);
 
-        Hint hint1 = new Hint("hint1");
-        Hint hint2 = new Hint("hint2");
-        Hint hint3 = new Hint("hint3");
-        ArrayList<Hint> hints_list = new ArrayList<Hint>(Arrays.asList(hint1, hint2, hint3));
+        Hint hint1 = new Hint("Arrows with a solid black triangle head represent Association");
+        Hint hint2 = new Hint("Arrows with a outline triangle head represent Inheritance");
+        Hint hint3 = new Hint("Arrows with a solid black diamond head represent Composition");
+        Hint hint4 = new Hint("Method names end with opening and closing parenthesis and are then followed by opening and closing brackets");
+        ArrayList<Hint> hints_list = new ArrayList<Hint>(Arrays.asList(hint1, hint2, hint3, hint4));
         String q1_answer = """
 
 
