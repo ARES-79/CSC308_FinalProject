@@ -10,6 +10,9 @@ import java.awt.*;
  */
 public class PracticePanel  extends JPanel{
 
+    /**
+     * Constructor
+     */
     public PracticePanel(){
         super();
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));

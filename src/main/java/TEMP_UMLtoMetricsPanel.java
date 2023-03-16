@@ -4,32 +4,33 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class UMLtoCodePanel extends JPanel implements ActionListener {
+public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
     private final ArrayList<Question> questions = Blackboard.getBlackboard().getUMLtoCodeQuestions();
     private Question currentQuestion = questions.get(0);
     private int hintIdx = 0;
 
 
-    private DrawPanel east = new DrawPanel();
+    private DrawPanel west = new DrawPanel();
 
-    public UMLtoCodePanel(){
+    public TEMP_UMLtoMetricsPanel(){
         super();
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setLayout(new BorderLayout());
 
 
-        east.removeMouseListener(east.getMouseListeners()[0]);
-        east.removeMouseMotionListener(east.getMouseMotionListeners()[0]);
-        Blackboard.getBlackboard().addObserver(east);
+        west.removeMouseListener(west.getMouseListeners()[0]);
+        west.removeMouseMotionListener(west.getMouseMotionListeners()[0]);
+        Blackboard.getBlackboard().addObserver(west);
 
-        //west
+        //eas
         JPanel leftCenter = new JPanel ();
         leftCenter.setLayout(new BorderLayout());
 
         JLabel instructionLabel = new JLabel("Translate the UML below into code:");
-//        leftCenter.add(instructionLabel, BorderLayout.NORTH);
+        leftCenter.add(instructionLabel, BorderLayout.NORTH);
 
-        JTextArea codeProblem = new JTextArea(30,30);
+        JTextArea codeProblem = new JTextArea(30,20);
+        //codeProblem.setText(questions.get(0).getText());
         codeProblem.setEditable(true);
         JScrollPane scroll = new JScrollPane (codeProblem,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -39,17 +40,21 @@ public class UMLtoCodePanel extends JPanel implements ActionListener {
         add(leftCenter, BorderLayout.EAST);
 
         //center
+        // TODO: Connect this to the blackboard and a CustomTextArea
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BorderLayout());
 
         CustomTextArea pairedText = new CustomTextArea(30,20);
         MainController mC = new MainController(this, pairedText);
-        east.setBackground(Color.LIGHT_GRAY);
-        Blackboard.getBlackboard().addObserver(east);
-        centerPanel.add(east, BorderLayout.CENTER);
+        west.setBackground(Color.LIGHT_GRAY);
+        Blackboard.getBlackboard().addObserver(west);
+        centerPanel.add(west, BorderLayout.CENTER);
 
         JToolBar selectionToolBar = new JToolBar();
 
+        JButton newButton = new JButton("Reset");
+        newButton.setActionCommand("New");
+        newButton.setContentAreaFilled(false);
         JButton submit = new JButton("Submit");
         submit.setContentAreaFilled(false);
         JButton nextQuestion = new JButton("Next");
@@ -61,16 +66,17 @@ public class UMLtoCodePanel extends JPanel implements ActionListener {
         submit.addActionListener(this);
 
         selectionToolBar.add(Box.createHorizontalGlue());
+        selectionToolBar.add(newButton);
         selectionToolBar.add(submit);
         selectionToolBar.add(nextQuestion);
         selectionToolBar.add(requestHint);
 
-        centerPanel.add(instructionLabel, BorderLayout.NORTH);
-        leftCenter.add(selectionToolBar, BorderLayout.NORTH);
+        centerPanel.add(selectionToolBar, BorderLayout.NORTH);
 
         add(centerPanel, BorderLayout.CENTER);
 
         Blackboard.getBlackboard().drawUMLtoCodeBoxes(questions.get(0));
+        Blackboard.getBlackboard().removeObserver(west);
     }
 
     @Override
