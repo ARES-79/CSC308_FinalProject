@@ -4,11 +4,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * Final Project
+ * @author Jamie Luna, Andrew Estrada, Mitashi Parikh
+ * @version 1.0
+ *
+ * Panel for questions related to translating UML to Code
+ */
 public class UMLtoCodePanel extends QuestionPanel {
 
     //private CustomTextArea pairedText = new CustomTextArea(30,20);
     private JTextArea codeProblem = new CustomTextArea(30,30);
-    QuestionButtonsModel questionButtonsModel = new QuestionButtonsModel();
 
     /**
      * Constructor
@@ -78,25 +84,8 @@ public class UMLtoCodePanel extends QuestionPanel {
     /**
      * Brings the next question to the screen or says the current question is the last
      */
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand());
-        switch (e.getActionCommand()) {
-            case ("Submit") -> {
-                submitPressed();
-            }
-            case ("Next") -> {
-                showNextQuestion();
-            }
-            case ("?") -> {
-                questionButtonsModel.showHint();
-            }
-        }
-
-    }
-
     void showNextQuestion(){
-        if(questionButtonsModel.showNextQuestion(Blackboard.getBlackboard().getUMLtoCodeQuestions())){
+        if(super.getQuestionButtonsModel().showNextQuestion(Blackboard.getBlackboard().getUMLtoCodeQuestions())){
             Blackboard.getBlackboard().drawUMLtoCodeBoxes(Blackboard.getBlackboard().getCurrentQuestion());
         }
     }
@@ -106,7 +95,7 @@ public class UMLtoCodePanel extends QuestionPanel {
      */
     void submitPressed(){
         String studentAttempt = codeProblem.getText();
-        if(questionButtonsModel.submitPressed(studentAttempt))
+        if(super.getQuestionButtonsModel().submitPressed(studentAttempt))
             showNextQuestion();
     }
 

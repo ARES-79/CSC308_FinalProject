@@ -2,25 +2,25 @@ import org.apache.commons.lang3.StringUtils;
 import javax.swing.*;
 import java.util.ArrayList;
 
+/**
+ * QuestionsButtonsModel
+ * @author Andrew Estrada, Mitashi Parikh, Jamie Luna
+ * @version 1.0
+ *
+ * Model class for the 'Next' and 'Submit' button functionalities
+ */
 public class QuestionButtonsModel {
 
-    private int hintIdx = 0;
     private int questionIdx = 0;
 
     public int getQuestionIdx() {
         return questionIdx;
     }
 
-    void showHint(){
-        if(hintIdx < Blackboard.getBlackboard().getCurrentQuestion().getHints().size()){
-            JOptionPane.showMessageDialog(null, Blackboard.getBlackboard().getCurrentQuestion().getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
-            hintIdx++;
-        } else{
-            hintIdx = 0;
-            JOptionPane.showMessageDialog(null, Blackboard.getBlackboard().getCurrentQuestion().getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
 
+    /**
+     * Brings the next question to the screen or says the current question is the last
+     */
     boolean showNextQuestion(ArrayList<Question> questions){
         if(questionIdx + 1 < questions.size()){
             questionIdx += 1;
@@ -34,6 +34,9 @@ public class QuestionButtonsModel {
         }
     }
 
+    /**
+     * Checks student answer, gives messages and changes question if correct
+     */
     boolean submitPressed(String studentAttempt) {
         if (Blackboard.getBlackboard().getCurrentQuestion().checkAnswer(studentAttempt)) {
             Student s = (Student) Blackboard.getBlackboard().getCurrentUser();
@@ -65,6 +68,9 @@ public class QuestionButtonsModel {
         }
     }
 
+    /**
+     * Checks if the names of the classes in the students answer match the actual answer
+     */
     private boolean areClassNamesCorrect(String correctAns, String studentAns){
         correctAns = correctAns.trim().replace("\n", " ").replace("\t", "");
         studentAns = studentAns.trim().replace("\n", " ");

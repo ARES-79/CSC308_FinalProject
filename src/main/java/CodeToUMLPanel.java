@@ -15,15 +15,12 @@ public class CodeToUMLPanel extends QuestionPanel {
 
     private JTextArea codeProblem = new JTextArea(30,20);
     private DrawPanel east = new DrawPanel();
-    QuestionButtonsModel questionButtonsModel = new QuestionButtonsModel();
 
     /**
      * Constructor
      */
     public CodeToUMLPanel(){
         super();
-        super.setQuestions(Blackboard.getBlackboard().getCodeToUMLQuestions());
-        super.setCurrentQuestion(super.getQuestions().get(0));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setLayout(new BorderLayout());
 
@@ -104,7 +101,7 @@ public class CodeToUMLPanel extends QuestionPanel {
      */
     @Override
     void showNextQuestion(){
-        if(questionButtonsModel.showNextQuestion(Blackboard.getBlackboard().getCodeToUMLQuestions())){
+        if(super.getQuestionButtonsModel().showNextQuestion(Blackboard.getBlackboard().getCodeToUMLQuestions())){
             codeProblem.setText(Blackboard.getBlackboard().getCurrentQuestion().getText());
         }
     }
@@ -116,7 +113,7 @@ public class CodeToUMLPanel extends QuestionPanel {
     void submitPressed(){
         Parser parser = new Parser();
         String studentAttempt = parser.parseClasses(Blackboard.getBlackboard().getBoxList()); //.sort(Comparator.comparing(UMLComponent::getName)));
-        if (questionButtonsModel.submitPressed(studentAttempt)){
+        if (super.getQuestionButtonsModel().submitPressed(studentAttempt)){
             Blackboard.getBlackboard().setBoxList(new ArrayList<>());
             Blackboard.getBlackboard().updateData();
             showNextQuestion();

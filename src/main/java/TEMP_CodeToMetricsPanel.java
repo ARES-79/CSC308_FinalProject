@@ -10,7 +10,6 @@ import java.util.ArrayList;
  * Panel for questions related to calculating LOC metrics
  */
 public class TEMP_CodeToMetricsPanel extends QuestionPanel {
-    private QuestionButtonsModel questionButtonsModel = new QuestionButtonsModel();
 
     private JTextArea codeProblem = new JTextArea(30,30);
     private JTextField locA, elocA, llocA;
@@ -20,8 +19,6 @@ public class TEMP_CodeToMetricsPanel extends QuestionPanel {
      */
     public TEMP_CodeToMetricsPanel(){
         super();
-        super.setQuestions(Blackboard.getBlackboard().getCodeToUMLQuestions());
-        super.setCurrentQuestion(super.getQuestions().get(0));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setLayout(new BorderLayout());
 
@@ -106,29 +103,15 @@ public class TEMP_CodeToMetricsPanel extends QuestionPanel {
     /**
      * Brings the next question to the screen or says the current question is the last
      */
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand());
-        int hintCount = 0;
-        switch (e.getActionCommand()) {
-            case ("Submit") -> {
-                submitPressed();
-            }
-            case ("Next") -> {
-                showNextQuestion();
-            }
-            case ("?") -> {
-                questionButtonsModel.showHint();
-            }
-        }
-    }
-
     void showNextQuestion(){
-        if(questionButtonsModel.showNextQuestion(Blackboard.getBlackboard().getCodeToUMLQuestions())){
+        if(super.getQuestionButtonsModel().showNextQuestion(Blackboard.getBlackboard().getCodeToUMLQuestions())){
             codeProblem.setText(Blackboard.getBlackboard().getCurrentQuestion().getText());
         }
     }
 
+    /**
+     * Checks student answer, gives messages and changes question if correct
+     */
     void submitPressed(){
         CodeMetricCalculator calculator = new CodeMetricCalculator();
         String locAnswer = locA.getText().trim();

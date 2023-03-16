@@ -13,7 +13,6 @@ public class TEMP_UMLtoMetricsPanel extends QuestionPanel {
 
     private DrawPanel west = new DrawPanel();
     private JTextField numerator, denominator;
-    private QuestionButtonsModel questionButtonsModel = new QuestionButtonsModel();
 
     /**
      * Constructor
@@ -102,25 +101,8 @@ public class TEMP_UMLtoMetricsPanel extends QuestionPanel {
     /**
      * Brings the next question to the screen or says the current question is the last
      */
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand());
-        switch (e.getActionCommand()) {
-            case ("Submit") -> {
-                submitPressed();
-            }
-            case ("Next") -> {
-                showNextQuestion();
-            }
-            case ("?") -> {
-                questionButtonsModel.showHint();
-            }
-        }
-
-    }
-
     void showNextQuestion(){
-        if(questionButtonsModel.showNextQuestion(Blackboard.getBlackboard().getUMLtoMetricsQuestions())){
+        if(super.getQuestionButtonsModel().showNextQuestion(Blackboard.getBlackboard().getUMLtoMetricsQuestions())){
             Blackboard.getBlackboard().drawUMLtoCodeBoxes(Blackboard.getBlackboard().getCurrentQuestion());
         }
     }
