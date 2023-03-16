@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Second attempt at a window that can open when a button is pressed
  *      supposed to much easier to digest
  */
-public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
+public class CodeToUMLPanel extends JPanel implements ActionListener {
 
     private final ArrayList<Question> questions = Blackboard.getBlackboard().getCodeToUMLQuestions();
     private Question currentQuestion = questions.get(0);
@@ -21,7 +21,7 @@ public class TEMP_CodeToUMLPanel extends JPanel implements ActionListener {
     private JTextArea codeProblem = new JTextArea(30,20);
     private DrawPanel east = new DrawPanel();
 
-    public TEMP_CodeToUMLPanel(){
+    public CodeToUMLPanel(){
         super();
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setLayout(new BorderLayout());

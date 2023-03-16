@@ -1,3 +1,5 @@
+import org.apache.commons.lang3.StringUtils;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,15 +11,15 @@ public class UMLtoCodePanel extends JPanel implements ActionListener {
     private Question currentQuestion = questions.get(0);
     private int hintIdx = 0;
 
-
-    private DrawPanel east = new DrawPanel();
+    //private CustomTextArea pairedText = new CustomTextArea(30,20);
+    private JTextArea codeProblem = new CustomTextArea(30,30);
 
     public UMLtoCodePanel(){
         super();
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setLayout(new BorderLayout());
 
-
+        DrawPanel east = new DrawPanel();
         east.removeMouseListener(east.getMouseListeners()[0]);
         east.removeMouseMotionListener(east.getMouseMotionListeners()[0]);
         Blackboard.getBlackboard().addObserver(east);
@@ -29,7 +31,7 @@ public class UMLtoCodePanel extends JPanel implements ActionListener {
         JLabel instructionLabel = new JLabel("Translate the UML below into code:");
 //        leftCenter.add(instructionLabel, BorderLayout.NORTH);
 
-        JTextArea codeProblem = new JTextArea(30,30);
+
         codeProblem.setEditable(true);
         JScrollPane scroll = new JScrollPane (codeProblem,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -42,8 +44,8 @@ public class UMLtoCodePanel extends JPanel implements ActionListener {
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BorderLayout());
 
-        CustomTextArea pairedText = new CustomTextArea(30,20);
-        MainController mC = new MainController(this, pairedText);
+//        CustomTextArea pairedText = new CustomTextArea(30,20);
+        //MainController mC = new MainController(this, pairedText);
         east.setBackground(Color.LIGHT_GRAY);
         Blackboard.getBlackboard().addObserver(east);
         centerPanel.add(east, BorderLayout.CENTER);
@@ -77,6 +79,9 @@ public class UMLtoCodePanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         System.out.println(e.getActionCommand());
         switch (e.getActionCommand()) {
+            case ("Submit") -> {
+                submitPressed();
+            }
             case ("Next") -> {
                 showNextQuestion();
             }
@@ -106,5 +111,60 @@ public class UMLtoCodePanel extends JPanel implements ActionListener {
             hintIdx = 0;
             JOptionPane.showMessageDialog(this, currentQuestion.getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+
+    void submitPressed(){
+        System.out.println(codeProblem.getText());
+        System.out.println(currentQuestion.getAnswer());
+        String studentAttempt = codeProblem.getText();
+        if (currentQuestion.checkAnswer(codeProblem.getText())){
+            Student s = (Student) Blackboard.getBlackboard().getCurrentUser();
+            s.updateProficiency();
+            JOptionPane.showMessageDialog(this,
+                    Blackboard.getBlackboard().getCurrentUser().getFirstName() + ", your answer is correct \nYour updated Code to UML proficiency is:" +s.getCodeToUML(),
+                    "Correct Answer",
+                    JOptionPane.INFORMATION_MESSAGE);
+            showNextQuestion();
+            Blackboard.getBlackboard().reset();
+        } else {
+
+                String message = Blackboard.getBlackboard().getCurrentUser().getFirstName() + ", your answer is incorrect.";
+                if (StringUtils.countMatches(currentQuestion.getAnswer(), "class") < StringUtils.countMatches(studentAttempt, "class")) {
+                    message += "\nHint: You have made too many classes!";
+                } else if (StringUtils.countMatches(currentQuestion.getAnswer(), "class") > StringUtils.countMatches(studentAttempt, "class")) {
+                    message += "\nHint: You still need to make more classes";
+                } else if (StringUtils.countMatches(currentQuestion.getAnswer(), ";") > StringUtils.countMatches(studentAttempt, ";")) {
+                    message += "\nHint: Check if you have added all the required variables";
+                } else if (StringUtils.countMatches(currentQuestion.getAnswer(), "()") > StringUtils.countMatches(studentAttempt, "()")) {
+                    message += "\nHint: Check if you have added all the required methods";
+                } else if (!areClassNamesCorrect(currentQuestion.getAnswer(), studentAttempt)) {
+                    message += "\nHint: Are you naming your classes correctly?";
+                }
+                JOptionPane.showMessageDialog(this,
+                        message,
+                        "Incorrect Answer",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+    }
+
+
+    boolean areClassNamesCorrect(String correctAns, String studentAns){
+        correctAns = correctAns.trim().replace("\n", " ").replace("\t", "");
+        studentAns = studentAns.trim().replace("\n", " ");
+        String[] correctAnswer = correctAns.split(" ");
+        String[] studentAnswer = studentAns.split(" ");
+        System.out.println(correctAns);
+        System.out.println(studentAns);
+        for (int i = 0; i < correctAnswer.length-1; i++){
+            System.out.println(correctAnswer[i]);
+            System.out.println(studentAnswer[i]);
+            if(correctAnswer[i].equals("class") && studentAnswer[i].equals("class")){
+                if(!correctAnswer[i+1].equals(studentAnswer[i+1])){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
