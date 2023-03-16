@@ -1,18 +1,12 @@
-import org.apache.commons.lang3.StringUtils;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class UMLtoCodePanel extends JPanel implements ActionListener {
-    private final ArrayList<Question> questions = Blackboard.getBlackboard().getUMLtoCodeQuestions();
-    private Question currentQuestion = questions.get(0);
-    private int hintIdx = 0;
-
     //private CustomTextArea pairedText = new CustomTextArea(30,20);
     private JTextArea codeProblem = new CustomTextArea(30,30);
+    QuestionButtonsModel questionButtonsModel = new QuestionButtonsModel();
 
     public UMLtoCodePanel(){
         super();
@@ -72,7 +66,8 @@ public class UMLtoCodePanel extends JPanel implements ActionListener {
 
         add(centerPanel, BorderLayout.CENTER);
 
-        Blackboard.getBlackboard().drawUMLtoCodeBoxes(questions.get(0));
+        Blackboard.getBlackboard().drawUMLtoCodeBoxes(Blackboard.getBlackboard().getUMLtoCodeQuestions().get(0));
+        Blackboard.getBlackboard().setCurrentQuestion(Blackboard.getBlackboard().getUMLtoCodeQuestions().get(0));
     }
 
     @Override
@@ -86,83 +81,22 @@ public class UMLtoCodePanel extends JPanel implements ActionListener {
                 showNextQuestion();
             }
             case ("?") -> {
-                showHint();
+                questionButtonsModel.showHint();
             }
         }
 
     }
 
     void showNextQuestion(){
-        if(questions.indexOf(currentQuestion) + 1 < questions.size()){
-            currentQuestion = questions.get(questions.indexOf(currentQuestion) + 1);
-            Blackboard.getBlackboard().reset();
-            Blackboard.getBlackboard().drawUMLtoCodeBoxes(currentQuestion);
-        } else {
-            JOptionPane.showMessageDialog(this, "This is the last question!",
-                    "", JOptionPane.WARNING_MESSAGE);
-        }
-    }
-
-    void showHint(){
-        if(hintIdx < currentQuestion.getHints().size()){
-            JOptionPane.showMessageDialog(this, currentQuestion.getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
-            hintIdx++;
-        } else{
-            hintIdx = 0;
-            JOptionPane.showMessageDialog(this, currentQuestion.getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
+        if(questionButtonsModel.showNextQuestion(Blackboard.getBlackboard().getUMLtoCodeQuestions())){
+            Blackboard.getBlackboard().drawUMLtoCodeBoxes(Blackboard.getBlackboard().getCurrentQuestion());
         }
     }
 
     void submitPressed(){
         String studentAttempt = codeProblem.getText();
-        if (currentQuestion.checkAnswer(codeProblem.getText())){
-            Student s = (Student) Blackboard.getBlackboard().getCurrentUser();
-            s.updateProficiency();
-            JOptionPane.showMessageDialog(this,
-                    Blackboard.getBlackboard().getCurrentUser().getFirstName() + ", your answer is correct \nYour updated UML to Code proficiency is:" +s.getUmlToCode(),
-                    "Correct Answer",
-                    JOptionPane.INFORMATION_MESSAGE);
+        if(questionButtonsModel.submitPressed(studentAttempt))
             showNextQuestion();
-            Blackboard.getBlackboard().reset();
-        } else {
-
-                String message = Blackboard.getBlackboard().getCurrentUser().getFirstName() + ", your answer is incorrect.";
-                if (StringUtils.countMatches(currentQuestion.getAnswer(), "class") < StringUtils.countMatches(studentAttempt, "class")) {
-                    message += "\nHint: You have made too many classes!";
-                } else if (StringUtils.countMatches(currentQuestion.getAnswer(), "class") > StringUtils.countMatches(studentAttempt, "class")) {
-                    message += "\nHint: You still need to make more classes";
-                } else if (StringUtils.countMatches(currentQuestion.getAnswer(), ";") > StringUtils.countMatches(studentAttempt, ";")) {
-                    message += "\nHint: Check if you have added all the required variables";
-                } else if (StringUtils.countMatches(currentQuestion.getAnswer(), "()") > StringUtils.countMatches(studentAttempt, "()")) {
-                    message += "\nHint: Check if you have added all the required methods";
-                } else if (!areClassNamesCorrect(currentQuestion.getAnswer(), studentAttempt)) {
-                    message += "\nHint: Are you naming your classes correctly?";
-                }
-                JOptionPane.showMessageDialog(this,
-                        message,
-                        "Incorrect Answer",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-
     }
 
-    boolean areClassNamesCorrect(String correctAns, String studentAns){
-        correctAns = correctAns.trim().replace("\n", " ").replace("\t", "");
-        studentAns = studentAns.trim().replace("\n", " ");
-        String[] correctAnswer = correctAns.split(" ");
-        String[] studentAnswer = studentAns.split(" ");
-        ArrayList<String> correctClasses = new ArrayList<>();
-        ArrayList<String> studentClasses = new ArrayList<>();
-        for (int i = 0; i < correctAnswer.length-1; i++){
-            if(correctAnswer[i].equals("class")){
-                correctClasses.add(correctAnswer[i+1]);
-            }
-        }
-        for (int i = 0; i < studentAnswer.length-1; i++){
-            if(studentAnswer[i].equals("class")){
-                studentClasses.add(studentAnswer[i+1]);
-            }
-        }
-        return correctClasses.equals(studentClasses);
-    }
 }

@@ -3,7 +3,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.*;
 import java.util.*;
 import java.util.List;
@@ -28,6 +27,7 @@ public class Blackboard extends MyObservable {
     private List<User> students = new ArrayList<>();
     private User currentUser;
     private SubjectType currentSubject;
+    private Question currentQuestion;
 
     private ArrayList<Question> codeToUMLQuestions = getCodeToUMLQuestions();
     private ArrayList<Question> UMLtoCodeQuestions = getUMLtoCodeQuestions();
