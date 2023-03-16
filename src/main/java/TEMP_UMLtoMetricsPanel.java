@@ -9,9 +9,12 @@ public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
     private Question currentQuestion = questions.get(0);
     private int hintIdx = 0;
 
-
     private DrawPanel west = new DrawPanel();
+    private JTextField numerator, denominator;
 
+    /**
+     * Constructor
+     */
     public TEMP_UMLtoMetricsPanel(){
         super();
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -22,39 +25,12 @@ public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
         west.removeMouseMotionListener(west.getMouseMotionListeners()[0]);
         Blackboard.getBlackboard().addObserver(west);
 
-        //eas
-        JPanel leftCenter = new JPanel ();
-        leftCenter.setLayout(new BorderLayout());
-
-        JLabel instructionLabel = new JLabel("Translate the UML below into code:");
-        leftCenter.add(instructionLabel, BorderLayout.NORTH);
-
-        JTextArea codeProblem = new JTextArea(30,20);
-        //codeProblem.setText(questions.get(0).getText());
-        codeProblem.setEditable(true);
-        JScrollPane scroll = new JScrollPane (codeProblem,
-                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        leftCenter.add(scroll, BorderLayout.CENTER);
-        leftCenter.setVisible (true);
-
-        add(leftCenter, BorderLayout.EAST);
-
-        //center
-        // TODO: Connect this to the blackboard and a CustomTextArea
-        JPanel centerPanel = new JPanel();
-        centerPanel.setLayout(new BorderLayout());
-
-        CustomTextArea pairedText = new CustomTextArea(30,20);
-        MainController mC = new MainController(this, pairedText);
-        west.setBackground(Color.LIGHT_GRAY);
-        Blackboard.getBlackboard().addObserver(west);
-        centerPanel.add(west, BorderLayout.CENTER);
+        //east
+        JPanel rightCenter = new JPanel ();
+        rightCenter.setLayout(new BorderLayout());
 
         JToolBar selectionToolBar = new JToolBar();
 
-        JButton newButton = new JButton("Reset");
-        newButton.setActionCommand("New");
-        newButton.setContentAreaFilled(false);
         JButton submit = new JButton("Submit");
         submit.setContentAreaFilled(false);
         JButton nextQuestion = new JButton("Next");
@@ -66,12 +42,54 @@ public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
         submit.addActionListener(this);
 
         selectionToolBar.add(Box.createHorizontalGlue());
-        selectionToolBar.add(newButton);
         selectionToolBar.add(submit);
         selectionToolBar.add(nextQuestion);
         selectionToolBar.add(requestHint);
 
-        centerPanel.add(selectionToolBar, BorderLayout.NORTH);
+        rightCenter.add(selectionToolBar, BorderLayout.NORTH);
+
+        JPanel studentWorkPanel = new JPanel();
+        studentWorkPanel.setLayout(new GridLayout(4,1));
+        studentWorkPanel.add(new JLabel(""));
+
+        JPanel instructionPanel = new JPanel();
+        instructionPanel.setLayout(new GridLayout(2,1));
+        instructionPanel.add(new JLabel("Calculate the Instability for class A.", SwingConstants.CENTER));
+        instructionPanel.add(new JLabel("Give the numerator and denominator.", SwingConstants.CENTER));
+
+        studentWorkPanel.add(instructionPanel);
+
+        JPanel promptAnswerPanel = new JPanel();
+        promptAnswerPanel.setLayout(new GridLayout(1,4));
+        promptAnswerPanel.add(new JLabel(""));
+        promptAnswerPanel.add(new JLabel("Instability = "));
+
+        JPanel answerPanel = new JPanel();
+        answerPanel.setLayout(new GridLayout(2,1));
+        numerator = new JTextField();
+        numerator.setColumns(3);
+        answerPanel.add(numerator);
+        denominator = new JTextField();
+        denominator.setColumns(3);
+        answerPanel.add(denominator);
+
+        promptAnswerPanel.add(answerPanel);
+        promptAnswerPanel.add(new JLabel(""));
+        studentWorkPanel.add(promptAnswerPanel);
+
+        rightCenter.add(studentWorkPanel, BorderLayout.CENTER);
+
+        add(rightCenter, BorderLayout.EAST);
+
+        //center
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new BorderLayout());
+
+        CustomTextArea pairedText = new CustomTextArea(30,20);
+        MainController mC = new MainController(this, pairedText);
+        west.setBackground(Color.LIGHT_GRAY);
+        Blackboard.getBlackboard().addObserver(west);
+        centerPanel.add(west, BorderLayout.CENTER);
 
         add(centerPanel, BorderLayout.CENTER);
 
