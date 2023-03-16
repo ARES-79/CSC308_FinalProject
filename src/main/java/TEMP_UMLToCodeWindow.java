@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * Final Project
@@ -11,7 +12,6 @@ import java.awt.event.ActionListener;
  *      supposed to much easier to digest
  */
 public class TEMP_UMLToCodeWindow extends JFrame implements ActionListener,  Runnable {
-
     Component parentWindow;
 
     @Override

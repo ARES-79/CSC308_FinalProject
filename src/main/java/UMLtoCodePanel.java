@@ -27,20 +27,18 @@ public class UMLtoCodePanel extends JPanel implements ActionListener {
         leftCenter.setLayout(new BorderLayout());
 
         JLabel instructionLabel = new JLabel("Translate the UML below into code:");
-        leftCenter.add(instructionLabel, BorderLayout.NORTH);
+//        leftCenter.add(instructionLabel, BorderLayout.NORTH);
 
-        JTextArea codeProblem = new JTextArea(30,20);
-        //codeProblem.setText(questions.get(0).getText());
+        JTextArea codeProblem = new JTextArea(30,30);
         codeProblem.setEditable(true);
         JScrollPane scroll = new JScrollPane (codeProblem,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         leftCenter.add(scroll, BorderLayout.CENTER);
         leftCenter.setVisible (true);
 
-        add(leftCenter, BorderLayout.WEST);
+        add(leftCenter, BorderLayout.EAST);
 
         //center
-        // TODO: Connect this to the blackboard and a CustomTextArea
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BorderLayout());
 
@@ -52,9 +50,6 @@ public class UMLtoCodePanel extends JPanel implements ActionListener {
 
         JToolBar selectionToolBar = new JToolBar();
 
-        JButton newButton = new JButton("Reset");
-        newButton.setActionCommand("New");
-        newButton.setContentAreaFilled(false);
         JButton submit = new JButton("Submit");
         submit.setContentAreaFilled(false);
         JButton nextQuestion = new JButton("Next");
@@ -66,18 +61,14 @@ public class UMLtoCodePanel extends JPanel implements ActionListener {
         submit.addActionListener(this);
 
         selectionToolBar.add(Box.createHorizontalGlue());
-        selectionToolBar.add(newButton);
         selectionToolBar.add(submit);
         selectionToolBar.add(nextQuestion);
         selectionToolBar.add(requestHint);
 
-        centerPanel.add(selectionToolBar, BorderLayout.NORTH);
+        centerPanel.add(instructionLabel, BorderLayout.NORTH);
+        leftCenter.add(selectionToolBar, BorderLayout.NORTH);
 
         add(centerPanel, BorderLayout.CENTER);
-
-        //possibly add a status bar
-        //Action Listeners
-        newButton.addActionListener(mC);
 
         Blackboard.getBlackboard().drawUMLtoCodeBoxes(questions.get(0));
     }
