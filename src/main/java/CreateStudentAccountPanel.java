@@ -9,12 +9,22 @@ import java.awt.event.ActionListener;
 
 @Getter
 @Setter
+/**
+ * Fianl Project
+ * @author Andrew Estrada, Mitashi Parikh
+ * @version 1.0
+ *
+ * Panel to create a student account
+ */
 public class CreateStudentAccountPanel extends SignInPanel implements ActionListener {
 
     private JTextField firstName;
     private JTextField lastName;
     private JTextField classCode;
 
+    /**
+     * Constructor
+     */
     public CreateStudentAccountPanel(TempSignInWindow host) {
         super();
 

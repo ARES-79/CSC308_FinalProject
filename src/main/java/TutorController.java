@@ -102,6 +102,10 @@ public class TutorController implements ActionListener {
 
     }
 
+    /**
+     * Generates a bar chart to show a students progress in the various subjects
+     * @return the generated ChartPanel
+     */
     private ChartPanel createChart(){
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         Student s = (Student)Blackboard.getBlackboard().getCurrentUser();

@@ -10,6 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLIntegrityConstraintViolationException;
 
+/**
+ * Fianl Project
+ * @author Andrew Estrada, Mitashi Parikh
+ * @version 1.0
+ *
+ * Panel to create an instructor account
+ */
 @Getter
 @Setter
 public class CreateInstructorAccountPanel extends SignInPanel implements ActionListener {
@@ -17,6 +24,9 @@ public class CreateInstructorAccountPanel extends SignInPanel implements ActionL
     private JTextField firstName;
     private JTextField lastName;
 
+    /**
+     * Constructor
+     */
     public CreateInstructorAccountPanel(TempSignInWindow host){
         super();
 
