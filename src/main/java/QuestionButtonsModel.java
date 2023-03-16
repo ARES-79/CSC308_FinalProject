@@ -7,6 +7,10 @@ public class QuestionButtonsModel {
     private int hintIdx = 0;
     private int questionIdx = 0;
 
+    public int getQuestionIdx() {
+        return questionIdx;
+    }
+
     void showHint(){
         if(hintIdx < Blackboard.getBlackboard().getCurrentQuestion().getHints().size()){
             JOptionPane.showMessageDialog(null, Blackboard.getBlackboard().getCurrentQuestion().getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);

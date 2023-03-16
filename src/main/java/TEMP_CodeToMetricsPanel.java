@@ -13,9 +13,7 @@ import java.util.ArrayList;
  */
 public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
 
-    private final ArrayList<Question> questions = Blackboard.getBlackboard().getCodeToUMLQuestions();
-    private Question currentQuestion = questions.get(0);
-    private int hintIdx = 0;
+    private QuestionButtonsModel questionButtonsModel = new QuestionButtonsModel();
 
     private JTextArea codeProblem = new JTextArea(30,30);
     private JTextField locA, elocA, llocA;
@@ -33,7 +31,7 @@ public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
         leftCenter.add(instructionLabel, BorderLayout.NORTH);
 
 
-        codeProblem.setText(questions.get(0).getText());
+        codeProblem.setText(Blackboard.getBlackboard().getCodeToUMLQuestions().get(0).getText());
         codeProblem.setEditable(false);
         JScrollPane scroll = new JScrollPane (codeProblem,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -116,28 +114,14 @@ public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
                 showNextQuestion();
             }
             case ("?") -> {
-                showHint();
+                questionButtonsModel.showHint();
             }
         }
     }
 
     void showNextQuestion(){
-        if(questions.indexOf(currentQuestion) + 1 < questions.size()){
-            currentQuestion = questions.get(questions.indexOf(currentQuestion) + 1);
-            codeProblem.setText(currentQuestion.getText());
-        } else {
-            JOptionPane.showMessageDialog(this, "This is the last question!",
-                    "", JOptionPane.WARNING_MESSAGE);
-        }
-    }
-
-    void showHint(){
-        if(hintIdx < currentQuestion.getHints().size()){
-            JOptionPane.showMessageDialog(this, currentQuestion.getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
-            hintIdx++;
-        } else{
-            hintIdx = 0;
-            JOptionPane.showMessageDialog(this, currentQuestion.getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
+        if(questionButtonsModel.showNextQuestion(Blackboard.getBlackboard().getCodeToUMLQuestions())){
+            codeProblem.setText(Blackboard.getBlackboard().getCurrentQuestion().getText());
         }
     }
 
@@ -147,7 +131,7 @@ public class TEMP_CodeToMetricsPanel extends JPanel implements ActionListener {
         String elocAnswer = elocA.getText().trim();
         String llocAnswer = llocA.getText().trim();
         boolean allCorrect = true;
-        String code = questions.get(questions.indexOf(currentQuestion)).getText();
+        String code = Blackboard.getBlackboard().getCodeToUMLQuestions().get(questionButtonsModel.getQuestionIdx()).getText();
         String message = Blackboard.getBlackboard().getCurrentUser().getFirstName() + ",\n";
 
         if( locAnswer.equals( String.valueOf(calculator.totalLOC(code)) )){

@@ -7,12 +7,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
-    private final ArrayList<Question> questions = Blackboard.getBlackboard().getUMLtoMetricsQuestions();
-    private Question currentQuestion = questions.get(0);
-    private int hintIdx = 0;
 
     private DrawPanel west = new DrawPanel();
     private JTextField numerator, denominator;
+    private QuestionButtonsModel questionButtonsModel = new QuestionButtonsModel();
 
     /**
      * Constructor
@@ -95,7 +93,7 @@ public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
 
         add(centerPanel, BorderLayout.CENTER);
 
-        Blackboard.getBlackboard().drawUMLtoCodeBoxes(questions.get(0));
+        Blackboard.getBlackboard().drawUMLtoCodeBoxes(Blackboard.getBlackboard().getUMLtoMetricsQuestions().get(0));
         Blackboard.getBlackboard().removeObserver(west);
     }
 
@@ -110,35 +108,21 @@ public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
                 showNextQuestion();
             }
             case ("?") -> {
-                showHint();
+                questionButtonsModel.showHint();
             }
         }
 
     }
 
     void showNextQuestion(){
-        if(questions.indexOf(currentQuestion) + 1 < questions.size()){
-            currentQuestion = questions.get(questions.indexOf(currentQuestion) + 1);
-            Blackboard.getBlackboard().reset();
-            Blackboard.getBlackboard().drawUMLtoCodeBoxes(currentQuestion);
-        } else {
-            JOptionPane.showMessageDialog(this, "This is the last question!",
-                    "", JOptionPane.WARNING_MESSAGE);
+        if(questionButtonsModel.showNextQuestion(Blackboard.getBlackboard().getUMLtoCodeQuestions())){
+            Blackboard.getBlackboard().drawUMLtoCodeBoxes(Blackboard.getBlackboard().getCurrentQuestion());
         }
     }
 
-    void showHint(){
-        if(hintIdx < currentQuestion.getHints().size()){
-            JOptionPane.showMessageDialog(this, currentQuestion.getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
-            hintIdx++;
-        } else{
-            hintIdx = 0;
-            JOptionPane.showMessageDialog(this, currentQuestion.getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
 
     void submitPressed(){
-        String[] answerPair = currentQuestion.getAnswer().split(",");
+        String[] answerPair = Blackboard.getBlackboard().getCurrentQuestion().getAnswer().split(",");
         System.out.print("listed answer: " );
         System.out.println(answerPair);
         boolean allCorrect = true;
