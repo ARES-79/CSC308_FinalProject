@@ -1,3 +1,5 @@
+import org.apache.commons.lang3.StringUtils;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -101,6 +103,9 @@ public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         System.out.println(e.getActionCommand());
         switch (e.getActionCommand()) {
+            case ("Submit") -> {
+                submitPressed();
+            }
             case ("Next") -> {
                 showNextQuestion();
             }
@@ -129,6 +134,47 @@ public class TEMP_UMLtoMetricsPanel extends JPanel implements ActionListener {
         } else{
             hintIdx = 0;
             JOptionPane.showMessageDialog(this, currentQuestion.getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    void submitPressed(){
+        String[] answerPair = currentQuestion.getAnswer().split(",");
+        System.out.print("listed answer: " );
+        System.out.println(answerPair);
+        boolean allCorrect = true;
+        String message = Blackboard.getBlackboard().getCurrentUser().getFirstName() + ",\n";
+        if( numerator.getText().strip().equals(answerPair[0]) ){
+            message += "Your numerator answer is correct. \n";
+        }
+        else{
+            message += "Your narrator answer is incorrect. \n";
+            allCorrect = false;
+        }
+        if( denominator.getText().strip().equals(answerPair[1]) ){
+            message += "Your denominator answer is correct. \n";
+        }
+        else{
+            message += "Your denominator answer is incorrect. \n";
+            allCorrect = false;
+        }
+        if(allCorrect){
+            Blackboard.getBlackboard().setBoxList(new ArrayList<>());
+            Blackboard.getBlackboard().updateData();
+            Student s = (Student) Blackboard.getBlackboard().getCurrentUser();
+            s.updateProficiency();
+            JOptionPane.showMessageDialog(this,
+                    Blackboard.getBlackboard().getCurrentUser().getFirstName() + ", your answer is correct \nYour updated Code to UML proficiency is:" +s.getCodeToUML(),
+                    "Correct Answer",
+                    JOptionPane.INFORMATION_MESSAGE);
+            numerator.setText("");
+            denominator.setText("");
+            showNextQuestion();
+        }
+        else{
+            JOptionPane.showMessageDialog(this,
+                    message,
+                    "Incorrect Answer",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 }

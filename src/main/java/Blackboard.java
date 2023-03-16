@@ -353,9 +353,9 @@ public class Blackboard extends MyObservable {
         Hint hint2 = new Hint("The numerator is the number of connections out. ");
         Hint hint3 = new Hint("The denominator should be greater than or equal to the numerator.");
         ArrayList<Hint> hints_list = new ArrayList<Hint>(Arrays.asList(hint1, hint2, hint3));
-        Question question1 = new Question(301, q1boxes, "0 1", hints_list, 1);
-        Question question2 = new Question(302, q2boxes, "1 2", hints_list, 2);
-        Question question3 = new Question(303, question3boxes, "2 3", hints_list, 3);
+        Question question1 = new Question(301, q1boxes, "0,1", hints_list, 1);
+        Question question2 = new Question(302, q2boxes, "1,2", hints_list, 2);
+        Question question3 = new Question(303, question3boxes, "2,3", hints_list, 3);
 
 
 
