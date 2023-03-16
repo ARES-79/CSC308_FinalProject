@@ -114,14 +114,12 @@ public class UMLtoCodePanel extends JPanel implements ActionListener {
     }
 
     void submitPressed(){
-        System.out.println(codeProblem.getText());
-        System.out.println(currentQuestion.getAnswer());
         String studentAttempt = codeProblem.getText();
         if (currentQuestion.checkAnswer(codeProblem.getText())){
             Student s = (Student) Blackboard.getBlackboard().getCurrentUser();
             s.updateProficiency();
             JOptionPane.showMessageDialog(this,
-                    Blackboard.getBlackboard().getCurrentUser().getFirstName() + ", your answer is correct \nYour updated Code to UML proficiency is:" +s.getCodeToUML(),
+                    Blackboard.getBlackboard().getCurrentUser().getFirstName() + ", your answer is correct \nYour updated UML to Code proficiency is:" +s.getUmlToCode(),
                     "Correct Answer",
                     JOptionPane.INFORMATION_MESSAGE);
             showNextQuestion();
@@ -148,23 +146,23 @@ public class UMLtoCodePanel extends JPanel implements ActionListener {
 
     }
 
-
     boolean areClassNamesCorrect(String correctAns, String studentAns){
         correctAns = correctAns.trim().replace("\n", " ").replace("\t", "");
         studentAns = studentAns.trim().replace("\n", " ");
         String[] correctAnswer = correctAns.split(" ");
         String[] studentAnswer = studentAns.split(" ");
-        System.out.println(correctAns);
-        System.out.println(studentAns);
+        ArrayList<String> correctClasses = new ArrayList<>();
+        ArrayList<String> studentClasses = new ArrayList<>();
         for (int i = 0; i < correctAnswer.length-1; i++){
-            System.out.println(correctAnswer[i]);
-            System.out.println(studentAnswer[i]);
-            if(correctAnswer[i].equals("class") && studentAnswer[i].equals("class")){
-                if(!correctAnswer[i+1].equals(studentAnswer[i+1])){
-                    return false;
-                }
+            if(correctAnswer[i].equals("class")){
+                correctClasses.add(correctAnswer[i+1]);
             }
         }
-        return true;
+        for (int i = 0; i < studentAnswer.length-1; i++){
+            if(studentAnswer[i].equals("class")){
+                studentClasses.add(studentAnswer[i+1]);
+            }
+        }
+        return correctClasses.equals(studentClasses);
     }
 }
