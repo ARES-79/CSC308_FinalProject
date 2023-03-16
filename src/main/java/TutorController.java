@@ -51,7 +51,7 @@ public class TutorController implements ActionListener {
                         JOptionPane.INFORMATION_MESSAGE);}
             case ("Code --> UML") -> {
                 host.alternativeFileMenu();
-                setScreenPanel(new TEMP_CodeToUMLPanel());
+                setScreenPanel(new CodeToUMLPanel());
                 Blackboard.getBlackboard().reset();
                 Blackboard.getBlackboard().setCurrentSubject(SubjectType.CodetoUML);
             }

@@ -244,7 +244,18 @@ public class Blackboard extends MyObservable {
         Hint hint2 = new Hint("hint2");
         Hint hint3 = new Hint("hint3");
         ArrayList<Hint> hints_list = new ArrayList<Hint>(Arrays.asList(hint1, hint2, hint3));
-        Question question1 = new Question(200, boxes1, "", hints_list, 1);
+        String q1_answer = """
+
+
+
+
+
+                        class A {
+                        
+                        }
+                        
+                        """;
+        Question question1 = new Question(200, boxes1, q1_answer, hints_list, 1);
         Question question2 = new Question(201, boxes2, "", hints_list, 2);
 
         ArrayList<Question> questions = new ArrayList<>();
