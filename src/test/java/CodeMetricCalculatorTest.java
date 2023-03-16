@@ -2,6 +2,8 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import javax.swing.*;
+
 /**
  * Final Project
  * @author Andrew Estrada
@@ -329,4 +331,25 @@ public class CodeMetricCalculatorTest {
         Assertions.assertEquals(0, calculator.totalLLOC(codeInput),
                 "Total LLOC of code input that has no semicolons.");
     }
+
+    //-------------------- observer tests --------------------/
+    /**
+     * Testing that the string is correct
+     */
+    @org.junit.jupiter.api.Test
+    void updateTextAreaTest(){
+        JTextArea textArea = new JTextArea();
+        CustomTextArea codeText = new CustomTextArea(30,20);
+        codeText.setText("""
+                method1(){
+
+                }
+                """);
+        CodeMetricCalculator calculator = new CodeMetricCalculator(textArea, codeText);
+        calculator.update(Blackboard.getBlackboard());
+        String expected = "\t LOC: 2\t\t eLOC: 1\t\t lLOC: 0";
+        Assertions.assertEquals(expected, textArea.getText(),
+                "Update called on the observer code metric calculator");
+    }
+
 }
