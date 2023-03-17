@@ -5,6 +5,11 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Final Project
+ * @author Jamie Luna
+ * @version 1.0
+ */
 @Getter
 @Setter
 public class Composition extends Connection{

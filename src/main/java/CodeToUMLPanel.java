@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Final Project
- * @author Andrew Estrada, Mitashi Parikh, Jamie Luna
+ * @author Jamie Luna, Andrew Estrada, Mitashi Parikh
  * @version 1.0
  *
  * Panel for questions related to translating Code to UML
