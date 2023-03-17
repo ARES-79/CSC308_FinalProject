@@ -10,7 +10,6 @@ import java.awt.*;
  */
 public class UMLtoCodePanel extends QuestionPanel {
 
-    //private CustomTextArea pairedText = new CustomTextArea(30,20);
     private JTextArea codeProblem = new CustomTextArea(30,30);
 
     /**
@@ -31,8 +30,6 @@ public class UMLtoCodePanel extends QuestionPanel {
         leftCenter.setLayout(new BorderLayout());
 
         JLabel instructionLabel = new JLabel("Translate the UML below into code:");
-//        leftCenter.add(instructionLabel, BorderLayout.NORTH);
-
 
         codeProblem.setEditable(true);
         JScrollPane scroll = new JScrollPane (codeProblem,
@@ -46,8 +43,6 @@ public class UMLtoCodePanel extends QuestionPanel {
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BorderLayout());
 
-//        CustomTextArea pairedText = new CustomTextArea(30,20);
-        //MainController mC = new MainController(this, pairedText);
         east.setBackground(Color.LIGHT_GRAY);
         Blackboard.getBlackboard().addObserver(east);
         centerPanel.add(east, BorderLayout.CENTER);
@@ -84,6 +79,7 @@ public class UMLtoCodePanel extends QuestionPanel {
     void showNextQuestion(){
         if(super.getQuestionButtonsModel().showNextQuestion(Blackboard.getBlackboard().getUMLtoCodeQuestions())){
             Blackboard.getBlackboard().drawUMLtoCodeBoxes(Blackboard.getBlackboard().getCurrentQuestion());
+            codeProblem.setText("");
         }
     }
 
