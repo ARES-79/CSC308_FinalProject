@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
@@ -14,7 +12,6 @@ import java.util.ArrayList;
 public class CodeToUMLPanel extends QuestionPanel {
 
     private JTextArea codeProblem = new JTextArea(30,20);
-    private DrawPanel east = new DrawPanel();
 
     /**
      * Constructor
@@ -49,6 +46,7 @@ public class CodeToUMLPanel extends QuestionPanel {
 
         CustomTextArea pairedText = new CustomTextArea(30,20);
         MainController mC = new MainController(this, pairedText);
+        DrawPanel east = new DrawPanel();
         east.setBackground(Color.LIGHT_GRAY);
         Blackboard.getBlackboard().addObserver(east);
         centerPanel.add(east, BorderLayout.CENTER);

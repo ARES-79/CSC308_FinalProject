@@ -1,10 +1,8 @@
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -110,7 +108,7 @@ public class CustomTextArea extends JTextArea implements MyObserver {
 
     /**
      * update - overridden method which is called when the Blackboard has an update
-     * @param ob MyObervable to indicate which Observable object has called this update method
+     * @param ob MyObservable to indicate which Observable object has called this update method
      */
     @Override
     public void update(MyObservable ob) {

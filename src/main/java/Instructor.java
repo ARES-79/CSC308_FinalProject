@@ -1,11 +1,9 @@
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -111,12 +109,5 @@ public class Instructor extends User {
     public void addStudent(int userId) {
         studentList.add(userId);
     }
-
-//    public static void main(String[]args){
-//        Instructor test = new Instructor("user", "pass", "First", "Last");
-//        System.out.println(test.getClassCode());
-//        System.out.println(test.generateClassCode());
-//
-//    }
 
 }

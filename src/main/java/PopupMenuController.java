@@ -1,10 +1,6 @@
-import javax.sound.midi.SysexMessage;
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class PopupMenuController implements ActionListener {
     private UMLComponent clickedBox;

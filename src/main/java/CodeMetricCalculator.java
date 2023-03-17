@@ -113,7 +113,7 @@ public class CodeMetricCalculator implements MyObserver {
     /**
      * overridden method to update the text area with new metrics
      *
-     * @param ob
+     * @param ob the overservable that calls update
      */
     @Override
     public void update(MyObservable ob) {

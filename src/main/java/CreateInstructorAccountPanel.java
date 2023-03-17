@@ -1,17 +1,13 @@
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.exception.ConstraintViolationException;
-
-import javax.persistence.EntityExistsException;
 import javax.persistence.PersistenceException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
- * Fianl Project
+ * Final Project
  * @author Andrew Estrada, Mitashi Parikh
  * @version 1.0
  *
@@ -104,7 +100,7 @@ public class CreateInstructorAccountPanel extends SignInPanel implements ActionL
                     Blackboard.getBlackboard().getDatabaseController().saveNewInstructor(test);
                     JOptionPane.showMessageDialog(this,
                             "Your class code is: "+test.getClassCode(),
-                            "New Instuctor Class Code",
+                            "New Instructor Class Code",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
                 catch (PersistenceException exception){

@@ -1,10 +1,7 @@
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 @Getter
 @Setter

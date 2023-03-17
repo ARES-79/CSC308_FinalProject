@@ -1,6 +1,5 @@
 import lombok.Getter;
 import lombok.Setter;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +27,7 @@ public class VarDec extends Decoration {
      */
     public VarDec(String var, UMLComponent component){
         this.varName = var;
-        this.vars = new ArrayList<String>();
+        this.vars = new ArrayList<>();
 
         super.setComponent(component);
         super.setNumVars(component.getNumVars() +1);

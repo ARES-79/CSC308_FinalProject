@@ -23,7 +23,6 @@ public class Association extends Connection {
      * drawAssociation - finds the coordinates to draw a line between the origin
      *      and destination and a pointed triangle pointing toward the destination
      * @param g the Graphics object to put things on the screen
-     * @return the coordinates to draw the line between
      */
     @Override
     public void paintConnection(Graphics g) {

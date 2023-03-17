@@ -65,7 +65,7 @@ public abstract class UMLComponent implements java.io.Serializable{
      * checkConnection
      * @param destination - boolean
      *      true if there is already a connection to the destination component
-     * @return
+     * @return true if connection exists
      */
     public boolean checkConnection(UMLComponent destination) {
         for(Connection c: this.getConnections()){

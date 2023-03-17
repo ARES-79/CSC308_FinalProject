@@ -34,7 +34,7 @@ public class TempSignInWindow extends JFrame implements ActionListener {
                 Blackboard.getBlackboard().getDatabaseController().shutDown();
                 System.exit(0);
             }
-        });;
+        });
     }
 
     public TempSignInWindow(){

@@ -7,15 +7,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-@Getter
-@Setter
 /**
- * Fianl Project
+ * Final Project
  * @author Andrew Estrada, Mitashi Parikh
  * @version 1.0
  *
  * Panel to create a student account
  */
+@Getter
+@Setter
 public class CreateStudentAccountPanel extends SignInPanel implements ActionListener {
 
     private JTextField firstName;

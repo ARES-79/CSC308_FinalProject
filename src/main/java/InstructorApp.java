@@ -1,8 +1,6 @@
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.swing.*;
-import java.util.ArrayList;
 
 /**
  * Final Project
@@ -42,7 +40,7 @@ public class InstructorApp extends JFrame {
                 Blackboard.getBlackboard().getDatabaseController().shutDown();
                 System.exit(0);
             }
-        });;
+        });
     }
 
     /**
@@ -107,10 +105,6 @@ public class InstructorApp extends JFrame {
 
         this.screenPanel = new InstructorPage(instructorController);
         add(this.screenPanel);
-//
-//        //actionListeners
-//        about.addActionListener(controller);
-
     }
 
 }

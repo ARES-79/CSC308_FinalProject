@@ -1,4 +1,3 @@
-import com.sun.xml.bind.v2.TODO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -138,7 +137,7 @@ public class Blackboard extends MyObservable {
     public ArrayList<Question> getCodeToUMLQuestions(){
         writeCodeToUMLQuestions();
         ArrayList<Question> questions = new ArrayList<>();
-        try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(new File("codeToUMLQuestions.bin")))) {
+        try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(("codeToUMLQuestions.bin")))) {
             questions = (ArrayList<Question>)
                     is.readObject();
         } catch (Exception e) {
@@ -207,7 +206,7 @@ public class Blackboard extends MyObservable {
         Hint hint2 = new Hint("Arrows with a outline triangle head represent Inheritance");
         Hint hint3 = new Hint("Arrows with a solid black diamond head represent Composition");
         Hint hint4 = new Hint("Method names end with a ()");
-        ArrayList<Hint> hints_list = new ArrayList<Hint>(Arrays.asList(hint1, hint2, hint3, hint4));
+        ArrayList<Hint> hints_list = new ArrayList<>(Arrays.asList(hint1, hint2, hint3, hint4));
         Question question1 = new Question(100, TEMPTEXT1, TEMPTEXT1, hints_list, 1);
         Question question2 = new Question(101, TEMPTEXT2, TEMPTEXT2, hints_list, 2);
         Question question3 = new Question(102, TEMPTEXT3, TEMPTEXT3, hints_list, 3);
@@ -247,7 +246,7 @@ public class Blackboard extends MyObservable {
         Hint hint2 = new Hint("Arrows with a outline triangle head represent Inheritance");
         Hint hint3 = new Hint("Arrows with a solid black diamond head represent Composition");
         Hint hint4 = new Hint("Method names end with opening and closing parenthesis and are then followed by opening and closing brackets");
-        ArrayList<Hint> hints_list = new ArrayList<Hint>(Arrays.asList(hint1, hint2, hint3, hint4));
+        ArrayList<Hint> hints_list = new ArrayList<>(Arrays.asList(hint1, hint2, hint3, hint4));
         String q1_answer = """
 
 
@@ -304,7 +303,7 @@ public class Blackboard extends MyObservable {
     public ArrayList<Question> getUMLtoCodeQuestions(){
         writeUMLtoCodeQuestions();
         ArrayList<Question> questions = new ArrayList<>();
-        try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(new File("UMLtoCodeQuestions.bin")))) {
+        try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(("UMLtoCodeQuestions.bin")))) {
             questions = (ArrayList<Question>)
                     is.readObject();
         } catch (Exception e) {
@@ -373,7 +372,7 @@ public class Blackboard extends MyObservable {
         Hint hint1 = new Hint("Instability is related to the connections of a class.");
         Hint hint2 = new Hint("The numerator is the number of connections out. ");
         Hint hint3 = new Hint("The denominator should be greater than or equal to the numerator.");
-        ArrayList<Hint> hints_list = new ArrayList<Hint>(Arrays.asList(hint1, hint2, hint3));
+        ArrayList<Hint> hints_list = new ArrayList<>(Arrays.asList(hint1, hint2, hint3));
         Question question1 = new Question(301, q1boxes, "0,1", hints_list, 1);
         Question question2 = new Question(302, q2boxes, "1,2", hints_list, 2);
         Question question3 = new Question(303, question3boxes, "2,3", hints_list, 3);
@@ -404,7 +403,7 @@ public class Blackboard extends MyObservable {
     public ArrayList<Question> getUMLtoMetricsQuestions(){
         writeUMLtoMetricsQuestions();
         ArrayList<Question> questions = new ArrayList<>();
-        try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(new File("UMLtoMetricsQuestions.bin")))) {
+        try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(("UMLtoMetricsQuestions.bin")))) {
             questions = (ArrayList<Question>)
                     is.readObject();
         } catch (Exception e) {

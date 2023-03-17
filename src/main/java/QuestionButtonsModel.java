@@ -13,10 +13,6 @@ public class QuestionButtonsModel {
 
     private int questionIdx = 0;
 
-    public int getQuestionIdx() {
-        return questionIdx;
-    }
-
 
     /**
      * Brings the next question to the screen or says the current question is the last
