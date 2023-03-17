@@ -3,6 +3,11 @@ import lombok.Setter;
 
 import java.awt.*;
 
+/**
+ * Final Project
+ * @author Jamie Luna
+ * @version 1.0
+ */
 @Getter
 @Setter
 public class Association extends Connection {

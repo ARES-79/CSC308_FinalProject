@@ -14,8 +14,6 @@ import java.io.Serializable;
 @Setter
 public class Hint implements Serializable {
     String text;
-    int rank; //rank is 1st hint, 2nd hint, etc,
-    boolean visited; //if the student has used it or not
 
     public Hint(String text){
 
