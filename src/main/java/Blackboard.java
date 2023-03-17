@@ -201,68 +201,32 @@ public class Blackboard extends MyObservable {
         boxes2.add(box3);
         boxes2.add(box4);
 
+        UMLComponent box5 = new CustomBox("A", 75, 75);
+        UMLComponent box6 = new CustomBox("B", 75, 150);
+        UMLComponent box7 = new CustomBox("C", 225, 75);
+        UMLComponent box8 = new CustomBox("D", 225, 150);
+        Connection inheritance5 = new Inheritance(box6, box5, ConnectionType.INHERITANCE);
+        ArrayList<Connection> connections5 = new ArrayList<>();
+        connections5.add(inheritance5);
+        box5.setConnections(connections5);
+        ArrayList<Connection> connections7 = new ArrayList<>();
+        connections7.add(new Composition(box7, box8, ConnectionType.COMPOSITION));
+        box7.setConnections(connections7);
+        ArrayList<UMLComponent> boxes3 = new ArrayList<>();
+        boxes3.add(box5);
+        boxes3.add(box6);
+        boxes3.add(box7);
+        boxes3.add(box8);
+
         Hint hint1 = new Hint("Arrows with a solid black triangle head represent Association");
         Hint hint2 = new Hint("Arrows with a outline triangle head represent Inheritance");
         Hint hint3 = new Hint("Arrows with a solid black diamond head represent Composition");
         Hint hint4 = new Hint("Method names end with opening and closing parenthesis and are then followed by opening and closing brackets");
         ArrayList<Hint> hints_list = new ArrayList<>(Arrays.asList(hint1, hint2, hint3, hint4));
-        String q1_answer = """
-
-
-
-
-
-                        class A {
-                        
-                        }
-                        
-                        """;
-        String q2_answer = """
-
-
-
-
-
-                        class A {
-                        
-                        }
-                        
-                        class B extends A {
-                        
-                        }
-                        
-                        class C {
-                        
-                        }
-                        
-                        """;
-
-        String q3_answer = """
-
-
-
-
-
-                        class A {
-                          
-                        }
-                        
-                        class B extends A {
-                        
-                        }
-                        
-                        class C {
-                            D;
-                        }
-                        
-                        class D {
-                        
-                        }
-                        
-                        """;
-
         String q1_answer = "class A { }";
         String q2_answer = "class A { } class B extends A { } class C { }";
+        String q3_answer = "class A { } class B extends A { } class C { D; } class D { }";
+
         Question question1 = new Question(200, boxes1, q1_answer, hints_list, 1);
         Question question2 = new Question(201, boxes2, q2_answer, hints_list, 2);
         Question question3 = new Question(202, boxes3, q3_answer, hints_list, 3);
