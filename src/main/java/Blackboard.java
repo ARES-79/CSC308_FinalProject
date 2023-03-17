@@ -206,14 +206,71 @@ public class Blackboard extends MyObservable {
         Hint hint3 = new Hint("Arrows with a solid black diamond head represent Composition");
         Hint hint4 = new Hint("Method names end with opening and closing parenthesis and are then followed by opening and closing brackets");
         ArrayList<Hint> hints_list = new ArrayList<>(Arrays.asList(hint1, hint2, hint3, hint4));
+        String q1_answer = """
+
+
+
+
+
+                        class A {
+                        
+                        }
+                        
+                        """;
+        String q2_answer = """
+
+
+
+
+
+                        class A {
+                        
+                        }
+                        
+                        class B extends A {
+                        
+                        }
+                        
+                        class C {
+                        
+                        }
+                        
+                        """;
+
+        String q3_answer = """
+
+
+
+
+
+                        class A {
+                          
+                        }
+                        
+                        class B extends A {
+                        
+                        }
+                        
+                        class C {
+                            D;
+                        }
+                        
+                        class D {
+                        
+                        }
+                        
+                        """;
+
         String q1_answer = "class A { }";
         String q2_answer = "class A { } class B extends A { } class C { }";
         Question question1 = new Question(200, boxes1, q1_answer, hints_list, 1);
         Question question2 = new Question(201, boxes2, q2_answer, hints_list, 2);
+        Question question3 = new Question(202, boxes3, q3_answer, hints_list, 3);
 
         ArrayList<Question> questions = new ArrayList<>();
         questions.add(question1);
         questions.add(question2);
+        questions.add(question3);
 
         try {
             FileOutputStream fileOut = new FileOutputStream("UMLtoCodeQuestions.bin");

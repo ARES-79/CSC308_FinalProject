@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 
 /**
  * QuestionPanel
- * @author Andrew Estrada, Mitashi Parikh
+ * @author Andrew Estrada, Mitashi Parikh, Jamie Luna
  * @version 1.2
  *
  * Parent panel to all panels with a correct answer

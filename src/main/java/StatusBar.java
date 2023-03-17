@@ -3,6 +3,13 @@ import lombok.Setter;
 
 import javax.swing.*;
 
+/**
+ * Final Project
+ * @author Jamie Luna
+ * @version 1.0
+ * Status bar - displays the status of the program and describes the actions performed
+ */
+
 @Getter
 @Setter
 public class StatusBar extends JLabel implements MyObserver {
@@ -10,9 +17,6 @@ public class StatusBar extends JLabel implements MyObserver {
 
     public StatusBar(){
         super("    Program started");
-        //ideally should have:
-        //setLayout();
-        //add(statusBar);
     }
 
     @Override
