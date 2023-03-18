@@ -89,6 +89,9 @@ public class TutorController implements ActionListener {
                 setScreenPanel(createChart());
             }
             case ("Back To Menu") -> {
+                if(host.getScreenPanel() instanceof PracticePanel){
+                    ((PracticePanel) host.getScreenPanel()).tearDown();
+                }
                 host.resetFileMenu();
                 setScreenPanel(new MenuPanel(this));
                 Blackboard.getBlackboard().reset();
