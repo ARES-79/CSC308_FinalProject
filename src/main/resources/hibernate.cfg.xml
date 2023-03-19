@@ -18,7 +18,7 @@
         <property name="hbm2ddl.auto">validate</property>
 
         <!-- Names the annotated entity class -->
-        <mapping class="Student"/>
-        <mapping class="Instructor"/>
+        <mapping class="Model.Student"/>
+        <mapping class="Model.Instructor"/>
     </session-factory>
 </hibernate-configuration>

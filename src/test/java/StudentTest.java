@@ -1,5 +1,8 @@
 //package test.java;
 
+import Model.Blackboard;
+import Model.Student;
+import Model.SubjectType;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
