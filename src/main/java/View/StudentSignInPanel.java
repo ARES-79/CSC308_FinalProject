@@ -59,7 +59,7 @@ public class StudentSignInPanel extends SignInPanel implements ActionListener {
 
         JPanel createButtonPanel = new JPanel();
         createButtonPanel.setLayout(new GridLayout(2,3));
-        JButton createInstructor = new JButton("Create Model.Student Account");
+        JButton createInstructor = new JButton("Create Student Account");
         for(int i = 0; i < 6; i++){
             if (i == 1){createButtonPanel.add(createInstructor);}
             else{createButtonPanel.add(new JLabel(""));}
@@ -111,7 +111,7 @@ public class StudentSignInPanel extends SignInPanel implements ActionListener {
                 host.revalidate();
                 host.repaint();
             }
-            case ("Create Model.Student Account") ->{
+            case ("Create Student Account") ->{
                 host.remove(host.getScreenPanel());
                 host.setScreenPanel(new CreateStudentAccountPanel(host));
                 host.add(host.getScreenPanel());

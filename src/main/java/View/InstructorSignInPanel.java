@@ -59,7 +59,7 @@ public class InstructorSignInPanel extends SignInPanel implements ActionListener
 
         JPanel createButtonPanel = new JPanel();
         createButtonPanel.setLayout(new GridLayout(2,3));
-        JButton createInstructor = new JButton("Create Model.Instructor Account");
+        JButton createInstructor = new JButton("Create Instructor Account");
         for(int i = 0; i < 6; i++){
             if (i == 1){createButtonPanel.add(createInstructor);}
             else{createButtonPanel.add(new JLabel(""));}
@@ -102,11 +102,6 @@ public class InstructorSignInPanel extends SignInPanel implements ActionListener
                             "Error Message",
                             JOptionPane.ERROR_MESSAGE);
                 }
-
-
-                //TODO: call the main of the instructor app instead of the student app
-//                View.TutorApp.main(new String[]{username.getText(), password.getText()});
-//                host.dispose();
             }
             case ("Back") -> {
                 host.remove(host.getScreenPanel());
@@ -115,7 +110,7 @@ public class InstructorSignInPanel extends SignInPanel implements ActionListener
                 host.revalidate();
                 host.repaint();
             }
-            case ("Create Model.Instructor Account") ->{
+            case ("Create Instructor Account") ->{
                 host.remove(host.getScreenPanel());
                 host.setScreenPanel(new CreateInstructorAccountPanel(host));
                 host.add(host.getScreenPanel());

@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 
 /**
  * Final Project
- * @author Andrew Estrada, Mitashi Parikh
+ * @author Andrew Estrada, Mitashi Parikh, Jamie Luna
  * @version 1.0
  *
  * Panel to create an instructor account

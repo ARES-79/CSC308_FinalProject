@@ -72,13 +72,13 @@ public class SignInWindow extends JFrame implements ActionListener {
 
         startScreen.add(new JLabel(""));
         startScreen.add(new JLabel("Welcome to the UML Tutor Application", SwingConstants.CENTER));
-        startScreen.add(new JLabel("Are you a Model.Student or and Model.Instructor?", SwingConstants.CENTER));
+        startScreen.add(new JLabel("Are you a Student or an Instructor?", SwingConstants.CENTER));
 
 
         JPanel createButtonPanel = new JPanel();
         createButtonPanel.setLayout(new GridLayout(2,4));
-        JButton student = new JButton("Model.Student");
-        JButton instructor = new JButton("Model.Instructor");
+        JButton student = new JButton("Student");
+        JButton instructor = new JButton("Instructor");
         for(int i = 0; i < 8; i++){
             if (i == 1){createButtonPanel.add(student);}
             else if (i == 2){createButtonPanel.add(instructor);}
@@ -101,14 +101,14 @@ public class SignInWindow extends JFrame implements ActionListener {
                         "About",
                         JOptionPane.INFORMATION_MESSAGE);
             }
-            case ("Model.Instructor") ->{
+            case ("Instructor") ->{
                 remove(this.getScreenPanel());
                 this.setScreenPanel(new InstructorSignInPanel(this));
                 add(this.getScreenPanel());
                 revalidate();
                 repaint();
             }
-            case  ("Model.Student") -> {
+            case  ("Student") -> {
                 remove(this.getScreenPanel());
                 this.setScreenPanel(new StudentSignInPanel(this));
                 add(this.getScreenPanel());
