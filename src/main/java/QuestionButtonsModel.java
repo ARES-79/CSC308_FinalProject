@@ -34,11 +34,12 @@ public class QuestionButtonsModel {
      * Checks student answer, gives messages and changes question if correct
      */
     boolean submitPressed(String studentAttempt) {
+
         if (Blackboard.getBlackboard().getCurrentQuestion().checkAnswer(studentAttempt)) {
             Student s = (Student) Blackboard.getBlackboard().getCurrentUser();
             s.updateProficiency();
             JOptionPane.showMessageDialog(null,
-                    Blackboard.getBlackboard().getCurrentUser().getFirstName() + ", your answer is correct \nYour updated UML to Code proficiency is:" + s.getUmlToCode(),
+                    Blackboard.getBlackboard().getCurrentUser().getFirstName() + ", your answer is correct \nYour updated UML to Code proficiency is:" + getSubProficiency(s),
                     "Correct Answer",
                     JOptionPane.INFORMATION_MESSAGE);
             Blackboard.getBlackboard().reset();
@@ -62,6 +63,19 @@ public class QuestionButtonsModel {
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
+    }
+
+    private float getSubProficiency(Student s) {
+        if (Blackboard.getBlackboard().getCurrentSubject() == SubjectType.UMLtoCode) {
+            return s.getUmlToCode();
+        } else if (Blackboard.getBlackboard().getCurrentSubject() == SubjectType.CodetoUML) {
+            return s.getCodeToUML();
+        } else if (Blackboard.getBlackboard().getCurrentSubject() == SubjectType.CodetoMetrics) {
+            return s.getCodeToMetrics();
+        } else if (Blackboard.getBlackboard().getCurrentSubject() == SubjectType.UMLtoMetrics) {
+            return s.getUmlToMetrics();
+        }
+        return 0;
     }
 
     /**
