@@ -9,6 +9,9 @@ import java.awt.*;
  * Panel that allows students to practice changing both code and UML
  */
 public class PracticePanel  extends JPanel{
+    CustomTextArea textArea;
+    DrawPanel east;
+    CodeMetricCalculator codeCalc;
 
     /**
      * Constructor
@@ -26,7 +29,7 @@ public class PracticePanel  extends JPanel{
         allLeft.add(update, BorderLayout.NORTH);
 
         JPanel leftCenter = new JPanel ();
-        CustomTextArea textArea = new CustomTextArea(30,20);
+        textArea = new CustomTextArea(30,20);
         MainController mC = new MainController(this, textArea);
         Blackboard.getBlackboard().addObserver(textArea);
         JScrollPane scroll = new JScrollPane (textArea,
@@ -42,7 +45,7 @@ public class PracticePanel  extends JPanel{
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BorderLayout());
 
-        DrawPanel east = new DrawPanel();
+        east = new DrawPanel();
         east.setBackground(Color.LIGHT_GRAY);
         Blackboard.getBlackboard().addObserver(east);
         centerPanel.add(east, BorderLayout.CENTER);
@@ -73,7 +76,7 @@ public class PracticePanel  extends JPanel{
 
         //South
         JTextArea south = new JTextArea("\t LOC: 0\t\t eLOC: 0\t\t lLOC: 0");
-        CodeMetricCalculator codeCalc = new CodeMetricCalculator(south, textArea);
+        codeCalc = new CodeMetricCalculator(south, textArea);
         Blackboard.getBlackboard().addObserver(codeCalc);
         add(south, BorderLayout.SOUTH);
 
@@ -83,7 +86,11 @@ public class PracticePanel  extends JPanel{
         association.addActionListener(mC);
         inheritance.addActionListener(mC);
         composition.addActionListener(mC);
+    }
 
-
+    public void tearDown(){
+        Blackboard.getBlackboard().removeObserver(textArea);
+        Blackboard.getBlackboard().removeObserver(east);
+        Blackboard.getBlackboard().removeObserver(codeCalc);
     }
 }
