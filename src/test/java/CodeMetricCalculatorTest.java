@@ -1,4 +1,7 @@
 
+import Model.Blackboard;
+import Model.CodeMetricCalculator;
+import View.CustomTextArea;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
