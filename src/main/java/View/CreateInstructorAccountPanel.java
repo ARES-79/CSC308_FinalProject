@@ -103,13 +103,13 @@ public class CreateInstructorAccountPanel extends SignInPanel implements ActionL
                     Blackboard.getBlackboard().getDatabaseController().saveNewInstructor(test);
                     JOptionPane.showMessageDialog(this,
                             "Your class code is: "+test.getClassCode(),
-                            "New Model.Instructor Class Code",
+                            "New Instructor Class Code",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
                 catch (PersistenceException exception){
                     JOptionPane.showMessageDialog(this,
                             "An instructor with that username already exists",
-                            "Model.User Already Exists",
+                            "User Already Exists",
                             JOptionPane.ERROR_MESSAGE);
                 }
             }

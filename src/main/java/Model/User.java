@@ -52,7 +52,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "Model.User{" +
+        return "User{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';

@@ -49,15 +49,15 @@ public class QuestionButtonsModel {
         } else {
             String message = Blackboard.getBlackboard().getCurrentUser().getFirstName() + ", your answer is incorrect.";
             if (StringUtils.countMatches(Blackboard.getBlackboard().getCurrentQuestion().getAnswer(), "class") < StringUtils.countMatches(studentAttempt, "class")) {
-                message += "\nModel.Hint: You have made too many classes!";
+                message += "\nHint: You have made too many classes!";
             } else if (StringUtils.countMatches(Blackboard.getBlackboard().getCurrentQuestion().getAnswer(), "class") > StringUtils.countMatches(studentAttempt, "class")) {
-                message += "\nModel.Hint: You still need to make more classes";
+                message += "\nHint: You still need to make more classes";
             } else if (StringUtils.countMatches(Blackboard.getBlackboard().getCurrentQuestion().getAnswer(), ";") > StringUtils.countMatches(studentAttempt, ";")) {
-                message += "\nModel.Hint: Check if you have added all the required variables";
+                message += "\nHint: Check if you have added all the required variables";
             } else if (StringUtils.countMatches(Blackboard.getBlackboard().getCurrentQuestion().getAnswer(), "()") > StringUtils.countMatches(studentAttempt, "()")) {
-                message += "\nModel.Hint: Check if you have added all the required methods";
+                message += "\nHint: Check if you have added all the required methods";
             } else if (!areClassNamesCorrect(Blackboard.getBlackboard().getCurrentQuestion().getAnswer(), studentAttempt)) {
-                message += "\nModel.Hint: Are you naming your classes correctly?";
+                message += "\nHint: Are you naming your classes correctly?";
             }
             JOptionPane.showMessageDialog(null,
                     message,

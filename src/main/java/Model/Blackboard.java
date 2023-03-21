@@ -205,9 +205,9 @@ public class Blackboard extends MyObservable {
                         """;
 
         //TODO: Load Model.Question from DB
-        Hint hint1 = new Hint("Arrows with a solid black triangle head represent Model.Association");
-        Hint hint2 = new Hint("Arrows with a outline triangle head represent Model.Inheritance");
-        Hint hint3 = new Hint("Arrows with a solid black diamond head represent Model.Composition");
+        Hint hint1 = new Hint("Arrows with a solid black triangle head represent Association");
+        Hint hint2 = new Hint("Arrows with a outline triangle head represent Inheritance");
+        Hint hint3 = new Hint("Arrows with a solid black diamond head represent Composition");
         Hint hint4 = new Hint("Method names end with a ()");
         ArrayList<Hint> hints_list = new ArrayList<>(Arrays.asList(hint1, hint2, hint3, hint4));
         Question question1 = new Question(100, TEMPTEXT1, TEMPTEXT1, hints_list, 1);
@@ -264,9 +264,9 @@ public class Blackboard extends MyObservable {
         boxes3.add(box8);
 
 
-        Hint hint1 = new Hint("Arrows with a solid black triangle head represent Model.Association");
-        Hint hint2 = new Hint("Arrows with a outline triangle head represent Model.Inheritance");
-        Hint hint3 = new Hint("Arrows with a solid black diamond head represent Model.Composition");
+        Hint hint1 = new Hint("Arrows with a solid black triangle head represent Association");
+        Hint hint2 = new Hint("Arrows with a outline triangle head represent Inheritance");
+        Hint hint3 = new Hint("Arrows with a solid black diamond head represent Composition");
         Hint hint4 = new Hint("Method names end with opening and closing parenthesis and are then followed by opening and closing brackets");
         ArrayList<Hint> hints_list = new ArrayList<>(Arrays.asList(hint1, hint2, hint3, hint4));
         String q1_answer = """

@@ -94,7 +94,7 @@ public class InstructorApp extends JFrame {
      * Constructor
      */
     public InstructorApp() {
-        super("Model.Instructor Menu");
+        super("Instructor Menu");
 
         //menu
         JMenuBar menuBar = new JMenuBar();

@@ -41,11 +41,11 @@ public abstract class QuestionPanel extends JPanel implements ActionListener {
      */
     void showHint(){
         if(hintIdx < Blackboard.getBlackboard().getCurrentQuestion().getHints().size()){
-            JOptionPane.showMessageDialog(this, Blackboard.getBlackboard().getCurrentQuestion().getHints().get(hintIdx).getText(), "Model.Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, Blackboard.getBlackboard().getCurrentQuestion().getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
             hintIdx++;
         } else{
             hintIdx = 0;
-            JOptionPane.showMessageDialog(this, Blackboard.getBlackboard().getCurrentQuestion().getHints().get(hintIdx).getText(), "Model.Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, Blackboard.getBlackboard().getCurrentQuestion().getHints().get(hintIdx).getText(), "Hint #" + (hintIdx + 1), JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
