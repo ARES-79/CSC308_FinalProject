@@ -157,11 +157,9 @@ public class Blackboard extends MyObservable {
      * writes set CodeToUMLQuestions to a file
      */
     private void writeCodeToUMLQuestions(){
-        String TEMPTEXT1 = "class A { }";
-
-        String TEMPTEXT2 = "class B { A; C; }";
-
-        String TEMPTEXT3 = "class B { A; C; } class C { D; draw(){ } } ";
+        String TEMPTEXT1 = "class A {\n\n}";
+        String TEMPTEXT2 = "class B {\n   A;\n   C;\n}";
+        String TEMPTEXT3 = "class B {\n   A;\n   C;\n} \n\nclass C {\n   D;\n   draw(){ \n   } \n} ";
 
         //TODO: Load Model.Question from DB
         Hint hint1 = new Hint("Arrows with a solid black triangle head represent Association");
@@ -226,9 +224,9 @@ public class Blackboard extends MyObservable {
         Hint hint3 = new Hint("Arrows with a solid black diamond head represent Composition");
         Hint hint4 = new Hint("Method names end with opening and closing parenthesis and are then followed by opening and closing brackets");
         ArrayList<Hint> hints_list = new ArrayList<>(Arrays.asList(hint1, hint2, hint3, hint4));
-        String q1_answer = "class A { }";
-        String q2_answer = "class A { } class B extends A { } class C { }";
-        String q3_answer = "class A { } class B extends A { } class C { D; } class D { }";
+        String q1_answer = "class A {\n\n\t}";
+        String q2_answer = "class A {\n\n\t} \n\nclass B extends A {\n\n\t} \n\nclass C {\n\t}";
+        String q3_answer = "class A {\n\n\t} \n\nclass B extends A {\n\n\t} \n\nclass C {\n\tD;\n\t} \n\nclass D {\n\t}";
 
         Question question1 = new Question(200, boxes1, q1_answer, hints_list, 1);
         Question question2 = new Question(201, boxes2, q2_answer, hints_list, 2);
