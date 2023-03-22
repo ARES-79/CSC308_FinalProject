@@ -54,9 +54,9 @@ public class PracticePanel  extends JPanel{
         centerPanel.add(east, BorderLayout.CENTER);
 
         JToolBar selectionToolBar = new JToolBar();
-        JRadioButton association = new JRadioButton("Model.Association");
-        JRadioButton inheritance = new JRadioButton("Model.Inheritance");
-        JRadioButton composition = new JRadioButton("Model.Composition");
+        JRadioButton association = new JRadioButton("Association");
+        JRadioButton inheritance = new JRadioButton("Inheritance");
+        JRadioButton composition = new JRadioButton("Composition");
         association.setSelected(true);
         ButtonGroup group = new ButtonGroup();
         group.add(association);

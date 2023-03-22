@@ -67,9 +67,9 @@ public class MainController implements ActionListener {
                 Blackboard.getBlackboard().statusBarTextAreaUpdated();
             }
 
-            case ("Model.Association") -> Blackboard.getBlackboard().setConnectionType(ConnectionType.ASSOCIATION);
-            case ("Model.Inheritance") -> Blackboard.getBlackboard().setConnectionType(ConnectionType.INHERITANCE);
-            case ("Model.Composition") -> Blackboard.getBlackboard().setConnectionType(ConnectionType.COMPOSITION);
+            case ("Association") -> Blackboard.getBlackboard().setConnectionType(ConnectionType.ASSOCIATION);
+            case ("Inheritance") -> Blackboard.getBlackboard().setConnectionType(ConnectionType.INHERITANCE);
+            case ("Composition") -> Blackboard.getBlackboard().setConnectionType(ConnectionType.COMPOSITION);
         }
     }
 }
